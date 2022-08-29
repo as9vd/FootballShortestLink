@@ -1,8 +1,13 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,18 +38,26 @@ public class Scraper {
                         // 3. 2010 is when FIFPro World XI comes up, and the first "td" there is positions (e.g. GK, etc.). So need a new test case for that.
                         // 4. 2021 has 'Best Club of the Year' table, which happens to be Chelsea (LOL, a club that bought it all).
                         Elements row = tr.select("tr");
-                        if (!(row.select("td").eq(0).text().isEmpty()) &&
-                                ((int) row.select("td").eq(0).text().charAt(0) > 57) &&
-                                (row.select("td").eq(0).text().length() > 2)
-                        ) { // If this element isn't a empty, a position, or a ranking/number.
-//                            System.out.println(i + ": " + tr.select("td").eq(0).text().split("\\[")[0]);
-                            if (!(tr.select("td").eq(0).select("a[href]").text() == null)) {
-                                footballNames.put(tr.select("td").eq(0).text().split("\\[")[0], tr.select("td").eq(0).attr("href"));
+                        Elements data = row.select("td");
+
+                        // How this works:
+                        // Basically, in these tables, player name + links can either be in the first td cell or the second.
+                        // The ones in the first are for the newer Ballon D'or pages and for rankings with multiple players, and the ones in the second are usually in the older Ballon D'or pages.
+                        // - First Cell: https://i.gyazo.com/6f5535b7f75402f8de7c71b0235c1273.png
+                        // - Second Cell: https://i.gyazo.com/62ebc14e2416e54c82a7f232bf8b29a3.png
+                        // We need to add the Wikipedia base link, because Wikipedia's href attributes are universally shortened links.
+                        if (!(data.eq(0).text().isEmpty()) &&
+                                ((int) data.eq(0).text().charAt(0) > 57) &&
+                                (data.eq(0).text().length() > 2) // If this element isn't a empty, a position, or a ranking/number.
+                        ) {
+                            Elements zerothElement = data.eq(0);
+                            if (!(data.eq(0).select("a").text() == null)) { // If this player has a link attached to his name, we add it to the map.
+                                footballNames.put(zerothElement.text().split("\\[")[0], "https://en.wikipedia.org" + zerothElement.select("a").attr("href"));
                             }
-                        } else {
-//                            System.out.println(i + ": " + tr.select("td").eq(1).text().split("\\[")[0]);
-                            if (!(tr.select("td").eq(1).select("a[href").text() == null)) {
-                                footballNames.put(tr.select("td").eq(1).text().split("\\[")[0], tr.select("td").eq(1).attr("href"));
+                        } else { // If not, look at the second td element.
+                            Elements firstElement = data.eq(1);
+                            if (!(data.eq(1).select("a").text() == null)) {
+                                footballNames.put(firstElement.text().split("\\[")[0], "https://en.wikipedia.org" + firstElement.select("a").attr("href"));
                             }
                         }
                     }
@@ -53,7 +66,13 @@ public class Scraper {
             }
 
             footballNames.remove(" "); footballNames.remove("");
-            System.out.println(footballNames);
+
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                mapper.writeValue(new File("players.json"), footballNames);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             System.out.println(e.fillInStackTrace());
         }
