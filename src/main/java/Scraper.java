@@ -1,18 +1,77 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Scraper {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        mergeJSONObjects(scrapeEuropeanCupWinners(), scrapeBallonDorPages());
+    }
+
+    public static void mergeJSONObjects(JSONObject jo1, JSONObject jo2) throws Exception {
+        JSONObject ec = scrapeEuropeanCupWinners();
+        JSONObject bdor = scrapeBallonDorPages();
+
+        JSONObject merged = new JSONObject();
+        JSONObject[] objs = new JSONObject[] {ec, bdor};
+        for (JSONObject obj : objs) {
+            Iterator it = obj.keys();
+            while (it.hasNext()) {
+                String key = (String)it.next();
+                merged.put(key, obj.get(key));
+            }
+        }
+
+        FileWriter fileWriter = new FileWriter("merged.json");
+
+        // Writting the jsonObject into merged.json
+        fileWriter.write(merged.toString());
+        fileWriter.close();
+    }
+
+    public static JSONObject scrapeEuropeanCupWinners() {
+        Map<String, String> footballNames = new HashMap(); // footballer : link
+        try {
+            String baseLink = "https://en.wikipedia.org/w/index.php?title=Category:UEFA_Champions_League_winning_players&from=";
+            String playerBaseLink = "https://en.wikipedia.org";
+            char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+
+            for (Character letter: alphabet) {
+                String currentLetter = Character.toString(letter);
+                String link = baseLink + currentLetter;
+
+                Document doc = Jsoup.connect(link).userAgent("Chrome").get();
+
+                int i = 0;
+                // https://i.gyazo.com/ebd564122d0e4bcee3fd52d2c70e3a9b.png: how to access the list elements.
+                for (Element player: doc.select("div.mw-category-group").select("ul").select("li")) {
+                    String playerName = player.text().split(" \\(")[0]; // dealing with "(footballer, born xxxx)" and the likes.
+                    String playerLink = player.select("a").attr("href");
+
+                    footballNames.put(playerName, playerBaseLink + playerLink);
+                }
+
+                JSONObject object = new JSONObject(footballNames);
+
+                return object;
+                //                ObjectMapper mapper = new ObjectMapper();
+//                mapper.writeValue(new File("europeanCupWinners.json"), footballNames);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static JSONObject scrapeBallonDorPages() {
         Map<String, String> footballNames = new HashMap(); // footballer : link
         try {
             String baseLink = "https://en.wikipedia.org/wiki/";
@@ -67,14 +126,14 @@ public class Scraper {
 
             footballNames.remove(" "); footballNames.remove("");
 
-            try {
-                ObjectMapper mapper = new ObjectMapper();
-                mapper.writeValue(new File("players.json"), footballNames);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            //                ObjectMapper mapper = new ObjectMapper();
+            //                mapper.writeValue(new File("ballonDorVotees.json"), footballNames);
+
+            JSONObject object = new JSONObject(footballNames);
+            return object;
         } catch (Exception e) {
             System.out.println(e.fillInStackTrace());
         }
+        return null;
     }
 }
