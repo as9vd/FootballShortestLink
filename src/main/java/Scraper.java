@@ -11,6 +11,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+// Pages to scrape:
+// 1. European Cup goalscorers (check for pages that don't exist). Seems to be valid from 55-56 to 90-91.
+// 2. https://en.wikipedia.org/wiki/List_of_footballers_with_500_or_more_goals
+// 3. https://en.wikipedia.org/wiki/List_of_men%27s_footballers_with_50_or_more_international_goals
+// 4. Champions League goalscorers (goals + assists to be fair). Seems to be valid from 92-today.
+// 5. Premier League pages; has hat-tricks, goalscorers, etc. 2007 was last time it was FA (so 92-07 works); 2007-today works under new link also.
+// 6. La Liga pages: get Pichichi trophy rankers, top scorers, etc. Might be a bit of a nightmare keeping track of all the tables, to be fair.
+
 public class Scraper {
     public static void main(String[] args) throws Exception {
         mergeJSONObjects(scrapeEuropeanCupWinners(), scrapeBallonDorPages());
