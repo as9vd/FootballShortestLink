@@ -1,4 +1,7 @@
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.tomcat.util.json.JSONParser;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -6,8 +9,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.json.JSONObject;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -22,9 +24,32 @@ import java.util.Map;
 
 public class Scraper {
     public static void main(String[] args) throws Exception {
-        FileWriter fileWriter = new FileWriter("test.json");
-        fileWriter.write(scrapeBallonDorPages().toString());
-        fileWriter.close();
+        HashMap<String, String> newMap = convertJsonToMap(new File("merged.json"));
+        HashMap<String, String> oldMap = convertJsonToMap(new File("scorers.json"));
+
+        for (Map.Entry<String, String> entry : oldMap.entrySet()) {
+            if (newMap.get(entry.getKey()) == null) {
+                newMap.put(entry.getKey(), entry.getValue());
+            }
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonFromMap = mapper.writeValueAsString(newMap);
+
+        PrintWriter writer = new PrintWriter(new File("betterMerged.json"));
+        writer.write(jsonFromMap);
+        writer.close();
+    }
+
+    private static HashMap<String, String> convertJsonToMap(File json) {
+        ObjectMapper mapper = new ObjectMapper();
+        HashMap<String, String> map = new HashMap<String, String>();
+        try {
+            map = mapper.readValue(json, new TypeReference<HashMap<String, String>>(){});
+        } catch (IOException e) {
+            map.clear();
+        }
+        return map;
     }
 
     public static void mergeJSONObjects(JSONObject jo1, JSONObject jo2) throws Exception {
@@ -79,6 +104,12 @@ public class Scraper {
 
             JSONObject object = new JSONObject(footballNames);
 
+            FileWriter fileWriter = new FileWriter("scorers.json");
+
+            // Writting the jsonObject into merged.json
+            fileWriter.write(object.toString());
+            fileWriter.close();
+
             return object;
         } catch(Exception e) {
             e.printStackTrace();
@@ -121,9 +152,9 @@ public class Scraper {
         return null;
     }
 
-    // ballonDorPages has an issue with grabbing nationality links.
+    // ballonDorPages had an issue with grabbing nationality links.
     // Problem: past 2015 (e.g. starting 2016), it starts grabbing links to nations instead of the player's page.
-    // This is because this is when they started using <a> to highlight a player's nationality, and the nationality was in another column.
+    // This is because this is when they started using <a> to highlight a player's nationality, and the nationality was in another column in previous renditions.
     public static JSONObject scrapeBallonDorPages() {
         Map<String, String> footballNames = new HashMap(); // footballer : link
         try {
@@ -165,14 +196,13 @@ public class Scraper {
                             Elements zerothElement = data.eq(0);
                             if (!(zerothElement.select("a").text() == null)) { // If this player has a link attached to his name, we add it to the map.
                                 if (i >= 2016) {
+                                    // https://i.gyazo.com/86e3f24b920c43b94134dad020af9f29.png: dealing with this test case.
                                     if (zerothElement.select("a").size() == 1) continue;
                                     else {
                                         footballNames.put(zerothElement.text().split("\\[")[0], "https://en.wikipedia.org" + zerothElement.select("a").eq(1).attr("href"));
-                                        System.out.println(i + "; " + zerothElement.text().split("\\[")[0] + " = " + "https://en.wikipedia.org" + zerothElement.select("a").eq(1).attr("href"));
                                     }
                                 } else {
                                     footballNames.put(zerothElement.text().split("\\[")[0], "https://en.wikipedia.org" + zerothElement.select("a").attr("href"));
-                                    System.out.println(i + "; " + zerothElement.text().split("\\[")[0] + " = " + "https://en.wikipedia.org" + zerothElement.select("a").attr("href"));
                                 }
                             }
                         } else { // If not, look at the second td element.
@@ -182,11 +212,9 @@ public class Scraper {
                                     if (firstElement.select("a").size() == 1) continue;
                                     else {
                                         footballNames.put(firstElement.text().split("\\[")[0], "https://en.wikipedia.org" + firstElement.select("a").eq(1).attr("href"));
-                                        System.out.println(i + "; " + firstElement.text().split("\\[")[0] + " = " + "https://en.wikipedia.org" + firstElement.select("a").eq(1).attr("href"));
                                     }
                                 } else {
                                     footballNames.put(firstElement.text().split("\\[")[0], "https://en.wikipedia.org" + firstElement.select("a").attr("href"));
-                                    System.out.println(i + "; " + firstElement.text().split("\\[")[0] + " = " + "https://en.wikipedia.org" + firstElement.select("a").attr("href"));
                                 }
                             }
                         }
