@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,7 +22,9 @@ import java.util.Map;
 
 public class Scraper {
     public static void main(String[] args) throws Exception {
-        mergeJSONObjects(scrapeEuropeanCupWinners(), scrapeBallonDorPages());
+        FileWriter fileWriter = new FileWriter("test.json");
+        fileWriter.write(scrapeBallonDorPages().toString());
+        fileWriter.close();
     }
 
     public static void mergeJSONObjects(JSONObject jo1, JSONObject jo2) throws Exception {
@@ -43,6 +46,45 @@ public class Scraper {
         // Writting the jsonObject into merged.json
         fileWriter.write(merged.toString());
         fileWriter.close();
+    }
+
+    public static JSONObject scrapeEuropeanCupScorers() {
+        Map<String, String> footballNames = new HashMap(); // footballer : link
+
+        try {
+            String baseLink = "https://en.wikipedia.org/wiki/";
+
+            for (int i = 55; i <= 90; i++) {
+                String link = baseLink + "19" + i + "-" + (i + 1) + "_European_Cup";
+                Document doc = Jsoup.connect(link).userAgent("Chrome").get();
+                String playerBaseLink = "https://en.wikipedia.org";
+
+                Elements homeGoals = doc.select("div.footballbox").select("td.fhgoal").select("a");
+                Elements awayGoals = doc.select("div.footballbox").select("td.fagoal").select("a");
+
+                for (Element goal: homeGoals) {
+                    String playerName = goal.attr("title");
+
+                    if (playerName.contains("does not") ||
+                            playerName.contains("Penalty kick") ||
+                            playerName.contains("goal")) { // "does not exist", "penalty kick", "own goal"
+                        continue;
+                    } else {
+                        playerName = playerName.split(" \\(")[0]; // Just in case of "xxxx xxxxx (footballer, born xxxx)".
+                        String wikiLink = goal.attr("href");
+                        footballNames.put(playerName, playerBaseLink + wikiLink);
+                    }
+                }
+            }
+
+            JSONObject object = new JSONObject(footballNames);
+
+            return object;
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public static JSONObject scrapeEuropeanCupWinners() {
@@ -79,6 +121,9 @@ public class Scraper {
         return null;
     }
 
+    // ballonDorPages has an issue with grabbing nationality links.
+    // Problem: past 2015 (e.g. starting 2016), it starts grabbing links to nations instead of the player's page.
+    // This is because this is when they started using <a> to highlight a player's nationality, and the nationality was in another column.
     public static JSONObject scrapeBallonDorPages() {
         Map<String, String> footballNames = new HashMap(); // footballer : link
         try {
@@ -118,13 +163,31 @@ public class Scraper {
                                 (data.eq(0).text().length() > 2) // If this element isn't a empty, a position, or a ranking/number.
                         ) {
                             Elements zerothElement = data.eq(0);
-                            if (!(data.eq(0).select("a").text() == null)) { // If this player has a link attached to his name, we add it to the map.
-                                footballNames.put(zerothElement.text().split("\\[")[0], "https://en.wikipedia.org" + zerothElement.select("a").attr("href"));
+                            if (!(zerothElement.select("a").text() == null)) { // If this player has a link attached to his name, we add it to the map.
+                                if (i >= 2016) {
+                                    if (zerothElement.select("a").size() == 1) continue;
+                                    else {
+                                        footballNames.put(zerothElement.text().split("\\[")[0], "https://en.wikipedia.org" + zerothElement.select("a").eq(1).attr("href"));
+                                        System.out.println(i + "; " + zerothElement.text().split("\\[")[0] + " = " + "https://en.wikipedia.org" + zerothElement.select("a").eq(1).attr("href"));
+                                    }
+                                } else {
+                                    footballNames.put(zerothElement.text().split("\\[")[0], "https://en.wikipedia.org" + zerothElement.select("a").attr("href"));
+                                    System.out.println(i + "; " + zerothElement.text().split("\\[")[0] + " = " + "https://en.wikipedia.org" + zerothElement.select("a").attr("href"));
+                                }
                             }
                         } else { // If not, look at the second td element.
                             Elements firstElement = data.eq(1);
-                            if (!(data.eq(1).select("a").text() == null)) {
-                                footballNames.put(firstElement.text().split("\\[")[0], "https://en.wikipedia.org" + firstElement.select("a").attr("href"));
+                            if (!(firstElement.select("a").text() == null)) {
+                                if (i >= 2016) {
+                                    if (firstElement.select("a").size() == 1) continue;
+                                    else {
+                                        footballNames.put(firstElement.text().split("\\[")[0], "https://en.wikipedia.org" + firstElement.select("a").eq(1).attr("href"));
+                                        System.out.println(i + "; " + firstElement.text().split("\\[")[0] + " = " + "https://en.wikipedia.org" + firstElement.select("a").eq(1).attr("href"));
+                                    }
+                                } else {
+                                    footballNames.put(firstElement.text().split("\\[")[0], "https://en.wikipedia.org" + firstElement.select("a").attr("href"));
+                                    System.out.println(i + "; " + firstElement.text().split("\\[")[0] + " = " + "https://en.wikipedia.org" + firstElement.select("a").attr("href"));
+                                }
                             }
                         }
                     }
