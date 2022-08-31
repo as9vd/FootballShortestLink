@@ -1,18 +1,16 @@
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.tomcat.util.json.JSONParser;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.simple.parser.JSONParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 // Pages to scrape:
 // 1. European Cup goalscorers (check for pages that don't exist). Seems to be valid from 55-56 to 90-91.
@@ -24,24 +22,47 @@ import java.util.Map;
 
 public class Scraper {
     public static void main(String[] args) throws Exception {
-        HashMap<String, String> newMap = convertJsonToMap(new File("merged.json"));
-        HashMap<String, String> oldMap = convertJsonToMap(new File("scorers.json"));
+        String[] countryCodes = Locale.getISOCountries();
 
-        for (Map.Entry<String, String> entry : oldMap.entrySet()) {
-            if (newMap.get(entry.getKey()) == null) {
-                newMap.put(entry.getKey(), entry.getValue());
+        JSONParser parser = new JSONParser();
+        JSONObject obj = (JSONObject) parser.parse(new FileReader("betterMerged.json"));
+
+        Set<String> names = obj.keySet();
+        List<String> links = new ArrayList<String>(obj.values());
+
+        List<String> valid = new ArrayList<>();
+        int i = 0;
+        FileWriter myWriter = new FileWriter("decentStrings.txt");
+        for (String link: links) {
+            String s = scrapeWikiPages(link);
+            if (!(s == null)) {
+                myWriter.write(s + "\n");
+                System.out.println(s);
             }
+            i++;
         }
-
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonFromMap = mapper.writeValueAsString(newMap);
-
-        PrintWriter writer = new PrintWriter(new File("betterMerged.json"));
-        writer.write(jsonFromMap);
-        writer.close();
+        myWriter.close();
     }
 
-    private static HashMap<String, String> convertJsonToMap(File json) {
+    public static String scrapeWikiPages(String link) throws Exception {
+        Document doc = Jsoup.connect(link).userAgent("Chrome").get();
+        Elements playerTable = doc.select("table.infobox.vcard").select("tbody");
+        Elements rows = playerTable.select("tr");
+
+        String birthday = "", name = doc.select("h1.firstHeading").text().split(" \\(")[0], country = "";
+        for (Element row: rows) {
+            if (row.text().toLowerCase(Locale.ROOT).contains("date")) birthday = row.select("td").text().split(" ")[0];
+            else if (row.text().toLowerCase(Locale.ROOT).contains("place")) country = row.select("td").text().split("\\[")[0];
+        }
+
+        String complete = name + ", born " + birthday + " in " + country;
+
+        if (!(birthday.contains("(")) ||
+                (country.isEmpty())) return null;
+        else return complete;
+    }
+
+    public static HashMap<String, String> convertJsonToMap(File json) {
         ObjectMapper mapper = new ObjectMapper();
         HashMap<String, String> map = new HashMap<String, String>();
         try {
@@ -58,13 +79,13 @@ public class Scraper {
 
         JSONObject merged = new JSONObject();
         JSONObject[] objs = new JSONObject[] {ec, bdor};
-        for (JSONObject obj : objs) {
-            Iterator it = obj.keys();
-            while (it.hasNext()) {
-                String key = (String)it.next();
-                merged.put(key, obj.get(key));
-            }
-        }
+//        for (JSONObject obj : objs) {
+//            Iterator it = obj.keys();
+//            while (it.hasNext()) {
+//                String key = (String)it.next();
+//                merged.put(key, obj.get(key));
+//            }
+//        }
 
         FileWriter fileWriter = new FileWriter("merged.json");
 
