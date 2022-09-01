@@ -19,32 +19,68 @@ import java.util.*;
 // 4. Champions League goalscorers (goals + assists to be fair). Seems to be valid from 92-today.
 // 5. Premier League pages; has hat-tricks, goalscorers, etc. 2007 was last time it was FA (so 92-07 works); 2007-today works under new link also.
 // 6. La Liga pages: get Pichichi trophy rankers, top scorers, etc. Might be a bit of a nightmare keeping track of all the tables, to be fair.
-
 public class Scraper {
     public static void main(String[] args) throws Exception {
-        String[] countryCodes = Locale.getISOCountries();
-
-        JSONParser parser = new JSONParser();
-        JSONObject obj = (JSONObject) parser.parse(new FileReader("betterMerged.json"));
-
-        Set<String> names = obj.keySet();
-        List<String> links = new ArrayList<String>(obj.values());
-
-        List<String> valid = new ArrayList<>();
-        int i = 0;
-        FileWriter myWriter = new FileWriter("decentStrings.txt");
-        for (String link: links) {
-            String s = scrapeWikiPages(link);
-            if (!(s == null)) {
-                myWriter.write(s + "\n");
-                System.out.println(s);
-            }
-            i++;
+        BufferedReader reader;
+        ArrayList<String> names = new ArrayList<>();
+        reader = new BufferedReader(new FileReader("decentStrings.txt"));
+        String line = reader.readLine();
+        while (line != null) {
+            names.add(line.split(",")[0]);
+            line = reader.readLine();
         }
-        myWriter.close();
+        reader.close();
+
+        HashMap<String, String> newMap = convertJsonToMap(new File("betterMerged.json"));
+        for (String name: names) {
+            String link = newMap.get(name);
+            if (!(link == null)) {
+                System.out.println(name);
+                scrapePlayerCareers(link);
+            }
+        }
     }
 
-    public static String scrapeWikiPages(String link) throws Exception {
+    public static void scrapePlayerCareers(String link) throws Exception {
+        // table.infobox.vcard: what needs to be scraped. Seems to be the consistent across these decent players.
+        // Every single bit of info is in the <tbody> element. Even on a page like Romario's.
+        Document doc = Jsoup.connect(link).userAgent("Chrome").get();
+        Elements playerTable = doc.select("table.infobox.vcard");
+        Elements rows = playerTable.select("th.infobox-label");
+
+        /* "Players" whose tables are not intuitive to scrape:
+        * 1. Jill Ellis (her managed table has 'years' for some reason).
+        * 2. Geoff Hurst (played cricket; table just below main one with cricket years)
+        * 3. AVB (not even a youth career.)
+        * 4. Sampaoli (no playing career, just youth.)
+        * 5. Jorge Vilda (no playing career, just youth.)
+        * It also prints out multiple times if there are multiple tables with 'years'. Ellis and Hurst are two examples.
+        * */
+        for (Element row: rows) {
+            String potentialDuration = row.text();
+
+            // Some errors here with loans and players only out for less than a year. E.g. Kevin Hector w/ Boston United (1978) and some random side (1982).
+            // If a player's years are blank (e.g. Lyuboslav Penev), nothing will show up.
+            // Also don't take manager careers into account.
+            if (potentialDuration.matches("^[0-9]{4}$") || potentialDuration.isEmpty()) {
+                String year = potentialDuration.split("\\[")[0];
+
+                if (!(year.isEmpty())) System.out.println(year + "; " + row.parent().select("td").eq(0).text());
+            } else if (row.text().contains("–")) {
+                String[] years = potentialDuration.split("–");
+                if (years.length == 2) {
+                    String firstYear = years[0];
+                    String secondYear = years[1];
+
+                    System.out.println(firstYear + "-" + secondYear + "; " + row.parent().select("td").eq(0).text());
+                } else if (years.length == 1) {
+                    System.out.println(potentialDuration.split("\\[")[0] + "; " + row.parent().select("td").eq(0).text());
+                }
+            }
+        }
+    }
+
+    public static String scrapeWikiNames(String link) throws Exception {
         Document doc = Jsoup.connect(link).userAgent("Chrome").get();
         Elements playerTable = doc.select("table.infobox.vcard").select("tbody");
         Elements rows = playerTable.select("tr");
