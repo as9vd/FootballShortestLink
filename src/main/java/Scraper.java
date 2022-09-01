@@ -37,6 +37,7 @@ public class Scraper {
             if (!(link == null)) {
                 System.out.println(name);
                 scrapePlayerCareers(link);
+                System.out.println();
             }
         }
     }
