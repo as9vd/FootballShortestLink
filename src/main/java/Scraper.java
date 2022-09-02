@@ -40,6 +40,8 @@ public class Scraper {
                 System.out.println();
             }
         }
+
+//        scrapePlayerCareers("https://en.wikipedia.org/wiki/Branko_Elsner");
     }
 
     public static void scrapePlayerCareers(String link) throws Exception {
@@ -60,22 +62,21 @@ public class Scraper {
         for (Element row: rows) {
             String potentialDuration = row.text();
 
-            // Some errors here with loans and players only out for less than a year. E.g. Kevin Hector w/ Boston United (1978) and some random side (1982).
-            // If a player's years are blank (e.g. Lyuboslav Penev), nothing will show up.
-            // Also don't take manager careers into account.
+            // 1. "-1992" (e.g. in case of Nwankwo Kanu) turns into 0000-1992.
+            // 2. Also don't take manager careers into account.
             if (potentialDuration.matches("^[0-9]{4}$") || potentialDuration.isEmpty()) {
                 String year = potentialDuration.split("\\[")[0];
 
-                if (!(year.isEmpty())) System.out.println(year + "; " + row.parent().select("td").eq(0).text());
+                if (!(year.isEmpty())) System.out.println(year + "; " + row.parent().select("td").eq(0).text().split("\\[")[0]);
             } else if (row.text().contains("–")) {
                 String[] years = potentialDuration.split("–");
                 if (years.length == 2) {
                     String firstYear = years[0];
                     String secondYear = years[1];
 
-                    System.out.println(firstYear + "-" + secondYear + "; " + row.parent().select("td").eq(0).text());
+                    System.out.println(firstYear + "-" + secondYear + "; " + row.parent().select("td").eq(0).text().split("\\[")[0]);
                 } else if (years.length == 1) {
-                    System.out.println(potentialDuration.split("\\[")[0] + "; " + row.parent().select("td").eq(0).text());
+                    System.out.println(potentialDuration.split("\\[")[0] + "; " + row.parent().select("td").eq(0).text().split("\\[")[0]);
                 }
             }
         }

@@ -88,7 +88,7 @@ Lyuboslav Penev
 
 Stanislav Jarábek
 1956-1971; Spartak Trnava
-1983-1984; Banik Ostrava[1]
+1983-1984; Banik Ostrava
 1984-1985; Nitra
 1985-1988; Spartak Trnava
 1992-1993; Nitra
@@ -109,7 +109,7 @@ Nwankwo Kanu
 2006-2012; Portsmouth
 1993; Nigeria U17
 1996; Nigeria U23
-1994-2011; Nigeria[4]
+1994-2011; Nigeria
 
 Matteo Guendouzi
 2005-2014; Paris Saint-Germain
@@ -333,7 +333,7 @@ Nicolò Barella
 2018–; Italy
 
 Pierre-Emerick Aubameyang
-1995-1997; ASL L'Huisserie[4]
+1995-1997; ASL L'Huisserie
 1997-1998; Nice
 1998-2001; Laval
 2001-2007; Bastia
@@ -353,7 +353,7 @@ Pierre-Emerick Aubameyang
 
 Günter Hermann
 0000-1979; SC Stadthagen
-1979-1980; TSV Loccum[1]
+1979-1980; TSV Loccum
 1980-1982; Werder Bremen
 1982-1992; Werder Bremen
 1992-1994; SG Wattenscheid 09
@@ -362,9 +362,9 @@ Günter Hermann
 1996-1999; Rotenburger SV
 1999; FC Oberneuland
 2000-2014; Osterholz-Scharmbeck
-2014-2015; FC Oberneuland[2]
-2015; FC Oberneuland (team manager)[3]
-2015–; FC Oberneuland (sporting director)[4]
+2014-2015; FC Oberneuland
+2015; FC Oberneuland (team manager)
+2015–; FC Oberneuland (sporting director)
 2017; FC Oberneuland (caretaker)
 
 Bruno Bini
@@ -632,7 +632,7 @@ Andrey Arshavin
 
 Martin Chivers
 1961-1962; CPC Sports
-1962-1968; Southampton[1]
+1962-1968; Southampton
 1968-1976; Tottenham Hotspur
 1976-1978; Servette
 1978-1979; Norwich City
@@ -694,7 +694,7 @@ Per Pedersen
 1999-2000; Odense BK
 1988; Denmark u-21
 1991-1997; Denmark
-2003-2004; BK Marienlyst[2]
+2003-2004; BK Marienlyst
 
 Alessandro Nesta
 1985-1993; Lazio
@@ -702,8 +702,8 @@ Alessandro Nesta
 2002-2012; Milan
 2012-2014; Montreal Impact
 2014; Chennaiyin
-1995-1996; Italy U21[3]
-1996-2006; Italy[3]
+1995-1996; Italy U21
+1996-2006; Italy
 2015-2017; Miami FC
 2018-2019; Perugia
 2019-2021; Frosinone
@@ -1257,9 +1257,9 @@ André Onana
 2016–; Cameroon
 
 Dušan Bajević
-1966-1977; Velež Mostar[1]
-1977-1981; AEK Athens[1]
-1981-1983; Velež Mostar[1]
+1966-1977; Velež Mostar
+1977-1981; AEK Athens
+1981-1983; Velež Mostar
 1970-1977; Yugoslavia
 1983-1987; Velež Mostar
 1988-1996; AEK Athens
@@ -1358,7 +1358,7 @@ Ole Stavrum
 
 Giancarlo Bercellino
 1960-1961; Alessandria
-1961-1969; Juventus[1]
+1961-1969; Juventus
 1969-1970; Brescia
 1970; Lazio
 1965-1968; Italy
@@ -1509,7 +1509,7 @@ Trevor Francis
 1988-1990; Queens Park Rangers
 1988; → Wollongong City (loan)
 1990-1994; Sheffield Wednesday
-1977-1986; England[2]
+1977-1986; England
 1988-1989; Queens Park Rangers
 1991-1995; Sheffield Wednesday
 1996-2001; Birmingham City
@@ -1655,7 +1655,7 @@ Ray Crawford
 1969-1970; Kettering Town
 1970-1971; Colchester United
 1971; Durban City
-1956; Malaya[2]
+1956; Malaya
 1961-1962; England
 
 Juhani Peltonen
@@ -1934,12 +1934,12 @@ Björn Andersson
 1977-1979; Östers IF
 1980-1981; Markaryds IF
 1982-1984; Vallentuna BK
-1972-1977; Sweden[1]
-1980-1981; Markaryds IF[2]
-1982-1983; Vallentuna BK[2]
-1995-2009; FC Bayern Munich (youth)[2]
-2011-2013; IFK Hässleholm (assistant)[2][3]
-2014–; IS Halmia (youth coordinator)[4]
+1972-1977; Sweden
+1980-1981; Markaryds IF
+1982-1983; Vallentuna BK
+1995-2009; FC Bayern Munich (youth)
+2011-2013; IFK Hässleholm (assistant)
+2014–; IS Halmia (youth coordinator)
 
 Erwin Vandenbergh
 1976-1982; Lierse
@@ -2319,7 +2319,7 @@ Neville Southall
 2001; Dover Athletic
 2001-2002; Shrewsbury Town
 2002; Dagenham & Redbridge
-1982-1997; Wales[3]
+1982-1997; Wales
 1999; Wales (caretaker manager)
 2001-2002; Dover Athletic
 2004-2005; Hastings United
@@ -2534,7 +2534,7 @@ Darko Kovačević
 2001; Lazio
 2001-2007; Real Sociedad
 2007-2009; Olympiacos
-1994-2004; Serbia and Montenegro[a]
+1994-2004; Serbia and Montenegro
 
 Heinz Peischl
 1981-1982; SV Ollersdorf
@@ -2614,7 +2614,7 @@ Kenny Dalglish
 1968-1969; Celtic
 1969-1977; Celtic
 1977-1990; Liverpool
-1972-1976; Scotland U23[3]
+1972-1976; Scotland U23
 1971-1986; Scotland
 1985-1991; Liverpool
 1991-1995; Blackburn Rovers
@@ -2986,7 +2986,7 @@ Marcel Răducanu
 1972-1981; Steaua București
 1982-1988; Borussia Dortmund
 1988-1990; FC Zürich
-1976-1981; Romania[a]
+1976-1981; Romania
 1992-1993; Türkgücü München
 
 Dean Saunders
@@ -3285,7 +3285,7 @@ Tomas Brolin
 1998; Hudiksvalls ABK
 1986-1987; Sweden U18
 1988-1992; Sweden U21/O
-1990-1995; Sweden[1][2]
+1990-1995; Sweden
 
 Carles Rexach
 1958-1959; Rosés
@@ -3801,7 +3801,7 @@ David Villa
 2000-2001; Sporting Gijón B
 2001-2003; Sporting Gijón
 2003-2005; Real Zaragoza
-2005-2010; Valencia[2][3]
+2005-2010; Valencia
 2010-2013; Barcelona
 2013-2014; Atlético Madrid
 2014-2018; New York City FC
@@ -3812,13 +3812,13 @@ David Villa
 2005-2017; Spain
 
 John McGovern
-1965-1968; Hartlepools United / Hartlepool[a]
+1965-1968; Hartlepools United / Hartlepool
 1968-1974; Derby County
 1974; Leeds United
 1975-1982; Nottingham Forest
 1982-1985; Bolton Wanderers
 1972-1973; Scotland U23
-1982-1985; Bolton Wanderers[3]
+1982-1985; Bolton Wanderers
 1990-1991; Chorley
 1994-1996; Rotherham United
 1997-1998; Woking
@@ -4423,7 +4423,7 @@ Jürgen Kohler
 2008; VfR Aalen
 2012; Bonner SC U-19
 2013-2015; SpVgg EGC Wirges
-2015-2016; SC Hauenstein[1]
+2015-2016; SC Hauenstein
 2016-2017; VfL Alfter
 2018–; Viktoria Köln U19
 2019; Viktoria Köln (caretaker)
@@ -5024,7 +5024,7 @@ Turlough O'Connor
 1963-1964; Limerick
 1964-1965; Athlone Town
 1965-1966; Bohemians
-1966-1968; Fulham[1]
+1966-1968; Fulham
 1968-1972; Dundalk
 1972-1979; Bohemians
 1979-1985; Athlone Town
@@ -5097,7 +5097,7 @@ Christian Backs
 
 Packie Bonner
 1975; Keadue Rovers
-1978-1997; Celtic[1]
+1978-1997; Celtic
 1981-1996; Republic of Ireland
 
 Andriy Lunin
@@ -5144,7 +5144,7 @@ Doru Nicolae
 1978-1988; Romania
 
 Kadeisha Buchanan
-2004-2010; Brampton Brams United[2]
+2004-2010; Brampton Brams United
 2011-2013; Erin Mills
 2013-2016; West Virginia Mountaineers
 2013; Toronto Lady Lynx
@@ -5178,9 +5178,9 @@ Alex Ferguson
 1967-1969; Rangers
 1969-1973; Falkirk
 1973-1974; Ayr United
-1960; Scotland Amateurs[1]
-1967; Scotland[2][3]
-1967; Scottish Football League XI[4]
+1960; Scotland Amateurs
+1967; Scotland
+1967; Scottish Football League XI
 1974; East Stirlingshire
 1974-1978; St Mirren
 1978-1986; Aberdeen
@@ -5590,7 +5590,7 @@ Andy Walker
 1998-1999; Ayr United
 1999; Carlisle United
 1999; Partick Thistle
-1999; Kilwinning Rangers[2]
+1999; Kilwinning Rangers
 1999; Isernia
 2000; Alloa Athletic
 1987; Scotland U21
@@ -5812,9 +5812,9 @@ Alex Ferguson
 1967-1969; Rangers
 1969-1973; Falkirk
 1973-1974; Ayr United
-1960; Scotland Amateurs[1]
-1967; Scotland[2][3]
-1967; Scottish Football League XI[4]
+1960; Scotland Amateurs
+1967; Scotland
+1967; Scottish Football League XI
 1974; East Stirlingshire
 1974-1978; St Mirren
 1978-1986; Aberdeen
@@ -6153,7 +6153,7 @@ Ian Durrant
 1985-1998; Rangers
 1994; → Everton (loan)
 1998-2002; Kilmarnock
-1986-1988; Scotland U21[2]
+1986-1988; Scotland U21
 1987-2000; Scotland
 2007; Rangers (caretaker)
 2018; Dumbarton (caretaker)
@@ -6443,7 +6443,7 @@ Florea Voinea
 1973-1974; CSM Reșița
 1974-1975; Politehnica Timișoara
 1975-1976; UM Timișoara
-1963-1967; Romania[a]
+1963-1967; Romania
 
 Terry Dyson
 0000-1955; Scarborough
@@ -6699,7 +6699,7 @@ Dževad Prekazi
 1991-1992; Altay
 1992-1993; Bakırköyspor
 1993; Trudbenik
-1976-1977; Yugoslavia U21[a]
+1976-1977; Yugoslavia U21
 2000; Železnik
 2001-2002; Železnik
 2006; OFK Beograd (youth)
@@ -6733,10 +6733,10 @@ Gennaro Gattuso
 1998-1999; Salernitana
 1999-2012; AC Milan
 2012-2013; Sion
-1995-1996; Italy U18[2]
-1998-2000; Italy U21[2]
-2000; Italy Olympic[3]
-2000-2010; Italy[4]
+1995-1996; Italy U18
+1998-2000; Italy U21
+2000; Italy Olympic
+2000-2010; Italy
 2013; Sion (player-coach)
 2013; Palermo
 2014; OFI Crete
@@ -6906,7 +6906,7 @@ John Jensen
 2018; Denmark (caretaker)
 
 Lilian Thuram
-1981-1982; Portugais de Fontainebleau [fr]
+1981-1982; Portugais de Fontainebleau 
 1983-1984; Fontainebleau
 1985-1987; Melun
 1987-1988; Melun-Fontainebleau
@@ -7499,7 +7499,7 @@ Murdo MacLeod
 1995-1997; Partick Thistle
 
 Lilian Thuram
-1981-1982; Portugais de Fontainebleau [fr]
+1981-1982; Portugais de Fontainebleau 
 1983-1984; Fontainebleau
 1985-1987; Melun
 1987-1988; Melun-Fontainebleau
@@ -7762,12 +7762,12 @@ Ruud Krol
 1980; Vancouver Whitecaps
 1980-1984; Napoli
 1984-1986; Cannes
-1969-1983; Netherlands[1][2]
+1969-1983; Netherlands
 1989-1990; Mechelen
 1990; Servette
 1991-1993; Netherlands U-21 (Assistant)
 1994-1995; Egypt U-23
-1995-1996; Egypt[3]
+1995-1996; Egypt
 1997-1999; Zamalek
 1999; Al-Wahda Abu Dhabi
 1999-2001; Netherlands (Assistant)
@@ -7782,7 +7782,7 @@ Ruud Krol
 2015; Raja Club Athletic
 2016; Club Africain
 2018-2019; CS Sfaxien
-2020; Kuwait SC[4]
+2020; Kuwait SC
 
 Samuele Dalla Bona
 1996-1998; Atalanta
@@ -7847,7 +7847,7 @@ Frank McGarvey
 1991-1993; Clyde
 1993-1995; Shotts Bon Accord
 1995-1996; Troon
-1978; Scottish League XI[1]
+1978; Scottish League XI
 1979-1984; Scotland
 1990-1991; Queen of the South
 
@@ -8101,7 +8101,7 @@ Edgar Schneider
 Lucjan Brychczy
 1953-1954; Piast Gliwice
 1954-1972; Legia Warsaw
-1954-1969; Poland[1]
+1954-1969; Poland
 1972-1973; Legia Warsaw
 1979-1980; Legia Warsaw
 1987; Legia Warsaw
@@ -8288,14 +8288,14 @@ Kent Karlsson
 1963-1966; IFK Eskilstuna
 1967-1976; Åtvidabergs FF
 1976-1980; IFK Eskilstuna
-1973-1977; Sweden[1]
-1981-1982; IK Brage[2]
+1973-1977; Sweden
+1981-1982; IK Brage
 1983-1985; Bryne
-1985-1989; IFK Norrköping[3]
+1985-1989; IFK Norrköping
 1990; Kongsvinger IL
 1991-1992; Lyngby BK
 1993; Örebro SK
-1995; IFK Norrköping[3]
+1995; IFK Norrköping
 1996-1997; IK Sleipner
 1997-1998; FC Copenhagen
 2000-2001; IK Sleipner
@@ -8310,7 +8310,7 @@ László Fazekas
 1965-1980; Újpesti Dózsa
 1980-1984; Royal Antwerp
 1984-1985; Sint-Truidense
-1968-1983; Hungary[1]
+1968-1983; Hungary
 1985-1986; Racing Jet Bruxelles
 1986-1988; Eendracht Aalst
 1988-1990; Harelbeke
@@ -8566,7 +8566,7 @@ John Hewitt
 1997; Ross County
 1997-1998; Cove Rangers
 1998-1999; Brantwood
-1982-1984; Scotland U21[2]
+1982-1984; Scotland U21
 1996-1997; Dundalk (player-manager)
 1997-1999; Cove Rangers (assistant)
 
@@ -8579,7 +8579,7 @@ Anderson
 2015-2018; Internacional
 2017; → Coritiba (loan)
 2018-2020; Adana Demirspor
-2005; Brazil U17[nb 1]
+2005; Brazil U17
 2008; Brazil U23
 2007-2008; Brazil
 
@@ -8903,7 +8903,7 @@ Vic Davidson
 Klaus Augenthaler
 1964-1975; FC Vilshofen
 1975-1976; Bayern Munich
-1976-1991; Bayern Munich[1]
+1976-1991; Bayern Munich
 1975-1976; West Germany Youth
 1979-1981; West Germany B
 1983-1990; West Germany
@@ -8946,7 +8946,7 @@ Inge Ejderstedt
 1967-1970; Östers IF
 1970-1974; R.S.C. Anderlecht
 1974-1976; Östers IF
-1968-1974; Sweden[1]
+1968-1974; Sweden
 
 Raúl Bravo
 1987-1996; Palma CF
@@ -9133,7 +9133,7 @@ Anders Linderoth
 1977-1980; Marseille
 1980-1981; Mjällby AIF
 1982-1984; Näsby IF
-1972-1980; Sweden[1]
+1972-1980; Sweden
 1985-1989; Mjällby AIF
 1995-1997; IF Elfsborg
 1998-2001; Stabæk IF
@@ -9194,7 +9194,7 @@ Rachid Mekhloufi
 1969-1970; Bastia
 1971-1972; Algeria
 1975-1979; Algeria
-1980-1981; Al-Riyadh[2]
+1980-1981; Al-Riyadh
 1982; Algeria
 
 Mirsad Fazlagić
@@ -9308,7 +9308,7 @@ Vasilis Hatzipanagis
 1974-1975; Soviet Union U19
 1975; Soviet Union Olympic
 1976; Greece U21
-1976; Greece[a]
+1976; Greece
 
 Younis Mahmoud
 1997-1999; Kahrabaa Al-Dibis
@@ -9519,7 +9519,7 @@ Bixente Lizarazu
 2004; Marseille
 2005-2006; Bayern Munich
 1992-2004; France
-1993; Basque Country[4]
+1993; Basque Country
 
 Celso Gavião
 1975-1978; Botafogo-SP
@@ -9670,7 +9670,7 @@ Hans-Jürgen Kreische
 2000-2001; Dresdner SC
 
 Massimiliano Allegri
-1984-1985; Cuoiopelli [it]
+1984-1985; Cuoiopelli 
 1985-1988; Livorno
 1988-1989; Pisa
 1989-1990; Livorno
@@ -9699,7 +9699,7 @@ Curt Olsberg
 1967-1973; Malmö FF
 1974-1979; Djurgårdens IF
 1980; Helenelunds IK
-1971-1975; Sweden[2]
+1971-1975; Sweden
 
 Rafael van der Vaart
 1987-1993; De Kennemers
@@ -9724,7 +9724,7 @@ Josef Vacenovský
 
 Ruud Gullit
 1967-1975; ASV Meerboys
-1975-1979; DWS[4]
+1975-1979; DWS
 1979-1982; HFC Haarlem
 1982-1985; Feyenoord
 1985-1987; PSV
@@ -9916,7 +9916,7 @@ Billy Stark
 1990-1992; Kilmarnock
 1992-1993; Hamilton Academical
 1993-1994; Kilmarnock
-1985; Scotland U21[2]
+1985; Scotland U21
 1994-1997; Celtic (assistant)
 1997; Celtic (caretaker)
 1997-2000; Greenock Morton
@@ -10038,10 +10038,10 @@ Sven Lindman
 0000-1961; Ormsjö IF Uven
 1961-1965; Lycksele IF
 1965-1968; Djurgårdens IF
-1968-1969; SK Rapid Wien[1]
+1968-1969; SK Rapid Wien
 1969-1980; Djurgårdens IF
 1981; Helenelunds IF
-1967-1974; Sweden[3]
+1967-1974; Sweden
 1982-1986; Karlstads BK
 1987-1991; Norrstrands IF
 1983-1994; Malungs IF
@@ -10097,7 +10097,7 @@ Mario Basler
 1991-1993; Hertha BSC
 1993-1996; Werder Bremen
 1996-1999; Bayern Munich
-1999-2003; 1. FC Kaiserslautern[1]
+1999-2003; 1. FC Kaiserslautern
 2003-2004; Al-Rayyan
 2006-2010; ATSV Wattenheim
 2011; BCA Oberhausen
@@ -10176,7 +10176,7 @@ Paul Hegarty
 1974-1990; Dundee United
 1990; St. Johnstone
 1990-1992; Forfar Athletic
-1978; Scottish League XI[1]
+1978; Scottish League XI
 1979-1983; Scotland
 1990-1992; Forfar Athletic
 1999; Aberdeen
@@ -10415,7 +10415,7 @@ Ion Pârcălab
 1958-1961; UTA Arad
 1961-1970; Dinamo București
 1970-1973; Nîmes
-1961-1968; Romania[a]
+1961-1968; Romania
 1980; Progresul Pucioasa
 
 Frédéric Kanouté
@@ -10445,8 +10445,8 @@ Gianluca Pagliuca
 1994-1999; Internazionale
 1999-2006; Bologna
 2006-2007; Ascoli
-1989; Italy U21[3]
-1996; Olympic Italy[3]
+1989; Italy U21
+1996; Olympic Italy
 1990-1998; Italy
 
 Samuel Chukwueze
@@ -10832,7 +10832,7 @@ Tommy Callaghan
 1976; → San Antonio Thunder (loan)
 1976-1978; Clydebank
 1978-1979; Galway Rovers
-1968-1971; Scottish League XI[1][2]
+1968-1971; Scottish League XI
 1978-1979; Galway Rovers
 
 Dorin Mateuț
@@ -10872,8 +10872,8 @@ Alexia Putellas
 Jürgen Pommerenke
 1961-1967; Aufbau-Traktor Wegeleben
 1967-1970; 1. FC Magdeburg
-1970-1985; 1. FC Magdeburg[1]
-1972-1983; East Germany[2]
+1970-1985; 1. FC Magdeburg
+1972-1983; East Germany
 1992-1993; 1. FC Magdeburg
 
 Ian Rush
@@ -10887,7 +10887,7 @@ Ian Rush
 1998; → Sheffield United (loan)
 1998-1999; Wrexham
 1999-2000; Sydney Olympic
-1980-1996; Wales[5]
+1980-1996; Wales
 2004-2005; Chester City
 
 Édison Méndez
@@ -11410,7 +11410,7 @@ Thomas Ahlström
 1970-1979; Elfsborg
 1979-1982; Olympiacos
 1982-1984; Elfsborg
-1973-1982; Sweden[1]
+1973-1982; Sweden
 
 Giovanni van Bronckhorst
 1981-1982; LMO Rotterdam
@@ -11646,7 +11646,7 @@ Benno Magnusson
 1973-1974; 1. FC Kaiserslautern
 1974-1976; Hertha BSC
 1976-1981; Kalmar FF
-1973-1981; Sweden[2]
+1973-1981; Sweden
 
 Sonia Bompastor
 1988-1994; US Mer
@@ -11712,7 +11712,7 @@ Eric Black
 1980-1981; Aberdeen
 1981-1986; Aberdeen
 1986-1991; Metz
-1982-1985; Scotland U21[3]
+1982-1985; Scotland U21
 1987; Scotland
 2001-2002; Motherwell
 2003-2004; Coventry City
@@ -11737,7 +11737,7 @@ Antonio Cabrini
 Mircea Dridea
 1952-1956; Petrolul Ploiești
 1956-1971; Petrolul Ploiești
-1959-1967; Romania[a]
+1959-1967; Romania
 1973; Petrolul Ploiești (interim)
 1981-1982; Petrolul Ploiești
 1983-1984; FAR Rabat
@@ -11848,8 +11848,8 @@ Gordon Smith
 1986-1987; Admira Wacker
 1987-1988; FC Basel
 1988; Stirling Albion
-1975-1976; Scotland U23[2]
-1978; Scotland U21[3]
+1975-1976; Scotland U23
+1978; Scotland U21
 1990-1993; St Mirren (assistant)
 2011-2012; Rangers (assistant and director of football)
 
@@ -11941,7 +11941,7 @@ Marin Radu
 1983-1984; Olt Scornicești
 1984-1986; Steaua București
 1986-1987; Argeș Pitești
-1988-1990; Inter Sibiu[a]
+1988-1990; Inter Sibiu
 1990-1991; Șoimii IPA Sibiu
 1976-1982; Romania
 1998-?; Cimentul Fieni
@@ -12023,7 +12023,7 @@ Siniša Gogić
 1997-2000; Olympiacos
 2000-2002; APOEL
 2002; Olympiakos Nicosia
-1994-1999; Cyprus[1]
+1994-1999; Cyprus
 2007; Apollon Limassol
 2008; Ethnikos Asteras
 2009; Red Star Belgrade (interim)
@@ -12230,11 +12230,11 @@ Roland Wohlfarth
 Roland Sandberg
 1951-1960; Jämjö GoIF
 1961-1964; Lyckeby GoIF
-1965-1969; Kalmar FF[2]
-1970-1973; Åtvidabergs FF[3]
+1965-1969; Kalmar FF
+1970-1973; Åtvidabergs FF
 1973-1977; 1. FC Kaiserslautern
-1979-1980; Kalmar FF[3]
-1981; BK Häcken[3]
+1979-1980; Kalmar FF
+1981; BK Häcken
 1969-1972; Sweden U21
 1969-1976; Sweden
 
@@ -12275,7 +12275,7 @@ David Alaba
 2011; → 1899 Hoffenheim (loan)
 2021–; Real Madrid
 2007-2009; Austria U17
-2010; Austria U19[4]
+2010; Austria U19
 2009-2010; Austria U21
 2009–; Austria
 
@@ -12379,9 +12379,9 @@ Charlie Nicholas
 1988-1990; Aberdeen
 1990-1995; Celtic
 1995-1996; Clyde
-1980-1984; Scotland U21[3]
-1983-1989; Scotland[4]
-1987; Scotland B[5]
+1980-1984; Scotland U21
+1983-1989; Scotland
+1987; Scotland B
 1990; Scottish League XI
 
 Theodoros Zagorakis
@@ -12400,7 +12400,7 @@ Derek Johnstone
 1985-1986; Rangers
 1986-1987; Partick Thistle
 1973-1979; Scotland
-1973-1974; Scottish League XI[2]
+1973-1974; Scottish League XI
 1986-1987; Partick Thistle
 
 Petr Janečka
@@ -12433,7 +12433,7 @@ Radu Nunweiller
 1962-1963; Viitorul București
 1963-1976; Dinamo București
 1976-1979; Corvinul Hunedoara
-1966-1975; Romania[a]
+1966-1975; Romania
 1981-1984; Martigny-Sports
 1984-1987; Lausanne-Sport
 1987-1988; Martigny-Sports
@@ -12529,7 +12529,7 @@ Alexandru Boc
 1970-1971; Sportul Studențesc
 1971-1973; Rapid București
 1973-1976; Universitatea Craiova
-1967-1971; Romania[a]
+1967-1971; Romania
 
 Ruud Geels
 1964-1966; Telstar
@@ -13052,7 +13052,7 @@ Robert Siatka
 1960; France
 1968-1970; Olympique Avignonnais
 1970-1972; FC Bourges
-1973-1974; FC Bourges[1]
+1973-1974; FC Bourges
 
 Håkan Lindman
 1979-1984; GAIS
@@ -13322,7 +13322,7 @@ Steve Archibald
 1992; Fulham
 1994-1996; East Fife
 1996; Home Farm Everton
-1979-1980; Scotland U21[2]
+1979-1980; Scotland U21
 1980-1986; Scotland
 1994-1996; East Fife
 2000-2001; Airdrieonians
@@ -13607,8 +13607,8 @@ Eberhard Vogel
 2004-2006; VfB Sangerhausen
 
 Manuel Pellegrini
-1973-1986; Universidad de Chile[3]
-1986; Chile[3]
+1973-1986; Universidad de Chile
+1986; Chile
 1988-1989; Universidad de Chile
 1990-1991; Palestino
 1992-1993; O'Higgins
@@ -13648,8 +13648,8 @@ Cristian Vrînceanu
 1983-1984; Buffalo Stallions (indoor)
 1985-1986; New York Croatia
 1986-1987; Esportiva Guaxupé
-1975-1977; Romania U21[2]
-1975; Romania U23[2]
+1975-1977; Romania U21
+1975; Romania U23
 
 Frank de Boer
 1984-1988; Ajax
@@ -13757,7 +13757,7 @@ Carlos Alberto
 
 Thomas Parits
 1964-1970; FK Austria Wien
-1970-1971; 1. FC Köln[1]
+1970-1971; 1. FC Köln
 1971-1974; Eintracht Frankfurt
 1974-1977; Granada CF
 1977-1979; FK Austria Wien
@@ -13898,11 +13898,11 @@ Jean-Marc Guillou
 1976-1977; Nice
 1980-1981; Neuchâtel Xamax
 1981-1983; Mulhouse
-1983-1985; Cannes[1]
-1985-1986; Servette[1]
-1993-2000; ASEC Mimosas[1]
-1999-2000; Ivory Coast[1]
-2001-2002; Beveren[1]
+1983-1985; Cannes
+1985-1986; Servette
+1993-2000; ASEC Mimosas
+1999-2000; Ivory Coast
+2001-2002; Beveren
 
 Frank Stapleton
 1974-1981; Arsenal
@@ -13957,10 +13957,10 @@ Ben Chilwell
 2015-2020; Leicester City
 2015-2016; → Huddersfield Town (loan)
 2020–; Chelsea
-2014; England U18[5]
-2014-2015; England U19[6]
-2015; England U20[7]
-2016-2018; England U21[8]
+2014; England U18
+2014-2015; England U19
+2015; England U20
+2016-2018; England U21
 2018–; England
 
 Michal Bílek
@@ -14073,7 +14073,7 @@ Flavius Domide
 1959-1966; UTA Arad
 1966-1979; UTA Arad
 1979-1980; Vagonul Arad
-1968-1972; Romania[a]
+1968-1972; Romania
 1981-1983; Carpați Mârșa
 1983-1984; UTA Arad
 1984-1987; UTA Arad (juniors)
@@ -14420,7 +14420,7 @@ Raimondo Ponte
 1980-1981; Nottingham Forest
 1981-1982; Bastia
 1982-1988; Grasshoppers
-1978-1984; Switzerland[1]
+1978-1984; Switzerland
 1988-1991; FC Baden
 1993-1995; FC Baden
 1995-2000; FC Zürich
@@ -14428,7 +14428,7 @@ Raimondo Ponte
 2002-2003; Carrarese
 2004; FC Wohlen
 2005-2007; SC Young Fellows Juventus
-2007-2012; Chiasso[2]
+2007-2012; Chiasso
 2012; Bellinzona
 2012-2013; Lugano
 2014; Sion
@@ -14547,9 +14547,9 @@ Giovanni Stroppa
 2002-2003; Alzano Virescit
 2003-2004; Avellino
 2004-2005; Foggia
-2005; Chiari [it]
+2005; Chiari 
 1989-1990; Italy U21
-1989; Italy B[2]
+1989; Italy B
 1993-1994; Italy
 2011-2012; Südtirol
 2012; Pescara
@@ -14716,14 +14716,14 @@ Ebbe Sand
 1992-1999; Brøndby IF
 1999-2006; Schalke 04
 1998-2004; Denmark
-2006-2007; Silkeborg IF (head of youth development)[1]
-2006; Silkeborg IF (assistant coach)[2]
-2007; Silkeborg IF (director of football)[3]
-2007; Silkeborg IF (team coach)[4]
-2007; Silkeborg IF (forward coach)[5]
-2008-2014; Denmark (forward coach)[6]
-2015-2019; Schalke 04 (sports advisor)[7]
-2019; Brøndby IF (director of football)[8]
+2006-2007; Silkeborg IF (head of youth development)
+2006; Silkeborg IF (assistant coach)
+2007; Silkeborg IF (director of football)
+2007; Silkeborg IF (team coach)
+2007; Silkeborg IF (forward coach)
+2008-2014; Denmark (forward coach)
+2015-2019; Schalke 04 (sports advisor)
+2019; Brøndby IF (director of football)
 2020; Denmark (assistant coach)
 2020-2021; Denmark (forward coach)
 
@@ -14774,7 +14774,7 @@ Vasile Gergely
 1963-1970; Dinamo București
 1970-1972; Hertha BSC
 1972-1973; Durban City
-1962-1970; Romania[a]
+1962-1970; Romania
 
 Vladimir Gutsaev
 1966-1969; FC Norchi Dinamoeli
@@ -14802,7 +14802,7 @@ Jovan Aćimović
 1991-1993; Čukarički
 
 Kasper Schmeichel
-2000-2001; Estoril[4]
+2000-2001; Estoril
 2001-2002; Oure
 2002-2006; Manchester City
 2006-2009; Manchester City
@@ -15086,13 +15086,13 @@ Umberto Barberis
 1976-1980; Servette FC
 1980-1983; AS Monaco FC
 1983-1986; Servette FC
-1976-1985; Switzerland[1]
+1976-1985; Switzerland
 1987-1993; Lausanne Sports
 1993-1994; FC Sion
 1995-1996; Servette FC
 2001-2002; Lausanne Sports
 2004-2007; FC Baulmes
-2007; Lausanne Sports[2]
+2007; Lausanne Sports
 2008-2009; Sion
 2009; KAC Kenitra
 2011; Dubai Club (caretaker)
@@ -15293,7 +15293,7 @@ Marius Lăcătuș
 1991-1993; Real Oviedo
 1993-2000; Steaua București
 2000; Național București
-1984-1998; Romania[a]
+1984-1998; Romania
 2000; Naţional București
 2001-2002; Oțelul Galați
 2002-2003; Brașov
@@ -15312,8 +15312,8 @@ Alex MacDonald
 1966-1968; St Johnstone
 1968-1980; Rangers
 1980-1985; Hearts
-1976; Scottish Football League XI[1]
-1976; Scotland[2]
+1976; Scottish Football League XI
+1976; Scotland
 1981-1990; Hearts
 1991-1999; Airdrieonians
 
@@ -15475,15 +15475,15 @@ Gunnar Halle
 2013–; Strømmen (assistant)
 
 Franck Sauzée
-1983-1988; Sochaux[3]
-1988-1990; Marseille[3]
-1990-1991; Monaco[3]
-1991-1993; Marseille[3]
-1993-1994; Atalanta[3]
-1994-1996; Strasbourg[3]
-1996-1999; Montpellier[3]
+1983-1988; Sochaux
+1988-1990; Marseille
+1990-1991; Monaco
+1991-1993; Marseille
+1993-1994; Atalanta
+1994-1996; Strasbourg
+1996-1999; Montpellier
 1999-2001; Hibernian
-1988-1993; France[3]
+1988-1993; France
 2001-2002; Hibernian
 
 Olaf Thon
@@ -15652,7 +15652,7 @@ Phil Foden
 
 Nicolas Anelka
 1983-1993; Trappes Saint-Quentin
-1993-1995; Clairefontaine[5]
+1993-1995; Clairefontaine
 1995-1996; Paris Saint-Germain
 1996-1997; Paris Saint-Germain
 1997-1999; Arsenal
@@ -15810,7 +15810,7 @@ Salvatore Schillaci
 1992-1994; Internazionale
 1994-1997; Júbilo Iwata
 1989; Italy U21
-1989; Italy B[2]
+1989; Italy B
 1990-1991; Italy
 
 Trygve Johannessen
@@ -15866,7 +15866,7 @@ Leonid Buryak
 1973-1984; Dynamo Kyiv
 1985-1986; Torpedo Moscow
 1987-1988; Metalist
-1990; Vantaan Pallo-70[1]
+1990; Vantaan Pallo-70
 1974-1983; USSR
 1988-1989; KPT-85
 1990; VanPa
@@ -15942,7 +15942,7 @@ Predrag Mijatović
 1996-1999; Real Madrid
 1999-2002; Fiorentina
 2002-2003; Levante
-1989-2003; FR Yugoslavia[nb 1]
+1989-2003; FR Yugoslavia
 
 Johnny Crossan
 1954-1958; Derry City
@@ -15980,7 +15980,7 @@ Jürgen Klinsmann
 2019-2020; Hertha BSC
 
 Roy Keane
-1981-1989; Rockmount[3]
+1981-1989; Rockmount
 1989-1990; Cobh Ramblers
 1990-1993; Nottingham Forest
 1993-2005; Manchester United
@@ -16001,7 +16001,7 @@ Benny Nielsen
 1981-1982; AS Saint-Étienne
 1970-1982; Denmark
 2012; Greve Fodbold
-2015–; BK Avarta (director of football)[1]
+2015–; BK Avarta (director of football)
 
 Lindsay McKeown
 1973-1976; Manchester United
@@ -16551,11 +16551,11 @@ Mason Mount
 2017–; Chelsea
 2017-2018; → Vitesse (loan)
 2018-2019; → Derby County (loan)
-2014-2015; England U16[5]
-2015-2016; England U17[5]
-2016-2017; England U18[5]
-2017-2018; England U19[6]
-2018-2019; England U21[7]
+2014-2015; England U16
+2015-2016; England U17
+2016-2017; England U18
+2017-2018; England U19
+2018-2019; England U21
 2019–; England
 
 Robert Lüthi
@@ -16594,7 +16594,7 @@ Ján Pivarník
 1982-1983; FK Austria Wien (Assistant)
 1983-1984; Sporting CP (Assistant)
 1985-1989; Fahaheel
-1992-1993; Hapoel Petah Tikva[1]
+1992-1993; Hapoel Petah Tikva
 1993-1995; Al-Qadisiya Al Khubar
 1995-1996; Oman U-19
 1997-1998; Al Salmiya Club
@@ -16703,15 +16703,15 @@ Mats Magnusson
 1984-1990; Sweden
 
 Franck Sauzée
-1983-1988; Sochaux[3]
-1988-1990; Marseille[3]
-1990-1991; Monaco[3]
-1991-1993; Marseille[3]
-1993-1994; Atalanta[3]
-1994-1996; Strasbourg[3]
-1996-1999; Montpellier[3]
+1983-1988; Sochaux
+1988-1990; Marseille
+1990-1991; Monaco
+1991-1993; Marseille
+1993-1994; Atalanta
+1994-1996; Strasbourg
+1996-1999; Montpellier
 1999-2001; Hibernian
-1988-1993; France[3]
+1988-1993; France
 2001-2002; Hibernian
 
 Andreas Ogris
@@ -16750,7 +16750,7 @@ Kenny Burns
 1989-1990; Willenhall Town
 1990-1993; Ilkeston Town
 1993; Oakham United
-1974-1976; Scotland U23[3]
+1974-1976; Scotland U23
 1974-1981; Scotland
 
 John Danielsen
@@ -16776,7 +16776,7 @@ Michael Essien
 2020–; FC Nordsjælland (coach)
 
 Lúcio
-1995-1997; Planaltina EC[2]
+1995-1997; Planaltina EC
 1997; Guará
 1997-2000; Internacional
 2001-2004; Bayer Leverkusen
@@ -16943,7 +16943,7 @@ Didier Six
 1986-1987; Strasbourg (assistant)
 1992-1993; Strasbourg B
 1997-1998; Strasbourg Koenigshoffen
-2004; Audun-le-Tiche [fr]
+2004; Audun-le-Tiche 
 2011-2014; Togo
 2015; Mauritius
 2019-2021; Guinea
@@ -17068,9 +17068,9 @@ Javier Mascherano
 2010-2018; Barcelona
 2018-2019; Hebei China Fortune
 2019-2020; Estudiantes
-2001-2002; Argentina U17[4]
+2001-2002; Argentina U17
 2003-2004; Argentina U20
-2005; Argentina U21[5]
+2005; Argentina U21
 2004-2008; Argentina Olympic
 2003-2018; Argentina
 2021–; Argentina U20
@@ -17185,7 +17185,7 @@ Glenn Hoddle
 2004-2006; Wolverhampton Wanderers
 
 Jude Bellingham
-2010-2019; Birmingham City[6]
+2010-2019; Birmingham City
 2019-2020; Birmingham City
 2020–; Borussia Dortmund
 2016-2018; England U15
@@ -17679,7 +17679,7 @@ Lucy Bronze
 2009-2010; England U19
 2010; England U20
 2010-2013; England U23
-2013–; England[2]
+2013–; England
 2021–; Great Britain
 
 Fabio Cannavaro
@@ -17971,13 +17971,13 @@ Karl Daxbacher
 2017-2019; Wacker Innsbruck
 
 Nihat Kahveci
-1994-1996; Esenler[2]
+1994-1996; Esenler
 1996-1997; Beşiktaş
 1997-2002; Beşiktaş
 2002-2006; Real Sociedad
 2006-2009; Villarreal
 2009-2011; Beşiktaş
-2000-2010; Turkey[3]
+2000-2010; Turkey
 2012-2013; Villarreal (youth)
 2013-2017; Turkey (assistant)
 
@@ -18051,7 +18051,7 @@ Ji So-yun
 
 Kolec Kraja
 1956-1964; Partizani
-1957-1963; Albania[1]
+1957-1963; Albania
 1988-1989; Partizani
 
 Herbert Hein
@@ -18235,9 +18235,9 @@ Wes Brown
 
 Dumitru Macri
 1947-1949; Flacăra Roșie București
-1950-1966; Rapid București[a]
-1956-1957; Romania B[3]
-1959; Romania Olympic[3]
+1950-1966; Rapid București
+1956-1957; Romania B
+1959; Romania Olympic
 1958-1962; Romania
 1971; CFR Timișoara
 1973; Rapid București
@@ -18378,8 +18378,8 @@ Karlheinz Förster
 Christine Sinclair
 1994-2000; Burnaby South Secondary School
 2001-2005; Portland Pilots
-2001-2002; Vancouver Breakers[3]
-2006-2008; Vancouver Whitecaps FC[4]
+2001-2002; Vancouver Breakers
+2006-2008; Vancouver Whitecaps FC
 2009-2010; FC Gold Pride
 2011-2012; Western New York Flash
 2013–; Portland Thorns
@@ -18443,7 +18443,7 @@ Dudu Georgescu
 1986; Flacăra Moreni
 1987; Muscelul Câmpulung
 1987-1988; Unirea Urziceni
-1973-1984; Romania[1]
+1973-1984; Romania
 1989-1990; CSM Reșița (assistant)
 1991; Zimbru Chișinău
 1992; Corvinul Hunedoara
@@ -18494,7 +18494,7 @@ Roy Aitken
 1990-1991; Newcastle United
 1991-1992; St Mirren
 1992-1995; Aberdeen
-1976-1984; Scotland U21[2]
+1976-1984; Scotland U21
 1979-1991; Scotland
 1995-1997; Aberdeen
 2006; Aston Villa (caretaker)
@@ -18564,7 +18564,7 @@ Frans Thijssen
 1984-1987; Fortuna Sittard
 1987-1988; FC Groningen
 1988-1991; Vitesse Arnhem
-1975-1981; Netherlands[1]
+1975-1981; Netherlands
 1995-1996; Vitesse Arnhem
 1997-1998; Malmö FF
 1999; De Graafschap
@@ -18605,7 +18605,7 @@ Dževad Prekazi
 1991-1992; Altay
 1992-1993; Bakırköyspor
 1993; Trudbenik
-1976-1977; Yugoslavia U21[a]
+1976-1977; Yugoslavia U21
 2000; Železnik
 2001-2002; Železnik
 2006; OFK Beograd (youth)
@@ -18767,7 +18767,7 @@ Davie Dodds
 1986; Neuchâtel Xamax
 1986-1989; Aberdeen
 1989-1991; Rangers
-1978; Scotland U21[1]
+1978; Scotland U21
 1983; Scotland
 
 Jesper Olsen
@@ -18805,15 +18805,15 @@ Jamie Vardy
 
 Marin Dragnea
 1972-1973; Progresul București
-1973-1975; Progresul București[a]
+1973-1975; Progresul București
 1975-1976; Dinamo București
 1976-1977; FC Constanţa
 1977-1986; Dinamo București
 1986-1990; Flacăra Moreni
 1990-1991; Rapid București
 1984-1986; Romania
-2002-2004; Unirea Urziceni[2]
-2005-2006; Unirea Urziceni (assistant)[2]
+2002-2004; Unirea Urziceni
+2005-2006; Unirea Urziceni (assistant)
 2010-2014; ACS Berceni
 2015; ACS Berceni
 2019; Juventus Bascov
@@ -19244,7 +19244,7 @@ Adam Nawałka
 2018-2019; Lech Poznań
 
 Didier Drogba
-1988-1989; Tourcoing[4]
+1988-1989; Tourcoing
 1989-1991; Abbeville
 1991-1993; Vannes
 1993-1997; Levallois
@@ -19541,7 +19541,7 @@ Siniša Mihajlović
 1994-1998; Sampdoria
 1998-2004; Lazio
 2004-2006; Internazionale
-1991-2003; FR Yugoslavia[nb 1]
+1991-2003; FR Yugoslavia
 2006-2008; Internazionale (assistant)
 2008-2009; Bologna
 2009-2010; Catania
@@ -19637,7 +19637,7 @@ Luc Sonor
 Jan Olsson
 1961-1965; Halmstads BK
 1965-1978; Åtvidabergs FF
-1973-1974; Sweden[1]
+1973-1974; Sweden
 
 Oleg Ivanov
 1988; FC Krasnaya Presnya Moscow
@@ -19841,7 +19841,7 @@ Cris
 1999-2000; Brazil U23
 2001-2009; Brazil
 2016-2019; Lyon U19
-2019-2021; GOAL FC[a]
+2019-2021; GOAL FC
 2021–; Le Mans
 
 Berti Vogts
@@ -19995,11 +19995,11 @@ Manfred Bender
 2005; TSV Eching
 2006-2007; 1. FC Vöcklabruck
 2007-2008; SCR Altach
-2010-2011; Nigeria U-20[2]
-2011–; Nigeria (fitness coach)[3]
-2013; Kickers Offenbach (executive director)[2]
-2013-2014; Austria Klagenfurt (athletic supervisor)[4]
-2014-2016; Austria Klagenfurt[5]
+2010-2011; Nigeria U-20
+2011–; Nigeria (fitness coach)
+2013; Kickers Offenbach (executive director)
+2013-2014; Austria Klagenfurt (athletic supervisor)
+2014-2016; Austria Klagenfurt
 
 Diego Simeone
 1987-1990; Vélez Sársfield
@@ -20031,8 +20031,8 @@ Roberto Baggio
 1997-1998; Bologna
 1998-2000; Inter Milan
 2000-2004; Brescia
-1984; Italy U16[3]
-1988-2004; Italy[4]
+1984; Italy U16
+1988-2004; Italy
 
 Lindsey Horan
 2005-2012; Colorado Rush
@@ -20103,8 +20103,8 @@ Joe Craig
 1976-1978; Celtic
 1978-1981; Blackburn Rovers
 1981-1983; Hamilton Academical
-1976; Scottish League XI[4]
-1977; Scotland[2]
+1976; Scottish League XI
+1977; Scotland
 1985-1987; Cowdenbeath
 
 Ederson
@@ -20174,7 +20174,7 @@ Vladimir But
 
 Shunsuke Nakamura
 1991-1993; Yokohama F. Marinos
-1994-1996; Tōkō Gakuen High School [ja]
+1994-1996; Tōkō Gakuen High School 
 1997-2002; Yokohama F. Marinos
 2002-2005; Reggina
 2005-2009; Celtic F.C 1994
@@ -20360,9 +20360,9 @@ Sadio Mané
 
 Giovanni Trapattoni
 1953-1959; Milan
-1959-1971; Milan[1]
-1971-1972; Varese[2]
-1960-1964; Italy[3]
+1959-1971; Milan
+1971-1972; Varese
+1960-1964; Italy
 1972-1974; Milan (youth)
 1974; Milan
 1975-1976; Milan
@@ -20415,7 +20415,7 @@ Fabinho
 2015–; Brazil
 
 Ronaldo
-1990-1993; São Cristóvão[3]
+1990-1993; São Cristóvão
 1993-1994; Cruzeiro
 1994-1996; PSV
 1996-1997; Barcelona
@@ -20533,7 +20533,7 @@ Roger Magnusson
 1976; Helsingborgs IF
 1977; Vilans BoIF
 1979-1980; Landskrona BoIS
-1964-1969; Sweden[1]
+1964-1969; Sweden
 
 Angelo Carbone
 1988-1990; Bari
@@ -20713,8 +20713,8 @@ Youri Djorkaeff
 1996-1999; Inter Milan
 1999-2002; Kaiserslautern
 2002-2004; Bolton Wanderers
-2004; Blackburn Rovers[4]
-2005-2006; New York Red Bulls[5]
+2004; Blackburn Rovers
+2005-2006; New York Red Bulls
 1993; France B
 1993-2002; France
 
@@ -20892,7 +20892,7 @@ Shelley Kerr
 2005-2007; Doncaster Rovers Belles
 2007-2008; Hibernian
 2008-2010; Spartans
-1989-2008; Scotland[2]
+1989-2008; Scotland
 2004; Kilmarnock
 2007-2008; Hibernian
 2008-2010; Spartans
@@ -20917,7 +20917,7 @@ Peter Shilton
 1965; England U16
 1967; England U18
 1968-1972; England U23
-1970-1990; England[2][3]
+1970-1990; England
 1992-1995; Plymouth Argyle
 
 Markku Kanerva
@@ -20990,7 +20990,7 @@ El Hadji Diouf
 2011-2012; Doncaster Rovers
 2012-2014; Leeds United
 2014-2015; Sabah FA
-2000-2008; Senegal[4]
+2000-2008; Senegal
 
 Marco Asensio
 2003-2006; Platges de Calvià
@@ -21034,7 +21034,7 @@ Ion Ionescu
 1968-1970; Alemannia Aachen
 1970; Crișul Oradea
 1970-1972; Cercle Brugge
-1962-1969; Romania[a]
+1962-1969; Romania
 1978-1979; Gloria Buzău
 1980-1981; Rapid București
 
@@ -21197,7 +21197,7 @@ Benny Wendt
 1981-1983; Standard Liège
 1983-1984; Seiko
 1984-1985; SC Freiburg
-1972-1978; Sweden[1]
+1972-1978; Sweden
 
 Stelios Manolas
 1974-1979; AEK Athens
@@ -21767,7 +21767,7 @@ Bruno Baronchelli
 1987-1990; Le Havre
 1977-1981; France
 2000; Le Havre (caretaker)
-2001-2002; Lille OSC (caretaker)[1]
+2001-2002; Lille OSC (caretaker)
 
 Léon Letsch
 1945-1950; Spora Luxembourg
@@ -21844,8 +21844,8 @@ Frank Lampard
 2022–; Everton
 
 Mohamed Salah
-2004-2005; Ittihad Basyoun[7]
-2005-2006; Othmason Tanta[7]
+2004-2005; Ittihad Basyoun
+2005-2006; Othmason Tanta
 2006-2010; Al Mokawloon
 2010-2012; Al Mokawloon
 2012-2014; Basel
@@ -22037,8 +22037,8 @@ Juan Carlos Valerón
 2020–; Deportivo B
 
 Zlatko Zahovič
-1979-1981; Maribor[2]
-1981-1989; Kovinar Maribor[3]
+1979-1981; Maribor
+1981-1989; Kovinar Maribor
 1989-1993; Partizan
 1990-1991; → Proleter Zrenjanin (loan)
 1993-1996; Vitória Guimarães
@@ -22046,9 +22046,9 @@ Zlatko Zahovič
 1999-2000; Olympiacos
 2000-2001; Valencia
 2001-2005; Benfica
-2008-2009; Limbuš-Pekre[4]
+2008-2009; Limbuš-Pekre
 1992-2004; Slovenia
-2003; Slovenia B[5]
+2003; Slovenia B
 
 Miroslav Tanjga
 1984-1988; Dinamo Vinkovci
@@ -22511,9 +22511,9 @@ Enrique Collar
 1955-1963; Spain
 
 Christian Pulisic
-2005-2006; Brackley Town[4]
-2006-2007; Michigan Rush[5]
-2008-2015; PA Classics[6]
+2005-2006; Brackley Town
+2006-2007; Michigan Rush
+2008-2015; PA Classics
 2015-2016; Borussia Dortmund
 2016-2019; Borussia Dortmund
 2019–; Chelsea
