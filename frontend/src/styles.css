@@ -1,1 +1,86 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  font-family: "Mulish", sans-serif;
+  font-size: 10px;
+  background-color: #f4fdfd;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+h1 {
+  color: #262626;
+  font-weight: 800;
+  font-size: 3.6rem;
+  margin-top: 2.4rem;
+  padding: 0;
+}
+
+.input-container {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  margin-top: -2.4rem;
+  align-items: center;
+  max-height: 30%;
+  height: 30%;
+}
+
+.input-name {
+  color: #262626;
+  font-size: 2.4rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transform: scale(1.025);
+  gap: 0.6rem;
+}
+
+.generate-btn {
+  width: 15%;
+  font-size: 1.8rem;
+  border: 0;
+  padding: 0.2rem;
+  color: #f4fdfd;
+  /* background-color: #bf616a; */
+  /* background-color: #8bb174; */
+  background-color: #dd2d4a;
+  border-radius: 2.5rem;
+  transition: all 0.25s;
+  font-weight: 500;
+  height: 3.8rem;
+}
+
+.generate-btn:hover {
+  transform: scale(1.075);
+  cursor: pointer;
+}
+
+.generate-btn:active {
+  transform: scale(1.2);
+  background-color: #d90429;
+}
+
+.input-name input {
+  border: 0;
+  font-size: 2.4rem;
+  padding: 0.25rem;
+  width: 52.5%;
+  transition: all 0.25s;
+  border-bottom: 1px solid #262626;
+}
+
+.input-name input:focus {
+  font-size: 2rem;
+  transform: scale(1.025);
+  outline: none;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
