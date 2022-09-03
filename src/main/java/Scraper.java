@@ -11,6 +11,7 @@ import org.jsoup.select.Elements;
 import org.json.simple.JSONObject;
 
 import java.io.*;
+import java.text.Normalizer;
 import java.util.*;
 
 // Pages to scrape:
@@ -34,33 +35,66 @@ public class Scraper {
 
         HashMap<String, String> newMap = convertJsonToMap(new File("data files/betterMerged.json"));
 
-        FileWriter fileWriter = new FileWriter("teamDatabase.json");
+        FileWriter fileWriter = new FileWriter("teamDatabaseBetter.json");
         Set<Team> teamList = new HashSet<>();
+        ArrayList<Footballer> footballerList = new ArrayList<>();
 
         int i = 0;
         for (String name: names) {
             String link = newMap.get(name);
 
             if (!(link == null)) {
-                TreeMap<String, String> map = scrapeFootballerTeams(link);
-                for (Map.Entry<String, String> entry: map.entrySet()) {
-                    String teamName = entry.getKey();
-                    String teamLink = entry.getValue();
+                TreeMap<String,List<String>> career = scrapePlayerCareers(link);
+                List<String> list = scrapeWikiNames(link);
+                String playerName = Normalizer.normalize(list.get(0), Normalizer.Form.NFD).replaceAll("[\\p{InCombiningDiacriticalMarks}]", ""),
+                        birthday = list.get(1),
+                        country = Normalizer.normalize(list.get(2), Normalizer.Form.NFD).replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
 
-                    Team team = new Team(teamName, teamLink);
-                    teamList.add(team);
+                Footballer footballer;
+                if (career.get("clubLinks") == null) {
+                    footballer = new Footballer(playerName, birthday, country, link);
+                } else {
+                    String clubLink = career.get("clubLinks").get(0);
+                    footballer = new Footballer(playerName, birthday, country, link);
                 }
 
-                i++;
-                System.out.println(i);
-            }
+                footballer.teams = career;
 
+                footballerList.add(footballer);
+                System.out.println(i);
+                i++;
+            }
         }
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        fileWriter.write(gson.toJson(teamList));
+        fileWriter.write(gson.toJson(footballerList));
 
         fileWriter.close();
+
+//        i = 0;
+//        for (String name: names) {
+//            String link = newMap.get(name);
+//
+//            if (!(link == null)) {
+//                TreeMap<String, String> map = scrapeFootballerTeams(link);
+//                for (Map.Entry<String, String> entry: map.entrySet()) {
+//                    String teamName = entry.getKey();
+//                    String teamLink = entry.getValue();
+//
+//                    Team team = new Team(teamName, teamLink);
+//                    teamList.add(team);
+//                }
+//
+//                i++;
+//                System.out.println(i);
+//            }
+//
+//        }
+//
+//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//        fileWriter.write(gson.toJson(teamList));
+
+//        fileWriter.close();
     }
 
     public static TreeMap scrapePlayerCareers(String link) throws Exception {
@@ -69,6 +103,7 @@ public class Scraper {
         Document doc = Jsoup.connect(link).userAgent("Chrome").get();
         Elements playerTable = doc.select("table.infobox.vcard");
         Elements rows = playerTable.select("th.infobox-label");
+        String wikiBaseLink = "https://en.wikipedia.org";
 
         TreeMap<String, List<String>> return_val = new TreeMap<>();
         for (Element row: rows) {
@@ -79,24 +114,61 @@ public class Scraper {
                 String year = potentialDuration.split("\\[")[0];
 
                 if (!(year.isEmpty())) {
-                    String club = row.parent().select("td").eq(0).text().split("\\[")[0];
+                    String club = Normalizer.normalize(row.parent().select("td").eq(0).text().split("\\[")[0], Normalizer.Form.NFD)
+                            .replaceAll("[\\p{InCombiningDiacriticalMarks}]", "")
+                            .replace("→", "") // in the case of loan
+                            .replace("(loan)", "") // self-explanatory
+                            .split("\\(")[0]
+                            .trim() // remove leading and trailing zeroes
+                            .replaceAll("\\[. *\\]", "") // remove anything inside brackets ..
+                            .replaceAll("\\(. *\\)", ""); // .. and parentheses;
+                    String clubLink = row.parent().select("td").eq(0).select("a").attr("href").split("\\[")[0];
+
                     return_val.putIfAbsent(year, new ArrayList<>());
                     return_val.get(year).add(club.split("\\[")[0]);
+
+                    if (clubLink.isEmpty() || clubLink.toLowerCase(Locale.ROOT).contains("redlink") || (return_val.containsKey("clubLinks") && return_val.get("clubLinks").contains(wikiBaseLink + clubLink))) continue;
+                    return_val.putIfAbsent("clubLinks", new ArrayList<>());
+                    return_val.get("clubLinks").add(wikiBaseLink + clubLink);
                 }
             } else if (row.text().contains("–")) {
                 String[] years = potentialDuration.split("–");
                 if (years.length == 2) {
                     String firstYear = years[0];
                     String secondYear = years[1];
-                    String club = row.parent().select("td").eq(0).text().split("\\[")[0];
+                    String club = Normalizer.normalize(row.parent().select("td").eq(0).text().split("\\[")[0], Normalizer.Form.NFD)
+                            .replaceAll("[\\p{InCombiningDiacriticalMarks}]", "")
+                            .replace("→", "") // in the case of loan
+                            .replace("(loan)", "") // self-explanatory
+                            .split("\\(")[0]
+                            .trim() // remove leading and trailing zeroes
+                            .replaceAll("\\[. *\\]", "") // remove anything inside brackets ..
+                            .replaceAll("\\(. *\\)", ""); // .. and parentheses;
+                    String clubLink = row.parent().select("td").eq(0).select("a").attr("href").split("\\[")[0];
 
                     return_val.putIfAbsent(potentialDuration, new ArrayList<>());
                     return_val.get(potentialDuration).add(club.split("\\[")[0]);
+
+                    if (clubLink.isEmpty() || clubLink.toLowerCase(Locale.ROOT).contains("redlink") || (return_val.containsKey("clubLinks") && return_val.get("clubLinks").contains(wikiBaseLink + clubLink))) continue;
+                    return_val.putIfAbsent("clubLinks", new ArrayList<>());
+                    return_val.get("clubLinks").add(wikiBaseLink + clubLink);
                 } else if (years.length == 1) {
-                    String club = row.parent().select("td").eq(0).text().split("\\[")[0];
+                    String club = Normalizer.normalize(row.parent().select("td").eq(0).text().split("\\[")[0], Normalizer.Form.NFD)
+                            .replaceAll("[\\p{InCombiningDiacriticalMarks}]", "")
+                            .replace("→", "") // in the case of loan
+                            .replace("(loan)", "") // self-explanatory
+                            .split("\\(")[0]
+                            .trim() // remove leading and trailing zeroes
+                            .replaceAll("\\[. *\\]", "") // remove anything inside brackets ..
+                            .replaceAll("\\(. *\\)", ""); // .. and parentheses;
+                    String clubLink = row.parent().select("td").eq(0).select("a").attr("href").split("\\[")[0];
 
                     return_val.putIfAbsent(potentialDuration, new ArrayList<>());
                     return_val.get(potentialDuration).add(club.split("\\[")[0]);
+
+                    if (clubLink.isEmpty() || clubLink.toLowerCase(Locale.ROOT).contains("redlink") || (return_val.containsKey("clubLinks") && return_val.get("clubLinks").contains(wikiBaseLink + clubLink))) continue;
+                    return_val.putIfAbsent("clubLinks", new ArrayList<>());
+                    return_val.get("clubLinks").add(wikiBaseLink + clubLink);
                 }
             }
         }
@@ -104,7 +176,6 @@ public class Scraper {
         return return_val;
     }
 
-    // Do something here to check for a valid link.
     public static TreeMap scrapeFootballerTeams(String link) throws Exception {
         TreeMap<String, String> return_val = new TreeMap<>();
 

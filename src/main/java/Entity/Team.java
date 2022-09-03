@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Team {
     String name;
     String link;
-    ArrayList<String> players;
+    public ArrayList<String> players;
 
     public Team() {}
 

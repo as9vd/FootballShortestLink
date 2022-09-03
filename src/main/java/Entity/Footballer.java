@@ -8,13 +8,15 @@ public class Footballer {
     String birthday;
     String name;
     String country;
+    String link;
 
     public Footballer() {}
 
-    public Footballer(String name, String birthday, String country) {
+    public Footballer(String name, String birthday, String country, String link) {
         this.name = name;
         this.birthday = birthday;
         this.country = country;
+        this.link = link;
     }
 
     @Override public String toString() {
