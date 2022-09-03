@@ -5,10 +5,10 @@ import java.util.TreeMap;
 
 public class Footballer {
     public TreeMap<String, List<String>> teams = new TreeMap<>(); // team name : duration (a list in the case of a Paul Pogba or Mathieu Flamini).
-    String birthday;
-    String name;
-    String country;
-    String link;
+    public String birthday;
+    public String name;
+    public String country;
+    public String link;
 
     public Footballer() {}
 
@@ -20,6 +20,6 @@ public class Footballer {
     }
 
     @Override public String toString() {
-        return name + " (" + birthday + "), born " + country + "; " + teams;
+        return name + " " + birthday + ", born " + country + "; " + teams;
     }
 }

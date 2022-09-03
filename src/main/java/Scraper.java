@@ -11,6 +11,8 @@ import org.jsoup.select.Elements;
 import org.json.simple.JSONObject;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.Normalizer;
 import java.util.*;
 
@@ -23,6 +25,10 @@ import java.util.*;
 // 6. La Liga pages: get Pichichi trophy rankers, top scorers, etc. Might be a bit of a nightmare keeping track of all the tables, to be fair.
 public class Scraper {
     public static void main(String[] args) throws Exception {
+
+    }
+
+    public static void mergeFootballersAndTeams() throws Exception {
         BufferedReader reader;
         ArrayList<String> names = new ArrayList<>();
         reader = new BufferedReader(new FileReader("data files/decentStrings.txt"));
@@ -31,12 +37,8 @@ public class Scraper {
             names.add(line.split(",")[0]);
             line = reader.readLine();
         }
-        reader.close();
 
         HashMap<String, String> newMap = convertJsonToMap(new File("data files/betterMerged.json"));
-
-        FileWriter fileWriter = new FileWriter("teamDatabaseBetter.json");
-        Set<Team> teamList = new HashSet<>();
         ArrayList<Footballer> footballerList = new ArrayList<>();
 
         int i = 0;
@@ -66,35 +68,64 @@ public class Scraper {
             }
         }
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        fileWriter.write(gson.toJson(footballerList));
+        Set<Team> teamList = new HashSet<>();
+        HashMap<String, List<String>> teams = new HashMap<>();
+        i = 0;
+        for (String name: names) {
+            String link = newMap.get(name);
 
+            if (!(link == null)) {
+                TreeMap<String, String> map = scrapeFootballerTeams(link);
+                for (Map.Entry<String, String> entry: map.entrySet()) {
+                    String teamName = Normalizer.normalize(entry.getKey(), Normalizer.Form.NFD)
+                            .replaceAll("[\\p{InCombiningDiacriticalMarks}]", "")
+                            .replace("→", "") // in the case of loan
+                            .replace("(loan)", "") // self-explanatory
+                            .split("\\(")[0]
+                            .trim() // remove leading and trailing spaces
+                            .replaceAll("\\[. *\\]", "") // remove anything inside brackets ..
+                            .replaceAll("\\(. *\\)", ""); // .. and parentheses;
+                    String teamLink = entry.getValue();
+
+                    Team team = new Team(teamName, teamLink);
+                    teamList.add(team);
+                }
+
+                i++;
+            }
+
+        }
+
+        Gson gson = new Gson();
+        Reader fileReader = Files.newBufferedReader(Paths.get("footballerDatabase.json"));
+
+        Footballer[] footballerJson = new Gson().fromJson(fileReader, Footballer[].class);
+        List<Footballer> asList = Arrays.asList(footballerJson);
+
+        // For each team in the list, we're going to:
+        // 1. Iterate through all the footballers.
+        // 2. Find those who have played for the side.
+        // 3. Add them to the team's player list.
+        for (Team team: teamList) {
+            for (int x = 0; x < asList.size(); x++) {
+                // footballer's career prints out as "time span : club".
+                Footballer currentFootballer = asList.get(x);
+                for (List<String> footballerTeam: currentFootballer.teams.values()) {
+                    for (int y = 0; y < footballerTeam.size(); y++) {
+                        String currTeam = footballerTeam.get(y);
+                        if (currTeam.equals(team.name)) {
+                            if (!(team.players.contains(currentFootballer.name))) team.players.add(currentFootballer.name);
+                        }
+                    }
+                }
+            }
+        }
+
+        FileWriter fileWriter = new FileWriter("teamDatabase.json");
+        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
+        fileWriter.write(gson.toJson(teamList));
         fileWriter.close();
-
-//        i = 0;
-//        for (String name: names) {
-//            String link = newMap.get(name);
-//
-//            if (!(link == null)) {
-//                TreeMap<String, String> map = scrapeFootballerTeams(link);
-//                for (Map.Entry<String, String> entry: map.entrySet()) {
-//                    String teamName = entry.getKey();
-//                    String teamLink = entry.getValue();
-//
-//                    Team team = new Team(teamName, teamLink);
-//                    teamList.add(team);
-//                }
-//
-//                i++;
-//                System.out.println(i);
-//            }
-//
-//        }
-//
-//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//        fileWriter.write(gson.toJson(teamList));
-
-//        fileWriter.close();
+        reader.close();
     }
 
     public static TreeMap scrapePlayerCareers(String link) throws Exception {
@@ -243,13 +274,14 @@ public class Scraper {
 
         JSONObject merged = new JSONObject();
         JSONObject[] objs = new JSONObject[] {ec, bdor};
-//        for (JSONObject obj : objs) {
-//            Iterator it = obj.keys();
-//            while (it.hasNext()) {
-//                String key = (String)it.next();
+
+        // fix this eventually:
+        for (JSONObject obj : objs) {
+            obj.keySet().forEach(keyStr -> {
+//                String key = (String) it.next();
 //                merged.put(key, obj.get(key));
-//            }
-//        }
+            });
+        }
 
         FileWriter fileWriter = new FileWriter("merged.json");
 
@@ -264,20 +296,23 @@ public class Scraper {
         try {
             String baseLink = "https://en.wikipedia.org/wiki/";
 
+            // iterating through the 55 - 90 European Cup pages to find the top scorers.
             for (int i = 55; i <= 90; i++) {
                 String link = baseLink + "19" + i + "-" + (i + 1) + "_European_Cup";
                 Document doc = Jsoup.connect(link).userAgent("Chrome").get();
                 String playerBaseLink = "https://en.wikipedia.org";
 
+                // not just the top scorers, but all the goalscorers leading up to the final
                 Elements homeGoals = doc.select("div.footballbox").select("td.fhgoal").select("a");
                 Elements awayGoals = doc.select("div.footballbox").select("td.fagoal").select("a");
 
                 for (Element goal: homeGoals) {
                     String playerName = goal.attr("title");
 
+                    // if it's an invalid goal scorer
                     if (playerName.contains("does not") ||
                             playerName.contains("Penalty kick") ||
-                            playerName.contains("goal")) { // "does not exist", "penalty kick", "own goal"
+                            playerName.contains("goal")) { // page "does not exist", "penalty kick", "own goal"
                         continue;
                     } else {
                         playerName = playerName.split(" \\(")[0]; // Just in case of "xxxx xxxxx (footballer, born xxxx)".
@@ -310,6 +345,7 @@ public class Scraper {
             String playerBaseLink = "https://en.wikipedia.org";
             char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
+            // Iterate through every character and append to the baseLink to get all the players for that particular letter.
             for (Character letter: alphabet) {
                 String currentLetter = Character.toString(letter);
                 String link = baseLink + currentLetter;
@@ -328,8 +364,6 @@ public class Scraper {
                 JSONObject object = new JSONObject(footballNames);
 
                 return object;
-                //                ObjectMapper mapper = new ObjectMapper();
-//                mapper.writeValue(new File("europeanCupWinners.json"), footballNames);
             }
         } catch(Exception e) {
             e.printStackTrace();
@@ -409,9 +443,6 @@ public class Scraper {
             }
 
             footballNames.remove(" "); footballNames.remove("");
-
-            //                ObjectMapper mapper = new ObjectMapper();
-            //                mapper.writeValue(new File("ballonDorVotees.json"), footballNames);
 
             JSONObject object = new JSONObject(footballNames);
             return object;

@@ -1,18 +1,23 @@
 package Entity;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class Team {
-    String name;
-    String link;
-    public ArrayList<String> players;
+    public String name;
+    public String link;
+    public Set<String> players = new HashSet<>();
 
     public Team() {}
 
     public Team(String name, String link) {
         this.name = name;
         this.link = link;
+    }
+
+    @Override public String toString() {
+        return "Team{" + "name='" + name + '\'' + ", link='" + link + '\'' + ", players=" + players + '}';
     }
 
     @Override public boolean equals(Object o) {
