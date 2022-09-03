@@ -125,6 +125,7 @@ public class Scraper {
 
             if (row.select("a").hasAttr("href")) {
                 String teamLink = row.select("a").attr("href");
+                if (teamLink.toLowerCase(Locale.ROOT).contains("redlink")) continue;
                 return_val.putIfAbsent(club, wikiBaseLink + teamLink);
             } else {
                 continue;
