@@ -1,4 +1,5 @@
 import Entity.Footballer;
+import Entity.Team;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -33,31 +34,31 @@ public class Scraper {
 
         HashMap<String, String> newMap = convertJsonToMap(new File("data files/betterMerged.json"));
 
-        FileWriter fileWriter = new FileWriter("footballerDatabase.json");
-        ArrayList<Footballer> footballerList = new ArrayList<>();
+        FileWriter fileWriter = new FileWriter("teamDatabase.json");
+        Set<Team> teamList = new HashSet<>();
 
         int i = 0;
         for (String name: names) {
             String link = newMap.get(name);
 
             if (!(link == null)) {
-                TreeMap<String,List<String>> career = scrapePlayerCareers(link);
-                List<String> list = scrapeWikiNames(link);
-                String playerName = list.get(0), birthday = list.get(1), country = list.get(2);
+                TreeMap<String, String> map = scrapeFootballerTeams(link);
+                for (Map.Entry<String, String> entry: map.entrySet()) {
+                    String teamName = entry.getKey();
+                    String teamLink = entry.getValue();
 
-                Gson innerGson = new Gson();
-                Footballer footballer = new Footballer(playerName, birthday, country);
-                footballer.teams = career;
+                    Team team = new Team(teamName, teamLink);
+                    teamList.add(team);
+                }
 
-                footballerList.add(footballer);
-                System.out.println(i);
                 i++;
+                System.out.println(i);
             }
 
         }
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        fileWriter.write(gson.toJson(footballerList));
+        fileWriter.write(gson.toJson(teamList));
 
         fileWriter.close();
     }
@@ -97,6 +98,36 @@ public class Scraper {
                     return_val.putIfAbsent(potentialDuration, new ArrayList<>());
                     return_val.get(potentialDuration).add(club.split("\\[")[0]);
                 }
+            }
+        }
+
+        return return_val;
+    }
+
+    // Do something here to check for a valid link.
+    public static TreeMap scrapeFootballerTeams(String link) throws Exception {
+        TreeMap<String, String> return_val = new TreeMap<>();
+
+        Document doc = Jsoup.connect(link).userAgent("Chrome").get();
+        Elements playerTable = doc.select("table.infobox.vcard");
+        Elements rows = playerTable.select("td.infobox-data-a");
+        String wikiBaseLink = "https://en.wikipedia.org";
+
+        for (Element row: rows) {
+            String club = row.text()
+                    .replace("→", "") // in the case of loan
+                    .replace("(loan)", "") // self-explanatory
+                    .trim() // remove leading and trailing zeroes
+                    .replaceAll("\\[. *\\]", "") // remove anything inside brackets ..
+                    .replaceAll("\\(. *\\)", ""); // .. and parentheses
+
+            row.select("a").hasAttr("href");
+
+            if (row.select("a").hasAttr("href")) {
+                String teamLink = row.select("a").attr("href");
+                return_val.putIfAbsent(club, wikiBaseLink + teamLink);
+            } else {
+                continue;
             }
         }
 
