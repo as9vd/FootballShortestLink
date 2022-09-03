@@ -1,8 +1,8 @@
+import Entity.Footballer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.simple.parser.JSONParser;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -23,7 +23,7 @@ public class Scraper {
     public static void main(String[] args) throws Exception {
         BufferedReader reader;
         ArrayList<String> names = new ArrayList<>();
-        reader = new BufferedReader(new FileReader("decentStrings.txt"));
+        reader = new BufferedReader(new FileReader("data files/decentStrings.txt"));
         String line = reader.readLine();
         while (line != null) {
             names.add(line.split(",")[0]);
@@ -31,58 +31,79 @@ public class Scraper {
         }
         reader.close();
 
-        HashMap<String, String> newMap = convertJsonToMap(new File("betterMerged.json"));
+        HashMap<String, String> newMap = convertJsonToMap(new File("data files/betterMerged.json"));
+
+        FileWriter fileWriter = new FileWriter("footballerDatabase.json");
+        ArrayList<Footballer> footballerList = new ArrayList<>();
+
+        int i = 0;
         for (String name: names) {
             String link = newMap.get(name);
+
             if (!(link == null)) {
-                System.out.println(name);
-                scrapePlayerCareers(link);
-                System.out.println();
+                TreeMap<String,List<String>> career = scrapePlayerCareers(link);
+                List<String> list = scrapeWikiNames(link);
+                String playerName = list.get(0), birthday = list.get(1), country = list.get(2);
+
+                Gson innerGson = new Gson();
+                Footballer footballer = new Footballer(playerName, birthday, country);
+                footballer.teams = career;
+
+                footballerList.add(footballer);
+                System.out.println(i);
+                i++;
             }
+
         }
 
-//        scrapePlayerCareers("https://en.wikipedia.org/wiki/Branko_Elsner");
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        fileWriter.write(gson.toJson(footballerList));
+
+        fileWriter.close();
     }
 
-    public static void scrapePlayerCareers(String link) throws Exception {
+    public static TreeMap scrapePlayerCareers(String link) throws Exception {
         // table.infobox.vcard: what needs to be scraped. Seems to be the consistent across these decent players.
         // Every single bit of info is in the <tbody> element. Even on a page like Romario's.
         Document doc = Jsoup.connect(link).userAgent("Chrome").get();
         Elements playerTable = doc.select("table.infobox.vcard");
         Elements rows = playerTable.select("th.infobox-label");
 
-        /* "Players" whose tables are not intuitive to scrape:
-        * 1. Jill Ellis (her managed table has 'years' for some reason).
-        * 2. Geoff Hurst (played cricket; table just below main one with cricket years)
-        * 3. AVB (not even a youth career.)
-        * 4. Sampaoli (no playing career, just youth.)
-        * 5. Jorge Vilda (no playing career, just youth.)
-        * It also prints out multiple times if there are multiple tables with 'years'. Ellis and Hurst are two examples.
-        * */
+        TreeMap<String, List<String>> return_val = new TreeMap<>();
         for (Element row: rows) {
             String potentialDuration = row.text();
 
             // 1. "-1992" (e.g. in case of Nwankwo Kanu) turns into 0000-1992.
-            // 2. Also don't take manager careers into account.
             if (potentialDuration.matches("^[0-9]{4}$") || potentialDuration.isEmpty()) {
                 String year = potentialDuration.split("\\[")[0];
 
-                if (!(year.isEmpty())) System.out.println(year + "; " + row.parent().select("td").eq(0).text().split("\\[")[0]);
+                if (!(year.isEmpty())) {
+                    String club = row.parent().select("td").eq(0).text().split("\\[")[0];
+                    return_val.putIfAbsent(year, new ArrayList<>());
+                    return_val.get(year).add(club.split("\\[")[0]);
+                }
             } else if (row.text().contains("–")) {
                 String[] years = potentialDuration.split("–");
                 if (years.length == 2) {
                     String firstYear = years[0];
                     String secondYear = years[1];
+                    String club = row.parent().select("td").eq(0).text().split("\\[")[0];
 
-                    System.out.println(firstYear + "-" + secondYear + "; " + row.parent().select("td").eq(0).text().split("\\[")[0]);
+                    return_val.putIfAbsent(potentialDuration, new ArrayList<>());
+                    return_val.get(potentialDuration).add(club.split("\\[")[0]);
                 } else if (years.length == 1) {
-                    System.out.println(potentialDuration.split("\\[")[0] + "; " + row.parent().select("td").eq(0).text().split("\\[")[0]);
+                    String club = row.parent().select("td").eq(0).text().split("\\[")[0];
+
+                    return_val.putIfAbsent(potentialDuration, new ArrayList<>());
+                    return_val.get(potentialDuration).add(club.split("\\[")[0]);
                 }
             }
         }
+
+        return return_val;
     }
 
-    public static String scrapeWikiNames(String link) throws Exception {
+    public static List<String> scrapeWikiNames(String link) throws Exception {
         Document doc = Jsoup.connect(link).userAgent("Chrome").get();
         Elements playerTable = doc.select("table.infobox.vcard").select("tbody");
         Elements rows = playerTable.select("tr");
@@ -94,10 +115,12 @@ public class Scraper {
         }
 
         String complete = name + ", born " + birthday + " in " + country;
+        ArrayList<String> return_val = new ArrayList<>();
+        return_val.add(name); return_val.add(birthday); return_val.add(country);
 
         if (!(birthday.contains("(")) ||
                 (country.isEmpty())) return null;
-        else return complete;
+        else return return_val;
     }
 
     public static HashMap<String, String> convertJsonToMap(File json) {
