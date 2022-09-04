@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { FootballerService } from './service/footballer.service';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
