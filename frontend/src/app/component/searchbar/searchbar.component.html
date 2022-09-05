@@ -1,34 +1,6 @@
-<!-- <form class="example-form">
-  <input
-    type="text"
-    placeholder="Search for a mate"
-    [formControl]="control"
-    [matAutocomplete]="auto"
-  />
-  <mat-autocomplete #auto="matAutocomplete">
-    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-      {{ option }}
-    </mat-option>
-  </mat-autocomplete>
-</form> -->
-
-<form class="form" [formGroup]="inputForm">
-  >
-  <mat-form-field>
-    <input
-      formControlName="searchBar"
-      type="text"
-      matInput
-      [matAutocomplete]="auto"
-    />
-
-    <mat-autocomplete #auto="matAutocomplete">
-      <mat-option
-        *ngFor="let option of filteredOptions | async"
-        [value]="option"
-      >
-        {{ option }}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-</form>
+<select formControlName="country">
+  <option [ngValue]="null">Bruno Fernandes</option>
+  <option *ngFor="let option of data" [ngValue]="option">
+    {{ option }}
+  </option>
+</select>

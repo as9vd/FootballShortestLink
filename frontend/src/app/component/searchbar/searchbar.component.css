@@ -1,9 +1,22 @@
-.example-form {
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
+form {
+  display: flex;
+  flex-direction: row;
 }
 
-.example-full-width {
-  width: 100%;
+select {
+  box-shadow: 0;
+  border: 0;
+  font-size: 2.3rem;
+}
+
+select {
+  /* for Firefox */
+  -moz-appearance: none;
+  /* for Chrome */
+  -webkit-appearance: none;
+}
+
+/* For IE10 */
+select::-ms-expand {
+  display: none;
 }

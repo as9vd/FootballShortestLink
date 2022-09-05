@@ -3,26 +3,28 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { SearchbarComponent } from './component/searchbar/searchbar.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { HttpClientModule } from '@angular/common/http';
 import { FootballerService } from './service/footballer.service';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSliderModule } from '@angular/material/slider';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [AppComponent, SearchbarComponent],
   imports: [
     BrowserModule,
     NoopAnimationsModule,
-    MatAutocompleteModule,
-    MatFormFieldModule,
-    MatInputModule,
+    AutocompleteLibModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSliderModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
   ],
   providers: [FootballerService],
   bootstrap: [AppComponent],

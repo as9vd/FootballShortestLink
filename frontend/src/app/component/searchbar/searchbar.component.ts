@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { map, Observable } from 'rxjs';
 import { FootballerService } from 'src/app/service/footballer.service';
 import { startWith } from 'rxjs/operators';
+import * as footballers from '../../../assets/footballerDatabase.json';
 
 @Component({
   selector: 'searchbar',
@@ -10,29 +11,22 @@ import { startWith } from 'rxjs/operators';
   styleUrls: ['./searchbar.component.css'],
 })
 export class SearchbarComponent implements OnInit {
-  control = new FormControl('');
-  title = 'autocomplete';
-  options: string[] = ['John', 'Stones', 'Ledley King', 'Marlon King'];
-  filteredOptions!: Observable<string[]>;
-  inputForm!: FormGroup;
+  keyword = 'name';
+  contactForm!: FormGroup;
+  data: string[] = [];
 
   constructor(private footballerService: FootballerService) {}
 
   ngOnInit() {
-    this.filteredOptions = this.control.valueChanges.pipe(
-      startWith(''),
-      map((value) => this._filter(value || ''))
-    );
+    this.footballerService.getFootballerList().subscribe((res: any) => {
+      res.forEach((element: any) => {
+        this.data.push(element.name);
+      });
+      this.data.sort((one, two) => (two > one ? -1 : 1));
+    });
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = this._normalizeValue(value);
-    return this.options.filter((option) =>
-      this._normalizeValue(option).includes(filterValue)
-    );
-  }
-
-  private _normalizeValue(value: string): string {
-    return value.toLowerCase().replace(/\s/g, '');
+  submit() {
+    console.log(this.data);
   }
 }
