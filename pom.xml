@@ -73,6 +73,11 @@
             <artifactId>json-smart</artifactId>
             <version>2.3</version>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>15</version>
+        </dependency>
     </dependencies>
 
 </project>

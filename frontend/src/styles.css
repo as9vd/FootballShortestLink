@@ -57,13 +57,13 @@ h1 {
 }
 
 .generate-btn:hover {
-  transform: scale(1.075);
+  background-color: #d90429;
   cursor: pointer;
 }
 
 .generate-btn:active {
-  transform: scale(1.15);
-  background-color: #d90429;
+  transform: scale(1.05);
+  background-color: #ff0022;
 }
 
 .input-name input {
@@ -90,10 +90,6 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-searchbar {
-  margin-top: 1.2rem;
-}
-
 html,
 body {
   height: 100%;
@@ -106,4 +102,5 @@ body {
 searchbar {
   margin-top: 0rem;
   height: 100%;
+  width: 50%;
 }

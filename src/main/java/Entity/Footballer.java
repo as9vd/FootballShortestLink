@@ -1,6 +1,7 @@
 package Entity;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.TreeMap;
 
 public class Footballer {
@@ -17,6 +18,19 @@ public class Footballer {
         this.birthday = birthday;
         this.country = country;
         this.link = link;
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Footballer))
+            return false;
+        Footballer that = (Footballer) o;
+        return Objects.equals(name, that.name) && Objects.equals(link, that.link);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(teams, birthday, name, country, link);
     }
 
     @Override public String toString() {

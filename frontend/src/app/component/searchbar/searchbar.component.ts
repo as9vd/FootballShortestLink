@@ -20,7 +20,7 @@ export class SearchbarComponent implements OnInit {
   ngOnInit() {
     this.footballerService.getFootballerList().subscribe((res: any) => {
       res.forEach((element: any) => {
-        this.data.push(element.name);
+        this.data.push(element.name + ' ' + element.birthday);
       });
       this.data.sort((one, two) => (two > one ? -1 : 1));
     });
