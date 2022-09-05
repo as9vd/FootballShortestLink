@@ -1,8 +1,6 @@
 package Entity;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Footballer {
     public TreeMap<String, List<String>> teams = new TreeMap<>(); // team name : duration (a list in the case of a Paul Pogba or Mathieu Flamini).
@@ -10,6 +8,7 @@ public class Footballer {
     public String name;
     public String country;
     public String link;
+    public Set<String> children = new HashSet<>();
 
     public Footballer() {}
 
