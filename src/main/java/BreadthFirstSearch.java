@@ -17,7 +17,8 @@ import java.util.*;
 // Wow. Not as complicated as I thought it was.
 public class BreadthFirstSearch {
     public static void main(String[] args) throws Exception {
-        bfs("Dennis Bergkamp", "Gianluigi Donnarumma");
+//        bfs("Jean-Claude Suaudeau", "Mason Greenwood");
+        buildAdjacencyList();
     }
 
     public static int bfs(String start, String dest) throws Exception {
@@ -70,20 +71,21 @@ public class BreadthFirstSearch {
 
     public static void buildAdjacencyList() throws Exception {
         Gson gson = new GsonBuilder().create();
-        JsonReader reader = new JsonReader(new FileReader("footballerDatabase.json"));
+        JsonReader reader = new JsonReader(new FileReader("AllDefenders.json"));
 
         Footballer[] list = gson.fromJson(reader, Footballer[].class);
 
         int i = 0;
         for (Footballer currFootballer: list) {
             for (Footballer iterFootballer: list) {
+                System.out.println(iterFootballer);
                 if (currFootballer.equals(iterFootballer)) continue;
                 checkForOverlap(currFootballer, iterFootballer);
             }
             i++;
         }
 
-        FileWriter fileWriter = new FileWriter("Kids.json");
+        FileWriter fileWriter = new FileWriter("BetterKids.json");
         Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
         fileWriter.write(gson.toJson(list));
         fileWriter.close();

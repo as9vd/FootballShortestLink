@@ -1,12 +1,13 @@
 select {
   box-shadow: 0;
   border: 0;
-  font-size: 2.3rem;
+  font-size: 3rem;
 }
 
 select {
   -moz-appearance: none;
   -webkit-appearance: none;
+  max-width: 24rem;
 }
 
 select::-ms-expand {

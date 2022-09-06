@@ -15,7 +15,7 @@
 h1 {
   color: #262626;
   font-weight: 800;
-  font-size: 3.6rem;
+  font-size: 4.8rem;
   margin-top: 2.4rem;
   padding: 0;
 }
@@ -26,8 +26,17 @@ h1 {
   flex-direction: column;
   margin-top: -2.4rem;
   align-items: center;
+  justify-content: center;
   max-height: 30%;
   height: 30%;
+}
+
+.input-container p {
+  font-size: 3rem;
+  gap: 0rem;
+  margin: 0;
+  font-weight: 500;
+  margin-top: 1.8rem;
 }
 
 .input-name {
@@ -42,18 +51,17 @@ h1 {
 }
 
 .generate-btn {
-  width: 15%;
-  font-size: 1.8rem;
-  border: 0;
+  width: 20%;
+  font-size: 2.2rem;
   padding: 0.2rem;
   color: #f4fdfd;
-  /* background-color: #bf616a; */
-  /* background-color: #8bb174; */
   background-color: #dd2d4a;
-  border-radius: 2.5rem;
+  border-radius: 200rem;
   transition: all 0.25s;
   font-weight: 500;
-  height: 3.8rem;
+  height: 6rem;
+  margin-top: 3.4rem;
+  border: 2px solid #1a1a1a;
 }
 
 .generate-btn:hover {
@@ -63,7 +71,8 @@ h1 {
 
 .generate-btn:active {
   transform: scale(1.05);
-  background-color: #ff0022;
+  color: #262626;
+  background-color: #f4fdfd;
 }
 
 .input-name input {
@@ -90,17 +99,12 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-html,
-body {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
 searchbar {
   margin-top: 0rem;
   height: 100%;
   width: 50%;
+}
+
+nodes {
+  margin-top: 3.6rem;
 }

@@ -11,9 +11,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { NodesComponent } from './component/nodes/nodes.component';
 
 @NgModule({
-  declarations: [AppComponent, SearchbarComponent],
+  declarations: [AppComponent, SearchbarComponent, NodesComponent],
   imports: [
     BrowserModule,
     NoopAnimationsModule,
