@@ -1,8 +1,11 @@
 import Entity.Footballer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import javafx.util.Pair;
+
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.*;
@@ -14,6 +17,58 @@ import java.util.*;
 // Wow. Not as complicated as I thought it was.
 public class BreadthFirstSearch {
     public static void main(String[] args) throws Exception {
+        bfs("Dennis Bergkamp", "Gianluigi Donnarumma");
+    }
+
+    public static int bfs(String start, String dest) throws Exception {
+        Gson gson = new GsonBuilder().create();
+        JsonReader reader = new JsonReader(new FileReader("Kids.json"));
+        TypeToken<List<Footballer>> token = new TypeToken<List<Footballer>>() {};
+        List<Footballer> footballers = gson.fromJson(reader, token.getType());
+        Footballer currFootballer = null;
+
+        Set<String> visited = new HashSet<>();
+        Queue<Pair<Pair<Integer,String>,String>> queue = new LinkedList<>(); // (steps : player) : route so far
+        queue.offer(new Pair(new Pair(1, start), ""));
+
+        while (!(queue.isEmpty())) {
+            int currSteps = queue.peek().getKey().getKey();
+            String currPlayer = queue.peek().getKey().getValue();
+            String route = queue.poll().getValue();
+
+            System.out.println(route);
+
+            if (currPlayer.equals(dest)) {
+                route += "->" + dest;
+                System.out.println(route);
+                return currSteps;
+            }
+            else if (visited.contains(currPlayer)) continue;
+
+            visited.add(currPlayer);
+            for (Footballer footballer: footballers) {
+                if (footballer.name.equals(currPlayer)) {
+                    currFootballer = footballer;
+                    break;
+                }
+            }
+
+            if (currFootballer == null) return -1;
+
+            Set<String> children = currFootballer.children;
+            for (String name: children) {
+                if (route.isEmpty()) {
+                    queue.offer(new Pair(new Pair(currSteps + 1, name), currPlayer));
+                } else {
+                    queue.offer(new Pair(new Pair(currSteps + 1, name), route + "->" + currPlayer));
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    public static void buildAdjacencyList() throws Exception {
         Gson gson = new GsonBuilder().create();
         JsonReader reader = new JsonReader(new FileReader("footballerDatabase.json"));
 
@@ -25,7 +80,6 @@ public class BreadthFirstSearch {
                 if (currFootballer.equals(iterFootballer)) continue;
                 checkForOverlap(currFootballer, iterFootballer);
             }
-            System.out.println(i + "; " + currFootballer);
             i++;
         }
 
