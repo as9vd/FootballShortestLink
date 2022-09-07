@@ -12,7 +12,9 @@ export class NodesComponent implements OnInit {
 
   constructor(@Inject(BfsService) private bfsService: BfsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.players = [];
+  }
 
   ngOnChanges(): void {
     this.bfsService.getRoute().subscribe((res: any) => {

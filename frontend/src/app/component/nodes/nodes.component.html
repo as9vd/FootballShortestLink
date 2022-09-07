@@ -1,15 +1,13 @@
 <div class="container">
   <div class="nodes">
-    <button *ngFor="let player of players" class="node node-red">
-      {{ player }}
-    </button>
-
-    <!-- <button class="node node-red">🔴 Ryan Giggs</button>
-    <button class="node node-orange">🟠 Ryan Gravenberch</button>
-    <button class="node node-yellow">🟡 Robert Lewandowski</button>
-    <button class="node node-green">🟢 Francisco García Hernández</button>
-    <button class="node node-blue">🔵 Eric Bailly</button>
-    <button class="node node-purple">🟣 Pirri</button>
-    <button class="node node-black">⚫️ Jairzinho</button> -->
+    <ng-container *ngFor="let player of players; index as i">
+      <button *ngIf="i == 0" class="node node-red">🔴 {{ player }}</button>
+      <button *ngIf="i == 1" class="node node-orange">🟠 {{ player }}</button>
+      <button *ngIf="i == 2" class="node node-yellow">🟡 {{ player }}</button>
+      <button *ngIf="i == 3" class="node node-green">🟢 {{ player }}</button>
+      <button *ngIf="i == 4" class="node node-blue">🔵 {{ player }}</button>
+      <button *ngIf="i == 5" class="node node-purple">🟣 {{ player }}</button>
+      <button *ngIf="i == 6" class="node node-black">⚫️ {{ player }}</button>
+    </ng-container>
   </div>
 </div>

@@ -16,7 +16,7 @@ export class SearchbarComponent implements OnInit {
   contactForm!: FormGroup;
   data: string[] = [];
   player1: string = 'RyanSEPGiggs';
-  player2: string = '';
+  player2: string = 'BrunoSEPFernandes';
   result: string = '';
 
   nodes: string[] = [];
@@ -33,11 +33,26 @@ export class SearchbarComponent implements OnInit {
       });
       this.data.sort((one, two) => (two > one ? -1 : 1));
     });
+
+    this.bfsService.setFootballerOne('Ryan Giggs');
+    this.bfsService.setFootballerTwo(this.player2);
+
+    this.bfsService.getRoute().subscribe((res: any) => {
+      this.result = res;
+    });
+
+    this.player2 = '';
+
+    let response = this.result.split('->');
+    for (let i = 0; i < response.length; i++) {
+      this.nodes.push(response[i]);
+    }
   }
 
   onChange($event: Event, deviceValue: string) {
-    let parts = deviceValue.split(' (');
     this.result = '';
+    this.nodes = [];
+    let parts = deviceValue.split(' (');
 
     for (let i = 0; i < parts.length; i++) {
       let curr = deviceValue.split(' ')[i];
@@ -63,5 +78,9 @@ export class SearchbarComponent implements OnInit {
     for (let i = 0; i < response.length; i++) {
       this.nodes.push(response[i]);
     }
+
+    this.nodes = this.nodes.filter(function (e: any) {
+      return e;
+    });
   }
 }
