@@ -20,6 +20,7 @@ export class SearchbarComponent implements OnInit {
   result: string = '';
 
   nodes: string[] = [];
+  loading = true;
 
   constructor(
     @Inject(FootballerService) private footballerService: FootballerService,
@@ -27,6 +28,8 @@ export class SearchbarComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.loading = true;
+
     this.footballerService.getFootballerList().subscribe((res: any) => {
       res.forEach((element: any) => {
         this.data.push(element.name + ' ' + element.birthday);
@@ -47,9 +50,12 @@ export class SearchbarComponent implements OnInit {
     for (let i = 0; i < response.length; i++) {
       this.nodes.push(response[i]);
     }
+
+    this.loading = false;
   }
 
   onChange($event: Event, deviceValue: string) {
+    this.loading = true;
     this.result = '';
     this.nodes = [];
     let parts = deviceValue.split(' (');
@@ -82,5 +88,7 @@ export class SearchbarComponent implements OnInit {
     this.nodes = this.nodes.filter(function (e: any) {
       return e;
     });
+
+    this.loading = false;
   }
 }

@@ -1,13 +1,21 @@
 <div class="container">
-  <div class="nodes">
-    <ng-container *ngFor="let player of players; index as i">
-      <button *ngIf="i == 0" class="node node-red">🔴 {{ player }}</button>
-      <button *ngIf="i == 1" class="node node-orange">🟠 {{ player }}</button>
-      <button *ngIf="i == 2" class="node node-yellow">🟡 {{ player }}</button>
-      <button *ngIf="i == 3" class="node node-green">🟢 {{ player }}</button>
-      <button *ngIf="i == 4" class="node node-blue">🔵 {{ player }}</button>
-      <button *ngIf="i == 5" class="node node-purple">🟣 {{ player }}</button>
-      <button *ngIf="i == 6" class="node node-black">⚫️ {{ player }}</button>
-    </ng-container>
+  <div *ngIf="showLoader">
+    <h1>
+      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
+      TEST TEST TEST
+    </h1>
+  </div>
+  <div *ngIf="!showLoader">
+    <div class="nodes">
+      <ng-container *ngFor="let player of players; index as i">
+        <button *ngIf="i == 0" class="node node-red">🔴 {{ player }}</button>
+        <button *ngIf="i == 1" class="node node-orange">🟠 {{ player }}</button>
+        <button *ngIf="i == 2" class="node node-yellow">🟡 {{ player }}</button>
+        <button *ngIf="i == 3" class="node node-green">🟢 {{ player }}</button>
+        <button *ngIf="i == 4" class="node node-blue">🔵 {{ player }}</button>
+        <button *ngIf="i == 5" class="node node-purple">🟣 {{ player }}</button>
+        <button *ngIf="i == 6" class="node node-black">⚫️ {{ player }}</button>
+      </ng-container>
+    </div>
   </div>
 </div>

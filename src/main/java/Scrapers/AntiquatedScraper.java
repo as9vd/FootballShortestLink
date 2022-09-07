@@ -57,10 +57,10 @@ public class AntiquatedScraper {
 
                 Footballer footballer;
                 if (career.get("clubLinks") == null) {
-                    footballer = new Footballer(playerName, birthday, country, link);
+                    footballer = new Footballer(playerName, birthday, link);
                 } else {
                     String clubLink = career.get("clubLinks").get(0);
-                    footballer = new Footballer(playerName, birthday, country, link);
+                    footballer = new Footballer(playerName, birthday, link);
                 }
 
                 footballer.teams = career;
@@ -183,7 +183,7 @@ public class AntiquatedScraper {
                     return_val.putIfAbsent(potentialDuration, new ArrayList<>());
                     return_val.get(potentialDuration).add(club.split("\\[")[0]);
 
-                    if (clubLink.isEmpty() || clubLink.toLowerCase(Locale.ROOT).contains("redlink") || (return_val.containsKey("clubLinks") && return_val.get("clubLinks").contains(wikiBaseLink + clubLink))) continue;
+                    if (clubLink.isEmpty() || clubLink.toLowerCase(Locale.ROOT).contains("redlink") || (return_val.containsKey("clubLinks") && return_val.get("clubLinks").contains(wikiBaseLink + clubLink)) || firstYear.isEmpty()) continue;
                     return_val.putIfAbsent("clubLinks", new ArrayList<>());
                     return_val.get("clubLinks").add(wikiBaseLink + clubLink);
                 } else if (years.length == 1) {

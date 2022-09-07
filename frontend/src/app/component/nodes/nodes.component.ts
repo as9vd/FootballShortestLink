@@ -9,6 +9,7 @@ import { BfsService } from 'src/app/service/bfs/bfs.service';
 export class NodesComponent implements OnInit {
   @Input() players: string[] = [];
   result: string = '';
+  @Input() showLoader: boolean = false;
 
   constructor(@Inject(BfsService) private bfsService: BfsService) {}
 

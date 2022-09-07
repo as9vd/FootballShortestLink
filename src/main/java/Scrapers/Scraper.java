@@ -3,20 +3,20 @@ package Scrapers;
 import Entity.Footballer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
 import org.json.simple.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.text.Normalizer;
 import java.util.*;
+import static Scrapers.AntiquatedScraper.convertJsonToMap;
 
 public class Scraper {
+    static String[] months = new String[]{"jan","feb","march","april","may","june","july","aug","sep","oct","nov","dec"};
+
     // Last class was good and functional, but this one is better because it'll cover all the ground:
     // https://en.wikipedia.org/wiki/Category:Association_football_defenders
     // https://en.wikipedia.org/wiki/Category:Association_football_forwards
@@ -24,28 +24,67 @@ public class Scraper {
     // https://en.wikipedia.org/wiki/Category:Association_football_midfielders
     // These are all the links necessary to get a proper database in.
     public static void main(String[] args) throws Exception {
-        BufferedReader reader;
-        ArrayList<String> links = new ArrayList<>();
-        reader = new BufferedReader(new FileReader("AllDefenders.txt"));
-        String line = reader.readLine();
-        while (line != null) {
-            links.add(line.split(": ")[1]);
-            line = reader.readLine();
-        }
-
+        //        BufferedReader reader;
+//        ArrayList<String> links = new ArrayList<>();
+//        reader = new BufferedReader(new FileReader("AllDefenders.txt"));
+//        String line = reader.readLine();
+//        while (line != null) {
+//            links.add(line.split(": ")[1]);
+//            line = reader.readLine();
+//        }
+//
+//        Gson gson = new Gson();
+//        ArrayList<Footballer> list = new ArrayList<>();
+//        for (String link: links) {
+//            Footballer footballer = scrapePlayerCareers(link);
+//            if (!(footballer == null)) {
+//                System.out.println(footballer);
+//                list.add(footballer);
+//            }
+//        }
+//
+//        FileWriter fileWriter = new FileWriter("AllDefenders.json");
+//        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
+//        fileWriter.write(gson.toJson(list));
+//        fileWriter.close()
+        HashMap<String, String> newMap = convertJsonToMap(new File("data files/old/betterMerged.json"));
+        ArrayList<Footballer> footballerList = new ArrayList<>();
+        FileWriter fileWriter = new FileWriter("BetterFootballerDatabase.json");
         Gson gson = new Gson();
-        ArrayList<Footballer> list = new ArrayList<>();
-        for (String link: links) {
-            Footballer footballer = scrapePlayerCareers(link);
-            if (!(footballer == null)) {
-                System.out.println(footballer);
-                list.add(footballer);
+
+        for (String name: newMap.keySet()) {
+            String link = newMap.get(name);
+
+            if (!(link == null)) {
+                Footballer footballer = scrapePlayerCareers(link);
+                System.out.println(footballer.teams);
+                if (!(footballer == null) && !(footballer.teams == null)) footballerList.add(footballer);
             }
         }
 
-        FileWriter fileWriter = new FileWriter("AllDefenders.json");
         Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
-        fileWriter.write(gson.toJson(list));
+        fileWriter.write(gson.toJson(footballerList));
+        fileWriter.close();
+    }
+
+    // This is only here for debugging purposes.
+    public static void scrapeInitialListOfLinks() throws Exception {
+        HashMap<String, String> newMap = convertJsonToMap(new File("data files/old/betterMerged.json"));
+        FileWriter fileWriter = new FileWriter("newFootballerDatabase.json");
+        ArrayList<Footballer> footballerList = new ArrayList<>();
+
+        for (String name: newMap.keySet()) {
+            String link = newMap.get(name);
+
+            if (!(link == null)) {
+                Footballer footballer = scrapePlayerCareers(link);
+                footballerList.add(footballer);
+            }
+        }
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        fileWriter.write(gson.toJson(footballerList));
+
         fileWriter.close();
     }
 
@@ -60,7 +99,6 @@ public class Scraper {
                 for (Element a: button.select("a")) {
                     if (a.text().toLowerCase(Locale.ROOT).contains("next")) {
                         String nextPage = a.attr("href");
-                        System.out.println(baseLink + nextPage);
                         scrapePages(baseLink + nextPage);
                     }
                 }
@@ -77,23 +115,33 @@ public class Scraper {
         Elements rows = playerTable.select("th.infobox-label");
         String wikiBaseLink = "https://en.wikipedia.org";
 
-        String birthday = "", name = doc.select("h1.firstHeading").text().split(" \\(")[0], country = "";
+        String birthday = "";
+        String name = doc.select("h1.firstHeading").text().replaceAll("\\(.*?\\)","");
         for (Element row: rows) {
-            if (row.text().toLowerCase(Locale.ROOT).contains("date")) {
-                birthday = row.parent().select("td").text().split(" ")[0];
-            } else if (row.text().toLowerCase(Locale.ROOT).contains("place")) {
-                country = row.parent().select("td").text().split("\\[")[0];
+            String labelText = row.text().toLowerCase(Locale.ROOT).replaceAll("\\(.*?\\)","");
+            Element parent = row.parent();
+            parent.select("td").select("a").remove();
+            String tdText = parent.select("td").text().replaceAll("\\(.*?\\)","");
+
+            if ((labelText.contains("birth") && labelText.contains("date")) || labelText.contains("born")) {
+                for (String month: months) {
+                    if (tdText.toLowerCase(Locale.ROOT).contains(month)) {
+                        birthday = tdText.trim();
+                    }
+                }
             }
         }
-        if (!(birthday.contains("(")) ||
-                (country.isEmpty())) return null;
 
+        // Have to reset after I deleted the a ref's.
+        doc = Jsoup.connect(link).userAgent("Chrome").get();
+        playerTable = doc.select("table.infobox.vcard");
+        rows = playerTable.select("th.infobox-label");
         TreeMap<String, List<String>> return_val = new TreeMap<>();
         for (Element row: rows) {
             String potentialDuration = row.text();
 
             // 1. "-1992" (e.g. in case of Nwankwo Kanu) turns into 0000-1992.
-            if (potentialDuration.matches("^[0-9]{4}$") || potentialDuration.isEmpty()) {
+            if (potentialDuration.length() == 4 || potentialDuration.isEmpty()) {
                 String year = potentialDuration.split("\\[")[0];
 
                 if (!(year.isEmpty())) {
@@ -114,11 +162,13 @@ public class Scraper {
                     return_val.putIfAbsent("clubLinks", new ArrayList<>());
                     return_val.get("clubLinks").add(wikiBaseLink + clubLink);
                 }
-            } else if (row.text().contains("–")) {
+            }
+            else if (potentialDuration.contains("–")) {
                 String[] years = potentialDuration.split("–");
                 if (years.length == 2) {
                     String firstYear = years[0];
                     String secondYear = years[1];
+
                     String club = Normalizer.normalize(row.parent().select("td").eq(0).text().split("\\[")[0], Normalizer.Form.NFD)
                             .replaceAll("[\\p{InCombiningDiacriticalMarks}]", "")
                             .replace("→", "") // in the case of loan
@@ -132,7 +182,7 @@ public class Scraper {
                     return_val.putIfAbsent(potentialDuration, new ArrayList<>());
                     return_val.get(potentialDuration).add(club.split("\\[")[0]);
 
-                    if (clubLink.isEmpty() || clubLink.toLowerCase(Locale.ROOT).contains("redlink") || (return_val.containsKey("clubLinks") && return_val.get("clubLinks").contains(wikiBaseLink + clubLink))) continue;
+                    if (clubLink.isEmpty() || clubLink.toLowerCase(Locale.ROOT).contains("redlink") || (return_val.containsKey("clubLinks") && return_val.get("clubLinks").contains(wikiBaseLink + clubLink)) || firstYear.isEmpty()) continue;
                     return_val.putIfAbsent("clubLinks", new ArrayList<>());
                     return_val.get("clubLinks").add(wikiBaseLink + clubLink);
                 } else if (years.length == 1) {
@@ -156,7 +206,7 @@ public class Scraper {
             }
         }
 
-        Footballer footballer = new Footballer(name, birthday, country, link);
+        Footballer footballer = new Footballer(name, birthday, link);
         footballer.teams = return_val;
 
         return footballer;
