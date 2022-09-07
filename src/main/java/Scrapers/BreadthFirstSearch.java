@@ -24,7 +24,27 @@ import java.util.*;
 @ComponentScan("src")
 public class BreadthFirstSearch {
     public static void main(String[] args) throws Exception {
-        buildAdjacencyList();
+        Gson gson = new GsonBuilder().create();
+        JsonReader reader = new JsonReader(new FileReader("BetterFootballerDatabase.json"));
+
+        Footballer[] list = gson.fromJson(reader, Footballer[].class);
+
+//        int i = 0;
+        for (Footballer currFootballer: list) {
+            System.out.println(currFootballer);
+//            for (Footballer iterFootballer: list) {
+//                if (currFootballer.equals(iterFootballer)) continue;
+//                checkForOverlap(currFootballer, iterFootballer);
+//            }
+//            System.out.println(i + "; " + currFootballer);
+//            i++;
+        }
+
+//        FileWriter fileWriter = new FileWriter("Kids.json");
+//        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
+//        fileWriter.write(gson.toJson(list));
+//        fileWriter.close();
+//        reader.close();
     }
 
     // 1. Ryan Betrtrand and Max Kilman.
