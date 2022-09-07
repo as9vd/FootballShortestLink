@@ -6,16 +6,18 @@
 
 .nodes {
   display: flex;
-  gap: 2.4rem;
+  gap: 4rem;
 }
 
 .node {
   width: 14rem;
   height: 14rem;
   font-size: 1.75rem;
-  transition: all 0.25s;
-  border-radius: 6rem;
+  font-weight: 500;
+  transition: all 0.15s;
+  border-radius: 20rem;
   border: 2px solid #1a1a1a;
+  background-color: #eceff4;
 }
 
 .node:hover {
@@ -26,4 +28,29 @@
 
 .node:active {
   transform: scale(1.125);
+}
+
+.node-red:hover {
+  background-color: #e46161;
+}
+
+.node-orange:hover {
+  background-color: #ff894c;
+}
+.node-yellow:hover {
+  background-color: #f1b963;
+}
+.node-green:hover {
+  background-color: #42b883;
+}
+.node-blue:hover {
+  background-color: #5585b5;
+}
+
+.node-purple:hover {
+  background-color: #a393eb;
+}
+
+.node-black:hover {
+  background-color: #352f44;
 }

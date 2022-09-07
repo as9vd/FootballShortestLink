@@ -50,31 +50,6 @@ h1 {
   gap: 0.6rem;
 }
 
-.generate-btn {
-  width: 20%;
-  font-size: 2.2rem;
-  padding: 0.2rem;
-  color: #f4fdfd;
-  background-color: #dd2d4a;
-  border-radius: 200rem;
-  transition: all 0.25s;
-  font-weight: 500;
-  height: 6rem;
-  margin-top: 3.4rem;
-  border: 2px solid #1a1a1a;
-}
-
-.generate-btn:hover {
-  background-color: #d90429;
-  cursor: pointer;
-}
-
-.generate-btn:active {
-  transform: scale(1.05);
-  color: #262626;
-  background-color: #f4fdfd;
-}
-
 .input-name input {
   border: 0;
   font-size: 2.4rem;
@@ -105,6 +80,54 @@ searchbar {
   width: 50%;
 }
 
-nodes {
-  margin-top: 3.6rem;
+.nodes {
+  display: flex;
+  gap: 4rem;
+  margin-top: 4.8rem;
+}
+
+.node {
+  width: 14rem;
+  height: 14rem;
+  font-size: 1.75rem;
+  font-weight: 500;
+  transition: all 0.15s;
+  border-radius: 20rem;
+  border: 2px solid #1a1a1a;
+  background-color: #eceff4;
+}
+
+.node:hover {
+  cursor: pointer;
+  background-color: #1a1a1a;
+  color: #f4fdfd;
+}
+
+.node:active {
+  transform: scale(1.125);
+}
+
+.node-red:hover {
+  background-color: #e46161;
+}
+
+.node-orange:hover {
+  background-color: #ff894c;
+}
+.node-yellow:hover {
+  background-color: #f1b963;
+}
+.node-green:hover {
+  background-color: #42b883;
+}
+.node-blue:hover {
+  background-color: #5585b5;
+}
+
+.node-purple:hover {
+  background-color: #a393eb;
+}
+
+.node-black:hover {
+  background-color: #352f44;
 }

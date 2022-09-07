@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { SearchbarComponent } from './component/searchbar/searchbar.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { FootballerService } from './service/footballer.service';
+import { FootballerService } from './service/footballer/footballer.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { MatNativeDateModule } from '@angular/material/core';

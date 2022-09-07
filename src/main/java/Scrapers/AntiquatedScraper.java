@@ -1,3 +1,5 @@
+package Scrapers;
+
 import Entity.Footballer;
 import Entity.Team;
 import com.fasterxml.jackson.core.type.TypeReference;

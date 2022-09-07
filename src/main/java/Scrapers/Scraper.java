@@ -1,3 +1,5 @@
+package Scrapers;
+
 import Entity.Footballer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

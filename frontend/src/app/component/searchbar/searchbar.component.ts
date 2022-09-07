@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { map, Observable } from 'rxjs';
-import { FootballerService } from 'src/app/service/footballer.service';
+import { FootballerService } from 'src/app/service/footballer/footballer.service';
+import { BfsService } from 'src/app/service/bfs/bfs.service';
 import { startWith } from 'rxjs/operators';
 import * as footballers from '../../../assets/footballerDatabase.json';
 
@@ -14,8 +15,16 @@ export class SearchbarComponent implements OnInit {
   keyword = 'name';
   contactForm!: FormGroup;
   data: string[] = [];
+  player1: string = 'RyanSEPGiggs';
+  player2: string = '';
+  result: string = '';
 
-  constructor(private footballerService: FootballerService) {}
+  nodes: string[] = [];
+
+  constructor(
+    @Inject(FootballerService) private footballerService: FootballerService,
+    @Inject(BfsService) private bfsService: BfsService
+  ) {}
 
   ngOnInit() {
     this.footballerService.getFootballerList().subscribe((res: any) => {
@@ -26,7 +35,33 @@ export class SearchbarComponent implements OnInit {
     });
   }
 
-  submit() {
-    console.log(this.data);
+  onChange($event: Event, deviceValue: string) {
+    let parts = deviceValue.split(' (');
+    this.result = '';
+
+    for (let i = 0; i < parts.length; i++) {
+      let curr = deviceValue.split(' ')[i];
+      if (curr.includes('(')) break;
+
+      if (i == parts.length - 1) {
+        this.player2 += curr;
+      } else {
+        this.player2 += curr + 'SEP';
+      }
+    }
+
+    this.bfsService.setFootballerOne('Ryan Giggs');
+    this.bfsService.setFootballerTwo(this.player2);
+
+    this.bfsService.getRoute().subscribe((res: any) => {
+      this.result = res;
+    });
+
+    this.player2 = '';
+
+    let response = this.result.split('->');
+    for (let i = 0; i < response.length; i++) {
+      this.nodes.push(response[i]);
+    }
   }
 }

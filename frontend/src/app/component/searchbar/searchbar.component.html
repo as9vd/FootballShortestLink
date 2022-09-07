@@ -1,6 +1,12 @@
-<select>
-  <option [ngValue]="null">(pick a player)</option>
-  <option *ngFor="let option of data" [ngValue]="option">
-    {{ option }}
-  </option>
-</select>
+<div class="container">
+  <p>
+    Ryan Giggs to
+    <select #device (change)="onChange($event, device.value)">
+      <option [ngValue]="null">(pick a player)</option>
+      <option *ngFor="let option of data" [ngValue]="option">
+        {{ option }}
+      </option>
+    </select>
+  </p>
+  <button class="generate-btn">Generate</button>
+</div>

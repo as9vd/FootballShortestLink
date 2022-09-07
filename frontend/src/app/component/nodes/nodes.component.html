@@ -1,10 +1,15 @@
 <div class="container">
   <div class="nodes">
-    <button class="node">🔴 Ryan Giggs</button>
-    <button class="node">🟠 Ryan Gravenberch</button>
-    <button class="node">🟡 Robert Lewandowski</button>
-    <button class="node">🟢 Francisco García Hernández</button>
-    <button class="node">🔵 Hans-Georg Schwarzenbeck</button>
-    <button class="node">🟣 Pirri</button>
+    <button *ngFor="let player of players" class="node node-red">
+      {{ player }}
+    </button>
+
+    <!-- <button class="node node-red">🔴 Ryan Giggs</button>
+    <button class="node node-orange">🟠 Ryan Gravenberch</button>
+    <button class="node node-yellow">🟡 Robert Lewandowski</button>
+    <button class="node node-green">🟢 Francisco García Hernández</button>
+    <button class="node node-blue">🔵 Eric Bailly</button>
+    <button class="node node-purple">🟣 Pirri</button>
+    <button class="node node-black">⚫️ Jairzinho</button> -->
   </div>
 </div>

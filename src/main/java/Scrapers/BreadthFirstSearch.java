@@ -1,9 +1,13 @@
+package Scrapers;
+
 import Entity.Footballer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import javafx.util.Pair;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,13 +19,17 @@ import java.util.*;
 // The identifiers here will be a player's name and their Wikipedia link, because there are duplicate names.
 // 2. Link it to the Angular front-end and do BFS there (e.g. a visited HashSet, a Queue, all this bollocks).
 // Wow. Not as complicated as I thought it was.
+
+@Component
+@ComponentScan("src")
 public class BreadthFirstSearch {
     public static void main(String[] args) throws Exception {
-//        bfs("Jean-Claude Suaudeau", "Mason Greenwood");
         buildAdjacencyList();
     }
 
-    public static int bfs(String start, String dest) throws Exception {
+    // 1. Ryan Betrtrand and Max Kilman.
+    // 2. BFS returns the second they find the player, not if the player is the shortest route. Fix this.
+    public static String bfs(String start, String dest) throws Exception {
         Gson gson = new GsonBuilder().create();
         JsonReader reader = new JsonReader(new FileReader("Kids.json"));
         TypeToken<List<Footballer>> token = new TypeToken<List<Footballer>>() {};
@@ -41,8 +49,7 @@ public class BreadthFirstSearch {
 
             if (currPlayer.equals(dest)) {
                 route += "->" + dest;
-                System.out.println(route);
-                return currSteps;
+                return route;
             }
             else if (visited.contains(currPlayer)) continue;
 
@@ -54,7 +61,7 @@ public class BreadthFirstSearch {
                 }
             }
 
-            if (currFootballer == null) return -1;
+            if (currFootballer == null) return "";
 
             Set<String> children = currFootballer.children;
             for (String name: children) {
@@ -66,7 +73,7 @@ public class BreadthFirstSearch {
             }
         }
 
-        return -1;
+        return "";
     }
 
     public static void buildAdjacencyList() throws Exception {
@@ -78,11 +85,11 @@ public class BreadthFirstSearch {
         int i = 0;
         for (Footballer currFootballer: list) {
             for (Footballer iterFootballer: list) {
-                System.out.println(iterFootballer);
                 if (currFootballer.equals(iterFootballer)) continue;
                 checkForOverlap(currFootballer, iterFootballer);
             }
             i++;
+            System.out.println(i + " (" + currFootballer.name + "): " + currFootballer.children);
         }
 
         FileWriter fileWriter = new FileWriter("BetterKids.json");
@@ -95,7 +102,6 @@ public class BreadthFirstSearch {
     public static void checkForOverlap(Footballer footballer1, Footballer footballer2) {
         // The point of initialise queue is to make every single duration one format (e.g. year-year, except in the case of a singular year).
         // In the case of "unknown", then push it according to its end year.
-
         // (team : player) : year
         PriorityQueue<Pair<Pair<String,String>,String>> queue = new PriorityQueue<Pair<Pair<String,String>,String>>((a, b) -> {
             int aStart, bStart;
@@ -113,6 +119,8 @@ public class BreadthFirstSearch {
 
             return aStart - bStart;
         });
+
+        if (footballer1.name.equals(footballer2.name)) return;
 
         initialiseQueue(footballer1, queue);
         initialiseQueue(footballer2, queue);
@@ -143,15 +151,19 @@ public class BreadthFirstSearch {
                 newEnd = newYears.split("–")[1];
             }
 
-            if (newEnd.equals("unknown") || start.equals("unknown") || newEnd.equals("current") || start.equals("current")) {
+            if (newEnd.equals("unknown") || start.equals("unknown") ||
+                    (!(newEnd.charAt(0) == '1') && !(newEnd.charAt(0) == '2')) ||
+                    (!(start.charAt(0) == '1') && !(start.charAt(0) == '2'))) {
                 continue;
-            } else if (Integer.parseInt(start) < Integer.parseInt(newEnd)) {
+            }
+
+            if (Integer.parseInt(start) < Integer.parseInt(newEnd)) {
                 if (end.equals("unknown")) continue;
                 else if ((end.equals("current") || (Integer.parseInt(end) > Integer.parseInt(newEnd)))) {
                     if (newPlayer.equals(player)) continue;
                     else if (team.equals(newTeam)) {
-                        footballer1.children.add(footballer2.name);
-                        footballer2.children.add(footballer1.name);
+                        footballer1.children.add(footballer2.name + " " + footballer2.birthday);
+                        footballer2.children.add(footballer1.name + " " + footballer1.birthday);
                     }
                 }
             } else {
@@ -177,11 +189,16 @@ public class BreadthFirstSearch {
                 // 2. Is only one year (e.g. Thierry Henry with "1999").
                 // 3. Is incomplete somewhere (e.g. Kanu's youth career "0000-1992").
                 String team = listOfTeams.get(i);
+
                 if (years.split("–").length == 1) { // This is either A) case #2 or B) if a player is currently playing for the club.
-                    if (years.contains("?") || years.contains("x")) {
+                    if (years.isEmpty() ||
+                            years.toLowerCase(Locale.ROOT).equals("present") ||
+                            (!(years.charAt(0) == '1') && !(years.charAt(0) == '2')) ||
+                            years.contains("/") || years.contains("/") ||
+                            years.length() > 5 || years.contains("x") || years.contains("?")) {
                         continue; // not worth the headache dealing with these daft edge cases
                     } else if (years.contains("–")) { // Case B.
-                        pair = new Pair<>(new Pair(team, footballer.name), years + "current");
+                        pair = new Pair<>(new Pair(team, footballer.name), years + (Calendar.getInstance().get(Calendar.YEAR) + 1));
                     } else { // Case A/#2.
                         pair = new Pair<>(new Pair(team, footballer.name), years);
                     }
@@ -191,18 +208,23 @@ public class BreadthFirstSearch {
                     String endYear = splitYears[1];
 
                     if (startYear.isEmpty()) {
-                        pair = new Pair<>(new Pair(team, footballer.name), "unknown" + years);
-                    } else if ((startYear.contains("?") || startYear.contains("x")) &&
-                            (endYear.contains("?") || endYear.contains("x"))) {
-                        continue; // if both are unknown, just bin the lot
-                    } else if (startYear.contains("?") || startYear.contains("x")) {
+                        continue;
+                    } else if (endYear.toLowerCase(Locale.ROOT).equals("present") ||
+                            ((!(startYear.charAt(0) == '1') && !(startYear.charAt(0) == '2')) || // if there's no exact date, just bin it off
+                                    (!(endYear.charAt(0) == '1') && !(endYear.charAt(0) == '2'))) ||
+                            startYear.contains("/") || endYear.contains("/") ||
+                            startYear.length() > 4 || endYear.length() > 4 ||
+                            startYear.contains("?") || startYear.contains("x") &&
+                            endYear.contains("?") || endYear.contains("x")) { // if the years aren't years for some reason
+                        continue;
+                    } else if (startYear.contains("?") || startYear.contains("x") || startYear.contains("X")) {
                         pair = new Pair<>(new Pair(team, footballer.name), "unknown–" + endYear);
-                    } else if (endYear.contains("?") || endYear.contains("x")) {
+                    } else if (endYear.contains("?") || endYear.contains("x") || endYear.contains("X")) {
                         pair = new Pair<>(new Pair(team, footballer.name), startYear + "–unknown");
                     } else if (startYear.equals("0000")) {
                         pair = new Pair<>(new Pair(team, footballer.name),"unknown–" + endYear);
                     } else if (endYear.equals("0000")) { // these two take care of case #3.
-                        pair = new Pair<>(new Pair(team, footballer.name),startYear + "–unknown");
+                        pair = new Pair<>(new Pair(team, footballer.name), startYear + "–unknown");
                     } else {
                         if (startYear.length() == 2 && endYear.length() == 2) {
                             pair = new Pair<>(new Pair(team, footballer.name),"19" + startYear + "-19" + endYear); // realistically, it's only antiquated players from the 1900s. so it's a safe bet

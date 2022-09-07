@@ -1,3 +1,11 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 select {
   box-shadow: 0;
   border: 0;
@@ -12,4 +20,29 @@ select {
 
 select::-ms-expand {
   display: none;
+}
+
+.generate-btn {
+  width: 30%;
+  font-size: 2.2rem;
+  padding: 0.2rem;
+  color: #f4fdfd;
+  background-color: #dd2d4a;
+  border-radius: 200rem;
+  transition: all 0.25s;
+  font-weight: 500;
+  height: 6rem;
+  margin-top: 3.4rem;
+  border: 2px solid #1a1a1a;
+}
+
+.generate-btn:hover {
+  background-color: #d90429;
+  cursor: pointer;
+}
+
+.generate-btn:active {
+  transform: scale(1.05);
+  color: #262626;
+  background-color: #f4fdfd;
 }
