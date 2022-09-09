@@ -27,30 +27,31 @@ public class BreadthFirstSearch {
     // 1. Links. Bobby Moore and Bobby Charlton weren't teammates apparently.
     // 2. Implement a PQ for BFS to return the shortest route.
     public static void main(String[] args) throws Exception {
-                Gson gson = new GsonBuilder().create();
-        JsonReader reader = new JsonReader(new FileReader("BetterFootballerDatabase.json"));
+        //        Gson gson = new GsonBuilder().create();
+//        JsonReader reader = new JsonReader(new FileReader("BetterFootballerDatabase.json"));
+//
+//        Footballer[] list = gson.fromJson(reader, Footballer[].class);
+//
+//        int i = 0;
+//        for (Footballer currFootballer: list) {
+//            for (Footballer iterFootballer: list) {
+//                if (currFootballer.equals(iterFootballer)) continue;
+//                checkForOverlap(currFootballer, iterFootballer);
+//            }
+//            System.out.println(i + "; " + currFootballer.children);
+//            i++;
+//        }
+//
+//        FileWriter fileWriter = new FileWriter("KidsActuallyGood.json");
+//        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
+//        fileWriter.write(gson.toJson(list));
+//        fileWriter.close();
+//        reader.close();
 
-        Footballer[] list = gson.fromJson(reader, Footballer[].class);
-
-        int i = 0;
-        for (Footballer currFootballer: list) {
-            for (Footballer iterFootballer: list) {
-                if (currFootballer.equals(iterFootballer)) continue;
-                checkForOverlap(currFootballer, iterFootballer);
-            }
-            System.out.println(i + "; " + currFootballer.children);
-            i++;
-        }
-
-        FileWriter fileWriter = new FileWriter("KidsActuallyGood.json");
-        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
-        fileWriter.write(gson.toJson(list));
-        fileWriter.close();
-        reader.close();
-//        bfs("Ryan Giggs", "Rivaldo");
+        System.out.println(bfs("Ryan Giggs", "Gianluigi Donnarumma"));
     }
 
-    // 1. Ryan Betrtrand and Max Kilman.
+    // 1. Ryan Bertrand and Max Kilman.
     // 2. BFS returns the second they find the player, not if the player is the shortest route. Fix this.
     public static String bfs(String start, String dest) throws Exception {
         Gson gson = new GsonBuilder().create();
@@ -66,18 +67,19 @@ public class BreadthFirstSearch {
         queue.offer(new Pair(new Pair(1, start), ""));
 
         while (!(queue.isEmpty())) {
+            // Problem right now: only looking at Giggs's children.
             int currSteps = queue.peek().getKey().getKey();
-            String currPlayer = queue.peek().getKey().getValue();
+            String currPlayer = queue.peek().getKey().getValue().split(" \\(")[0].trim();
             String route = queue.poll().getValue();
-
-            System.out.println(route);
 
             if (currPlayer.equals(dest)) {
                 route += "->" + dest;
-                return route;
+                pq.offer(new Pair(route, currSteps));
+                continue;
             }
             else if (visited.contains(currPlayer)) continue;
 
+            // currFootballer is always Ryan Giggs here.
             visited.add(currPlayer);
             for (Footballer footballer: footballers) {
                 if (footballer.name.equals(currPlayer)) {
@@ -89,6 +91,7 @@ public class BreadthFirstSearch {
             if (currFootballer == null) return "";
 
             Set<String> children = currFootballer.children;
+
             for (String name: children) {
                 if (route.isEmpty()) {
                     queue.offer(new Pair(new Pair(currSteps + 1, name), currPlayer));
@@ -98,7 +101,7 @@ public class BreadthFirstSearch {
             }
         }
 
-        return "";
+        return pq.poll().getKey();
     }
 
     public static void buildAdjacencyList() throws Exception {
