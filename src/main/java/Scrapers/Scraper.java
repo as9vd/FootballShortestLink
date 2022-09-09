@@ -49,22 +49,27 @@ public class Scraper {
 //        fileWriter.close()
         HashMap<String, String> newMap = convertJsonToMap(new File("data files/old/betterMerged.json"));
         ArrayList<Footballer> footballerList = new ArrayList<>();
-//        FileWriter fileWriter = new FileWriter("BetterFootballerDatabase.json");
+        FileWriter fileWriter = new FileWriter("BetterFootballerDatabase.json");
         Gson gson = new Gson();
 
+        int i = 0;
         for (String name: newMap.keySet()) {
             String link = newMap.get(name);
+
+            i++;
+            System.out.println(i);
 
             if (!(link == null)) {
                 Footballer footballer = scrapePlayerCareers(link);
                 System.out.println(footballer.teams);
                 if (!(footballer == null) && !(footballer.teams == null)) footballerList.add(footballer);
             }
+
         }
 
         Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
-//        fileWriter.write(gson.toJson(footballerList));
-//        fileWriter.close();
+        fileWriter.write(gson.toJson(footballerList));
+        fileWriter.close();
     }
 
     // This is only here for debugging purposes.
