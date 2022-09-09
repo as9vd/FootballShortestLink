@@ -31,6 +31,6 @@ public class Footballer {
     }
 
     @Override public String toString() {
-        return name + "[" + birthday + "]";
+        return name + " [" + birthday + "]";
     }
 }

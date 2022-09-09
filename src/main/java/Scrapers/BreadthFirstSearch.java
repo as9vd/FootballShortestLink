@@ -23,28 +23,30 @@ import java.util.*;
 @Component
 @ComponentScan("src")
 public class BreadthFirstSearch {
+    // Things to fix:
+    // 1. Links. Bobby Moore and Bobby Charlton weren't teammates apparently.
+    // 2. Implement a PQ for BFS to return the shortest route.
     public static void main(String[] args) throws Exception {
         Gson gson = new GsonBuilder().create();
         JsonReader reader = new JsonReader(new FileReader("BetterFootballerDatabase.json"));
 
         Footballer[] list = gson.fromJson(reader, Footballer[].class);
 
-//        int i = 0;
+        int i = 0;
         for (Footballer currFootballer: list) {
-            System.out.println(currFootballer);
-//            for (Footballer iterFootballer: list) {
-//                if (currFootballer.equals(iterFootballer)) continue;
-//                checkForOverlap(currFootballer, iterFootballer);
-//            }
-//            System.out.println(i + "; " + currFootballer);
-//            i++;
+            for (Footballer iterFootballer: list) {
+                if (currFootballer.equals(iterFootballer)) continue;
+                checkForOverlap(currFootballer, iterFootballer);
+            }
+            System.out.println(i + "; " + currFootballer.children);
+            i++;
         }
 
-//        FileWriter fileWriter = new FileWriter("Kids.json");
-//        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
-//        fileWriter.write(gson.toJson(list));
-//        fileWriter.close();
-//        reader.close();
+        FileWriter fileWriter = new FileWriter("KidsTest.json");
+        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
+        fileWriter.write(gson.toJson(list));
+        fileWriter.close();
+        reader.close();
     }
 
     // 1. Ryan Betrtrand and Max Kilman.
@@ -150,45 +152,42 @@ public class BreadthFirstSearch {
         }
 
         if (intervals.isEmpty()) return;
-        Pair<Pair<String,String>,String> newInterval = intervals.get(0);
-        for (Pair<Pair<String,String>,String> interval: intervals) {
-            String team = interval.getKey().getKey();
-            String player = interval.getKey().getValue();
-            String years = interval.getValue(), start = years.split("–")[0], end;
+        for (Pair<Pair<String,String>,String> firstInterval: intervals) {
+            String firstTeam = firstInterval.getKey().getKey();
+            String firstPlayer = firstInterval.getKey().getValue();
+            String firstYears = firstInterval.getValue(), firstStart = firstYears.split("–")[0], firstEnd;
 
-            if (years.split("–").length == 1) { // in the case of singular years.
-                end = start;
-            } else {
-                end = years.split("–")[1];
-            }
+            if (firstYears.split("–").length == 1) firstEnd = firstStart;
+            else firstEnd = firstYears.split("–")[1];
 
-            String newTeam = newInterval.getKey().getKey();
-            String newPlayer = newInterval.getKey().getValue();
-            String newYears = newInterval.getValue(), newStart = years.split("–")[0], newEnd;
-            if (newYears.split("–").length == 1) { // in case of singular years
-                newEnd = newStart;
-            } else {
-                newEnd = newYears.split("–")[1];
-            }
-
-            if (newEnd.equals("unknown") || start.equals("unknown") ||
-                    (!(newEnd.charAt(0) == '1') && !(newEnd.charAt(0) == '2')) ||
-                    (!(start.charAt(0) == '1') && !(start.charAt(0) == '2'))) {
-                continue;
-            }
-
-            if (Integer.parseInt(start) < Integer.parseInt(newEnd)) {
-                if (end.equals("unknown")) continue;
-                else if ((end.equals("current") || (Integer.parseInt(end) > Integer.parseInt(newEnd)))) {
-                    if (newPlayer.equals(player)) continue;
-                    else if (team.equals(newTeam)) {
-                        footballer1.children.add(footballer2.name + " " + footballer2.birthday);
-                        footballer2.children.add(footballer1.name + " " + footballer1.birthday);
-                    }
+            for (Pair<Pair<String,String>,String> secondInterval: intervals) {
+                String secondTeam = secondInterval.getKey().getKey();
+                String secondPlayer = secondInterval.getKey().getValue();
+                String secondYears = secondInterval.getValue(), secondStart = secondYears.split("–")[0], secondEnd;
+                if (secondYears.split("–").length == 1) { // in case of singular years
+                    secondEnd = secondStart;
+                } else {
+                    secondEnd = secondYears.split("–")[1];
                 }
-            } else {
-                newInterval = interval;
-                continue;
+
+                if (secondInterval.equals(firstInterval)) continue;
+                else if (secondEnd.equals("unknown") || firstStart.equals("unknown") ||
+                        (!(secondEnd.charAt(0) == '1') && !(secondEnd.charAt(0) == '2')) ||
+                        (!(firstStart.charAt(0) == '1') && !(firstStart.charAt(0) == '2'))) continue;
+
+                if (Integer.parseInt(firstStart) < Integer.parseInt(secondEnd)) {
+                    if (firstEnd.equals("unknown")) {
+                        continue;
+                    } else if ((Integer.parseInt(firstEnd) > Integer.parseInt(secondEnd))) {
+                        if (firstPlayer.equals(secondPlayer)) continue;
+                        else if (firstTeam.equals(secondTeam)) {
+                            footballer1.children.add(footballer2.name.trim() + " (" + footballer2.birthday.trim() + ")");
+                            footballer2.children.add(footballer1.name.trim() + " (" + footballer1.birthday.trim() + ")");
+                        }
+                    }
+                } else {
+                    continue;
+                }
             }
         }
     }

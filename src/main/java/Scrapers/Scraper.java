@@ -49,7 +49,7 @@ public class Scraper {
 //        fileWriter.close()
         HashMap<String, String> newMap = convertJsonToMap(new File("data files/old/betterMerged.json"));
         ArrayList<Footballer> footballerList = new ArrayList<>();
-        FileWriter fileWriter = new FileWriter("BetterFootballerDatabase.json");
+//        FileWriter fileWriter = new FileWriter("BetterFootballerDatabase.json");
         Gson gson = new Gson();
 
         for (String name: newMap.keySet()) {
@@ -63,8 +63,8 @@ public class Scraper {
         }
 
         Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
-        fileWriter.write(gson.toJson(footballerList));
-        fileWriter.close();
+//        fileWriter.write(gson.toJson(footballerList));
+//        fileWriter.close();
     }
 
     // This is only here for debugging purposes.
