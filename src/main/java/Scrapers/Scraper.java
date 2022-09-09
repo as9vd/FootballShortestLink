@@ -57,11 +57,10 @@ public class Scraper {
             String link = newMap.get(name);
 
             i++;
-            System.out.println(i);
 
             if (!(link == null)) {
                 Footballer footballer = scrapePlayerCareers(link);
-                System.out.println(footballer.teams);
+                System.out.println(i + ": " + footballer.teams);
                 if (!(footballer == null) && !(footballer.teams == null)) footballerList.add(footballer);
             }
 
@@ -131,7 +130,7 @@ public class Scraper {
             if ((labelText.contains("birth") && labelText.contains("date")) || labelText.contains("born")) {
                 for (String month: months) {
                     if (tdText.toLowerCase(Locale.ROOT).contains(month)) {
-                        birthday = tdText.trim();
+                        birthday = tdText.trim().replaceAll(name, "").replace(",","").trim();
                     }
                 }
             }

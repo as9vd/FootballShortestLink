@@ -27,27 +27,27 @@ public class BreadthFirstSearch {
     // 1. Links. Bobby Moore and Bobby Charlton weren't teammates apparently.
     // 2. Implement a PQ for BFS to return the shortest route.
     public static void main(String[] args) throws Exception {
-        //        Gson gson = new GsonBuilder().create();
-//        JsonReader reader = new JsonReader(new FileReader("BetterFootballerDatabase.json"));
-//
-//        Footballer[] list = gson.fromJson(reader, Footballer[].class);
-//
-//        int i = 0;
-//        for (Footballer currFootballer: list) {
-//            for (Footballer iterFootballer: list) {
-//                if (currFootballer.equals(iterFootballer)) continue;
-//                checkForOverlap(currFootballer, iterFootballer);
-//            }
-//            System.out.println(i + "; " + currFootballer.children);
-//            i++;
-//        }
-//
-//        FileWriter fileWriter = new FileWriter("KidsActuallyGood.json");
-//        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
-//        fileWriter.write(gson.toJson(list));
-//        fileWriter.close();
-//        reader.close();
-        bfs("Ryan Giggs", "Rivaldo");
+                Gson gson = new GsonBuilder().create();
+        JsonReader reader = new JsonReader(new FileReader("BetterFootballerDatabase.json"));
+
+        Footballer[] list = gson.fromJson(reader, Footballer[].class);
+
+        int i = 0;
+        for (Footballer currFootballer: list) {
+            for (Footballer iterFootballer: list) {
+                if (currFootballer.equals(iterFootballer)) continue;
+                checkForOverlap(currFootballer, iterFootballer);
+            }
+            System.out.println(i + "; " + currFootballer.children);
+            i++;
+        }
+
+        FileWriter fileWriter = new FileWriter("KidsActuallyGood.json");
+        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
+        fileWriter.write(gson.toJson(list));
+        fileWriter.close();
+        reader.close();
+//        bfs("Ryan Giggs", "Rivaldo");
     }
 
     // 1. Ryan Betrtrand and Max Kilman.
@@ -57,6 +57,8 @@ public class BreadthFirstSearch {
         JsonReader reader = new JsonReader(new FileReader("KidsActuallyGood.json"));
         TypeToken<List<Footballer>> token = new TypeToken<List<Footballer>>() {};
         List<Footballer> footballers = gson.fromJson(reader, token.getType());
+        PriorityQueue<Pair<String,Integer>> pq = new PriorityQueue<Pair<String,Integer>>((a, b) -> a.getValue() - b.getValue());
+
         Footballer currFootballer = null;
 
         Set<String> visited = new HashSet<>();
