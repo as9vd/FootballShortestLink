@@ -23,36 +23,33 @@ import java.util.*;
 @Component
 @ComponentScan("src")
 public class BreadthFirstSearch {
-    // Things to fix:
-    // 1. Links. Bobby Moore and Bobby Charlton weren't teammates apparently.
-    // 2. Implement a PQ for BFS to return the shortest route.
     public static void main(String[] args) throws Exception {
-        //        Gson gson = new GsonBuilder().create();
-//        JsonReader reader = new JsonReader(new FileReader("BetterFootballerDatabase.json"));
-//
-//        Footballer[] list = gson.fromJson(reader, Footballer[].class);
-//
-//        int i = 0;
-//        for (Footballer currFootballer: list) {
-//            for (Footballer iterFootballer: list) {
-//                if (currFootballer.equals(iterFootballer)) continue;
-//                checkForOverlap(currFootballer, iterFootballer);
-//            }
-//            System.out.println(i + "; " + currFootballer.children);
-//            i++;
-//        }
-//
-//        FileWriter fileWriter = new FileWriter("KidsActuallyGood.json");
-//        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
-//        fileWriter.write(gson.toJson(list));
-//        fileWriter.close();
-//        reader.close();
+        Gson gson = new GsonBuilder().create();
+        JsonReader reader = new JsonReader(new FileReader("BetterBetterFootballerDatabase.json"));
 
-        System.out.println(bfs("Ryan Giggs", "Gianluigi Donnarumma"));
+        Footballer[] list = gson.fromJson(reader, Footballer[].class);
+
+        int i = 0;
+        for (Footballer currFootballer: list) {
+            for (Footballer iterFootballer: list) {
+                if (currFootballer.equals(iterFootballer)) continue;
+                checkForOverlap(currFootballer, iterFootballer);
+            }
+            System.out.println(i + ": " + currFootballer.children);
+            i++;
+        }
+
+        FileWriter fileWriter = new FileWriter("KidsMuchMuchBetterLikeLilBaby.json");
+        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
+        fileWriter.write(gson.toJson(list));
+        fileWriter.close();
+        reader.close();
+
+//        System.out.println(bfs("Ryan Giggs", "Bernhard Klodt"));
     }
 
     // 1. Ryan Bertrand and Max Kilman.
-    // 2. BFS returns the second they find the player, not if the player is the shortest route. Fix this.
+    // 2. Deal with youth coaches/beach coaches in the case of Cantona/Jose Santamaria.
     public static String bfs(String start, String dest) throws Exception {
         Gson gson = new GsonBuilder().create();
         JsonReader reader = new JsonReader(new FileReader("KidsActuallyGood.json"));
@@ -101,6 +98,7 @@ public class BreadthFirstSearch {
             }
         }
 
+        if (pq.isEmpty()) return "NOT FOUND";
         return pq.poll().getKey();
     }
 
@@ -216,14 +214,14 @@ public class BreadthFirstSearch {
                 String team = listOfTeams.get(i);
 
                 if (years.split("–").length == 1) { // This is either A) case #2 or B) if a player is currently playing for the club.
-                    if (years.isEmpty() ||
+                    if (years.contains("–")) { // Case B.
+                        pair = new Pair<>(new Pair(team, footballer.name), years + (Calendar.getInstance().get(Calendar.YEAR) + 1));
+                    } else if (years.isEmpty() ||
                             years.toLowerCase(Locale.ROOT).equals("present") ||
                             (!(years.charAt(0) == '1') && !(years.charAt(0) == '2')) ||
                             years.contains("/") || years.contains("/") ||
-                            years.length() > 5 || years.contains("x") || years.contains("?")) {
+                            years.length() >= 5 || years.contains("x") || years.contains("?")) {
                         continue; // not worth the headache dealing with these daft edge cases
-                    } else if (years.contains("–")) { // Case B.
-                        pair = new Pair<>(new Pair(team, footballer.name), years + (Calendar.getInstance().get(Calendar.YEAR) + 1));
                     } else { // Case A/#2.
                         pair = new Pair<>(new Pair(team, footballer.name), years);
                     }

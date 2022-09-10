@@ -12,6 +12,9 @@ import org.jsoup.select.Elements;
 import java.io.*;
 import java.text.Normalizer;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static Scrapers.AntiquatedScraper.convertJsonToMap;
 
 public class Scraper {
@@ -46,10 +49,11 @@ public class Scraper {
 //        FileWriter fileWriter = new FileWriter("AllDefenders.json");
 //        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
 //        fileWriter.write(gson.toJson(list));
-//        fileWriter.close()
+//        fileWriter.close();
+
         HashMap<String, String> newMap = convertJsonToMap(new File("data files/old/betterMerged.json"));
         ArrayList<Footballer> footballerList = new ArrayList<>();
-        FileWriter fileWriter = new FileWriter("BetterFootballerDatabase.json");
+        FileWriter fileWriter = new FileWriter("Testing.json");
         Gson gson = new Gson();
 
         int i = 0;
@@ -120,7 +124,7 @@ public class Scraper {
         String wikiBaseLink = "https://en.wikipedia.org";
 
         String birthday = "";
-        String name = doc.select("h1.firstHeading").text().replaceAll("\\(.*?\\)","");
+        String name = doc.select("h1.firstHeading").text().replaceAll("\\(.*?\\)","").trim();
         for (Element row: rows) {
             String labelText = row.text().toLowerCase(Locale.ROOT).replaceAll("\\(.*?\\)","");
             Element parent = row.parent();
@@ -131,6 +135,31 @@ public class Scraper {
                 for (String month: months) {
                     if (tdText.toLowerCase(Locale.ROOT).contains(month)) {
                         birthday = tdText.trim().replaceAll(name, "").replace(",","").trim();
+                        Pattern firstPattern = Pattern.compile("[0-9]+ [a-zA-Z]+ [0-9]+"); // e.g. "6 May 1941".
+                        Pattern secondPattern = Pattern.compile("[a-zA-Z]+ [0-9]+ [0-9]+"); // e.g. "September 16 1959".
+                        Pattern thirdPattern = Pattern.compile("[a-zA-Z]+ [0-9]+"); // e.g. "September 16 1959".
+
+                        Matcher firstMatcher = firstPattern.matcher(birthday);
+                        Matcher secondMatcher = secondPattern.matcher(birthday);
+                        Matcher thirdMatcher = thirdPattern.matcher(birthday);
+
+                        boolean found = false;
+                        while (firstMatcher.find()) {
+                            birthday = firstMatcher.group();
+                            found = true;
+                        } if (!found){
+                            while (secondMatcher.find()) {
+                                birthday = secondMatcher.group();
+                                found = true;
+                            } if (!found){
+                                while (thirdMatcher.find()) {
+                                    birthday = thirdMatcher.group();
+                                    found = true;
+                                } if (!found){
+                                    System.out.println("Sorry, no match!");
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -170,18 +199,21 @@ public class Scraper {
             else if (potentialDuration.contains("–")) {
                 String[] years = potentialDuration.split("–");
                 if (years.length == 2) {
-                    String firstYear = years[0];
-                    String secondYear = years[1];
+                    String firstYear = years[0].split("\\[")[0];
+                    String secondYear = years[1].split("\\[")[0];
 
                     String club = Normalizer.normalize(row.parent().select("td").eq(0).text().split("\\[")[0], Normalizer.Form.NFD)
                             .replaceAll("[\\p{InCombiningDiacriticalMarks}]", "")
                             .replace("→", "") // in the case of loan
                             .replace("(loan)", "") // self-explanatory
                             .split("\\(")[0]
-                            .trim() // remove leading and trailing zeroes
-                            .replaceAll("\\[. *\\]", "") // remove anything inside brackets ..
-                            .replaceAll("\\(. *\\)", ""); // .. and parentheses;
+                            .split("\\[")[0]
+                            .trim(); // remove leading and trailing zeroes
+
+                    if (club.contains("?") || firstYear.contains("?") || secondYear.contains("?")) continue;
+
                     String clubLink = row.parent().select("td").eq(0).select("a").attr("href").split("\\[")[0];
+                    potentialDuration = potentialDuration.split("\\[")[0];
 
                     return_val.putIfAbsent(potentialDuration, new ArrayList<>());
                     return_val.get(potentialDuration).add(club.split("\\[")[0]);
@@ -195,11 +227,13 @@ public class Scraper {
                             .replace("→", "") // in the case of loan
                             .replace("(loan)", "") // self-explanatory
                             .split("\\(")[0]
-                            .trim() // remove leading and trailing zeroes
-                            .replaceAll("\\[. *\\]", "") // remove anything inside brackets ..
-                            .replaceAll("\\(. *\\)", ""); // .. and parentheses;
+                            .split("\\[")[0]
+                            .trim(); // remove leading and trailing zeroes
                     String clubLink = row.parent().select("td").eq(0).select("a").attr("href").split("\\[")[0];
 
+                    if (club.contains("?") || years[0].contains("?")) continue;
+
+                    potentialDuration = potentialDuration.split("\\[")[0];
                     return_val.putIfAbsent(potentialDuration, new ArrayList<>());
                     return_val.get(potentialDuration).add(club.split("\\[")[0]);
 
@@ -210,7 +244,7 @@ public class Scraper {
             }
         }
 
-        Footballer footballer = new Footballer(name, birthday, link);
+        Footballer footballer = new Footballer(name, birthday.trim(), link);
         footballer.teams = return_val;
 
         return footballer;
