@@ -25,8 +25,8 @@ import java.util.*;
 // 4. Champions League goalscorers (goals + assists to be fair). Seems to be valid from 92-today.
 // 5. Premier League pages; has hat-tricks, goalscorers, etc. 2007 was last time it was FA (so 92-07 works); 2007-today works under new link also.
 // 6. La Liga pages: get Pichichi trophy rankers, top scorers, etc. Might be a bit of a nightmare keeping track of all the tables, to be fair.
+@Deprecated
 public class AntiquatedScraper {
-
     public static void main(String[] args) throws Exception {
 
     }

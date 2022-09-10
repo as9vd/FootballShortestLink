@@ -24,35 +24,15 @@ import java.util.*;
 @ComponentScan("src")
 public class BreadthFirstSearch {
     public static void main(String[] args) throws Exception {
-        Gson gson = new GsonBuilder().create();
-        JsonReader reader = new JsonReader(new FileReader("BetterBetterFootballerDatabase.json"));
 
-        Footballer[] list = gson.fromJson(reader, Footballer[].class);
-
-        int i = 0;
-        for (Footballer currFootballer: list) {
-            for (Footballer iterFootballer: list) {
-                if (currFootballer.equals(iterFootballer)) continue;
-                checkForOverlap(currFootballer, iterFootballer);
-            }
-            System.out.println(i + ": " + currFootballer.children);
-            i++;
-        }
-
-        FileWriter fileWriter = new FileWriter("KidsMuchMuchBetterLikeLilBaby.json");
-        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
-        fileWriter.write(gson.toJson(list));
-        fileWriter.close();
-        reader.close();
 
 //        System.out.println(bfs("Ryan Giggs", "Bernhard Klodt"));
     }
 
-    // 1. Ryan Bertrand and Max Kilman.
-    // 2. Deal with youth coaches/beach coaches in the case of Cantona/Jose Santamaria.
-    public static String bfs(String start, String dest) throws Exception {
+    // Magic obviously happens here, too, but to a lesser extent.
+    public static String bfs(String start, String dest, String graphFile) throws Exception {
         Gson gson = new GsonBuilder().create();
-        JsonReader reader = new JsonReader(new FileReader("KidsActuallyGood.json"));
+        JsonReader reader = new JsonReader(new FileReader(graphFile));
         TypeToken<List<Footballer>> token = new TypeToken<List<Footballer>>() {};
         List<Footballer> footballers = gson.fromJson(reader, token.getType());
         PriorityQueue<Pair<String,Integer>> pq = new PriorityQueue<Pair<String,Integer>>((a, b) -> a.getValue() - b.getValue());
@@ -98,33 +78,12 @@ public class BreadthFirstSearch {
             }
         }
 
-        if (pq.isEmpty()) return "NOT FOUND";
+        if (pq.isEmpty()) return "Not Found";
         return pq.poll().getKey();
     }
 
-    public static void buildAdjacencyList() throws Exception {
-        Gson gson = new GsonBuilder().create();
-        JsonReader reader = new JsonReader(new FileReader("AllDefenders.json"));
-
-        Footballer[] list = gson.fromJson(reader, Footballer[].class);
-
-        int i = 0;
-        for (Footballer currFootballer: list) {
-            for (Footballer iterFootballer: list) {
-                if (currFootballer.equals(iterFootballer)) continue;
-                checkForOverlap(currFootballer, iterFootballer);
-            }
-            i++;
-            System.out.println(i + " (" + currFootballer.name + "): " + currFootballer.children);
-        }
-
-        FileWriter fileWriter = new FileWriter("BetterKids.json");
-        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
-        fileWriter.write(gson.toJson(list));
-        fileWriter.close();
-        reader.close();
-    }
-
+    // MAGIC HAPPENS HERE.
+    // We call this first.
     public static void checkForOverlap(Footballer footballer1, Footballer footballer2) {
         // The point of initialise queue is to make every single duration one format (e.g. year-year, except in the case of a singular year).
         // In the case of "unknown", then push it according to its end year.
@@ -148,6 +107,7 @@ public class BreadthFirstSearch {
 
         if (footballer1.name.equals(footballer2.name)) return;
 
+        // We create queues for both the footballers and then we merge them.
         initialiseQueue(footballer1, queue);
         initialiseQueue(footballer2, queue);
         ArrayList<Pair<Pair<String,String>,String>> intervals = new ArrayList<>();
@@ -156,6 +116,9 @@ public class BreadthFirstSearch {
         }
 
         if (intervals.isEmpty()) return;
+
+        // O(n^2) here. For each interval, go through all of them and find if they're overlapping.
+        // If they are, congrats, you've found a child.
         for (Pair<Pair<String,String>,String> firstInterval: intervals) {
             String firstTeam = firstInterval.getKey().getKey();
             String firstPlayer = firstInterval.getKey().getValue();
@@ -168,21 +131,24 @@ public class BreadthFirstSearch {
                 String secondTeam = secondInterval.getKey().getKey();
                 String secondPlayer = secondInterval.getKey().getValue();
                 String secondYears = secondInterval.getValue(), secondStart = secondYears.split("–")[0], secondEnd;
-                if (secondYears.split("–").length == 1) { // in case of singular years
+                if (secondYears.split("–").length == 1) { // in case of singular years, e.g. Henry at Juventus (1999).
                     secondEnd = secondStart;
                 } else {
                     secondEnd = secondYears.split("–")[1];
                 }
 
+                // Don't bother with these cases.
+                // 1st case: they're the same. Straightforward, just go over it.
+                // 2nd case: the interval is stupid. Don't even bother with it.
                 if (secondInterval.equals(firstInterval)) continue;
                 else if (secondEnd.equals("unknown") || firstStart.equals("unknown") ||
                         (!(secondEnd.charAt(0) == '1') && !(secondEnd.charAt(0) == '2')) ||
                         (!(firstStart.charAt(0) == '1') && !(firstStart.charAt(0) == '2'))) continue;
 
                 if (Integer.parseInt(firstStart) < Integer.parseInt(secondEnd)) {
-                    if (firstEnd.equals("unknown")) {
+                    if (firstEnd.equals("unknown")) { // Don't bother with this.
                         continue;
-                    } else if ((Integer.parseInt(firstEnd) > Integer.parseInt(secondEnd))) {
+                    } else if ((Integer.parseInt(firstEnd) > Integer.parseInt(secondEnd))) { // This confirms the overlap.
                         if (firstPlayer.equals(secondPlayer)) continue;
                         else if (firstTeam.equals(secondTeam)) {
                             footballer1.children.add(footballer2.name.trim() + " (" + footballer2.birthday.trim() + ")");
@@ -196,6 +162,10 @@ public class BreadthFirstSearch {
         }
     }
 
+    // MAGIC ALSO HAPPENS HERE.
+    // This is called from the checkForOverlap() function.
+    // Does all the parsing and deals with "stupid" data from the footballer graph file.
+    // Makes it so I don't have to worry about edge cases when creating the adjacency list to begin with.
     public static void initialiseQueue(Footballer footballer, PriorityQueue queue) {
         for (Map.Entry<String, List<String>> entry: footballer.teams.entrySet()) {
             String years = entry.getKey()
@@ -240,6 +210,8 @@ public class BreadthFirstSearch {
                             startYear.contains("?") || startYear.contains("x") &&
                             endYear.contains("?") || endYear.contains("x")) { // if the years aren't years for some reason
                         continue;
+
+                        // Ideally, we'd just get rid of these data points, but let's keep them. For fun.
                     } else if (startYear.contains("?") || startYear.contains("x") || startYear.contains("X")) {
                         pair = new Pair<>(new Pair(team, footballer.name), "unknown–" + endYear);
                     } else if (endYear.contains("?") || endYear.contains("x") || endYear.contains("X")) {
@@ -276,5 +248,53 @@ public class BreadthFirstSearch {
                 queue.offer(pair);
             }
         }
+    }
+
+    // This is what's often in the main function. Might as well make it a function of its own.
+    public static void generateTheAdjacencyList(String databaseFile, String newFileName) throws Exception {
+        Gson gson = new GsonBuilder().create();
+        JsonReader reader = new JsonReader(new FileReader(databaseFile)); // e.g. "Testing.json"
+
+        Footballer[] list = gson.fromJson(reader, Footballer[].class);
+
+        int i = 0;
+        for (Footballer currFootballer: list) {
+            for (Footballer iterFootballer: list) {
+                if (currFootballer.equals(iterFootballer)) continue;
+                checkForOverlap(currFootballer, iterFootballer);
+            }
+            i++;
+        }
+
+        FileWriter fileWriter = new FileWriter(newFileName);
+        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
+        fileWriter.write(gson.toJson(list));
+        fileWriter.close();
+        reader.close();
+    }
+
+    // Again, used for debugging purposes. Don't use it, or if you do, read it carefully.
+    @Deprecated
+    public static void buildAdjacencyList() throws Exception {
+        Gson gson = new GsonBuilder().create();
+        JsonReader reader = new JsonReader(new FileReader("AllDefenders.json"));
+
+        Footballer[] list = gson.fromJson(reader, Footballer[].class);
+
+        int i = 0;
+        for (Footballer currFootballer: list) {
+            for (Footballer iterFootballer: list) {
+                if (currFootballer.equals(iterFootballer)) continue;
+                checkForOverlap(currFootballer, iterFootballer);
+            }
+            i++;
+            System.out.println(i + " (" + currFootballer.name + "): " + currFootballer.children);
+        }
+
+        FileWriter fileWriter = new FileWriter("BetterKids.json");
+        Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
+        fileWriter.write(gson.toJson(list));
+        fileWriter.close();
+        reader.close();
     }
 }
