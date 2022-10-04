@@ -5,11 +5,14 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
+// Next steps as a whole:
+// 1. Show where the players played with one another on the front-end.
+// 3. Add some sort of loading to make the data update look smoother.
 public class FootballerController {
     @RequestMapping(path = "/{footballer1}+{footballer2}", method = RequestMethod.GET)
     public String bfsLink(@PathVariable String footballer1, @PathVariable String footballer2) throws Exception {
-        footballer1 = footballer1.replaceAll("SEP"," ");
-        footballer2 = footballer2.replaceAll("SEP"," ");
+        footballer1 = footballer1.replaceAll("SEP"," ").trim();
+        footballer2 = footballer2.replaceAll("SEP"," ").trim();
 
         String return_val = BreadthFirstSearch.bfs(footballer1, footballer2, "FootballerGraphFormatted.json");
 

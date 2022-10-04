@@ -2,7 +2,7 @@
   <p>
     Ryan Giggs to
     <select #device (change)="onChange($event, device.value)">
-      <option [ngValue]="null">Bruno Fernandes (1994-09-08)</option>
+      <option [ngValue]="null">Bruno Fernandes (September 8 1994)</option>
       <option *ngFor="let option of data" [ngValue]="option">
         {{ option }}
       </option>

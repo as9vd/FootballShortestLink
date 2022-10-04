@@ -11,6 +11,8 @@ export class NodesComponent implements OnInit {
   result: string = '';
   @Input() showLoader: boolean = false;
 
+  isLoading = false;
+
   constructor(@Inject(BfsService) private bfsService: BfsService) {}
 
   ngOnInit(): void {
@@ -24,6 +26,11 @@ export class NodesComponent implements OnInit {
       for (let i = 0; i < response.length; i++) {
         this.players.push(response[i]);
       }
+      this.isLoading = true;
     });
+
+    console.log(
+      this.bfsService.footballer1 + ' vs. ' + this.bfsService.footballer2
+    );
   }
 }

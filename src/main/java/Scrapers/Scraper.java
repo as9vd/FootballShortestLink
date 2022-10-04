@@ -26,7 +26,9 @@ public class Scraper {
     // https://en.wikipedia.org/wiki/Category:Association_football_goalkeepers
     // https://en.wikipedia.org/wiki/Category:Association_football_midfielders
     // These are all the links necessary to get a proper database in.
-    public static void main(String[] args) throws Exception {}
+    public static void main(String[] args) throws Exception {
+
+    }
 
     // THIS IS WHERE THE MAGIC HAPPENS.
     // This is the function that's actually used the most.

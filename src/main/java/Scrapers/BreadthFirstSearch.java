@@ -24,9 +24,8 @@ import java.util.*;
 @ComponentScan("src")
 public class BreadthFirstSearch {
     public static void main(String[] args) throws Exception {
-
-
-//        System.out.println(bfs("Ryan Giggs", "Bernhard Klodt"));
+//        System.out.println(bfs("Ryan Giggs", "Antoine Griezmann", "FootballerGraphFormatted.json"));
+        generateTheAdjacencyList("Testing.json","TestingWithKids.json");
     }
 
     // Magic obviously happens here, too, but to a lesser extent.
@@ -44,12 +43,12 @@ public class BreadthFirstSearch {
         queue.offer(new Pair(new Pair(1, start), ""));
 
         while (!(queue.isEmpty())) {
-            // Problem right now: only looking at Giggs's children.
             int currSteps = queue.peek().getKey().getKey();
             String currPlayer = queue.peek().getKey().getValue().split(" \\(")[0].trim();
             String route = queue.poll().getValue();
 
             if (currPlayer.equals(dest)) {
+//                route += "->" + dest;
                 route += "->" + dest;
                 pq.offer(new Pair(route, currSteps));
                 continue;
@@ -135,6 +134,13 @@ public class BreadthFirstSearch {
                     secondEnd = secondStart;
                 } else {
                     secondEnd = secondYears.split("–")[1];
+                }
+
+                // fix this here. problem with checking with dates/overlap
+                if ((secondPlayer.equals("Patrice Evra") || firstPlayer.equals("Patrice Evra")) &&
+                        (secondPlayer.equals("Ryan Giggs") || firstPlayer.equals("Ryan Giggs"))) {
+                    System.out.print(firstTeam + ": " + firstYears + " vs. " + secondTeam + ": " + secondYears + "; ");
+                    System.out.println(Integer.parseInt(firstStart) <= Integer.parseInt(secondEnd) && (Integer.parseInt(firstEnd) >= Integer.parseInt(secondEnd)) && firstTeam.equals(secondTeam));
                 }
 
                 // Don't bother with these cases.

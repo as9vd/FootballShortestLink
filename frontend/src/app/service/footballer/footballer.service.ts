@@ -12,8 +12,11 @@ export class FootballerService {
     let headers = new HttpHeaders();
     headers.set('Content-Type', 'application/json');
 
-    return this.http.get<JSON[]>('../../../assets/footballerDatabase.json', {
-      headers,
-    });
+    return this.http.get<JSON[]>(
+      '../../../assets/FootballerGraphFormatted.json',
+      {
+        headers,
+      }
+    );
   }
 }

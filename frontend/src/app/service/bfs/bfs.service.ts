@@ -6,8 +6,8 @@ import { Inject, Injectable } from '@angular/core';
 })
 export class BfsService {
   private baseUrl = 'http://localhost:8080';
-  private footballer1 = '';
-  private footballer2 = '';
+  public footballer1 = '';
+  public footballer2 = '';
 
   constructor(@Inject(HttpClient) private httpClient: HttpClient) {}
 

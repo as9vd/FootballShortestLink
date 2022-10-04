@@ -4,7 +4,7 @@ import { map, Observable } from 'rxjs';
 import { FootballerService } from 'src/app/service/footballer/footballer.service';
 import { BfsService } from 'src/app/service/bfs/bfs.service';
 import { startWith } from 'rxjs/operators';
-import * as footballers from '../../../assets/footballerDatabase.json';
+import * as footballers from '../../../assets/FootballerGraphFormatted.json';
 
 @Component({
   selector: 'searchbar',
@@ -32,7 +32,7 @@ export class SearchbarComponent implements OnInit {
 
     this.footballerService.getFootballerList().subscribe((res: any) => {
       res.forEach((element: any) => {
-        this.data.push(element.name + ' ' + element.birthday);
+        this.data.push(element.name + ' (' + element.birthday + ')');
       });
       this.data.sort((one, two) => (two > one ? -1 : 1));
     });
