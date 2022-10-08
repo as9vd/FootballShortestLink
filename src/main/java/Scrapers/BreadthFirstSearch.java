@@ -137,6 +137,8 @@ public class BreadthFirstSearch {
                 }
 
                 // fix this here. problem with checking with dates/overlap
+                // How to check if two players overlap:
+                // 1.
                 if ((secondPlayer.equals("Patrice Evra") || firstPlayer.equals("Patrice Evra")) &&
                         (secondPlayer.equals("Ryan Giggs") || firstPlayer.equals("Ryan Giggs"))) {
                     System.out.print(firstTeam + ": " + firstYears + " vs. " + secondTeam + ": " + secondYears + "; ");

@@ -17,6 +17,8 @@ export class NodesComponent implements OnInit {
 
   ngOnInit(): void {
     this.players = [];
+
+    if (this.showLoader == true) console.log('FUCK U');
   }
 
   ngOnChanges(): void {

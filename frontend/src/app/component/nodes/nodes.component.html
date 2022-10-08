@@ -1,10 +1,4 @@
 <div class="container">
-  <div *ngIf="showLoader">
-    <h1>
-      TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST TEST
-      TEST TEST TEST
-    </h1>
-  </div>
   <div *ngIf="!showLoader">
     <div class="nodes">
       <ng-container *ngFor="let player of players; index as i">
