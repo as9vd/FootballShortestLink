@@ -1,6 +1,6 @@
 <div class="container">
-  <div *ngIf="showLoader" class="loading">🤔🤔🤔</div>
-  <div *ngIf="!showLoader">
+  <div *ngIf="showLoader" class="loading">🧠🧠🧠</div>
+  <div *ngIf="!showLoader && display">
     <div class="nodes">
       <ng-container *ngFor="let player of players; index as i">
         <button *ngIf="i == 0" class="node node-red">🔴 {{ player }}</button>

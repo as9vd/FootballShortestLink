@@ -20,6 +20,7 @@ export class SearchbarComponent implements OnInit {
   result: string = '';
 
   nodes: string[] = [];
+  buttonClicked: boolean = false;
 
   constructor(
     @Inject(FootballerService) private footballerService: FootballerService,
@@ -50,7 +51,15 @@ export class SearchbarComponent implements OnInit {
     }
   }
 
+  onClick($event: Event, deviceValue: string) {
+    this.buttonClicked = true;
+    this.onChange($event, deviceValue);
+    console.log(this.buttonClicked);
+  }
+
   onChange($event: Event, deviceValue: string) {
+    this.buttonClicked = false;
+
     this.result = '';
     this.nodes = [];
     let parts = deviceValue.split(' ('); // Getting the name from the string.
@@ -79,6 +88,8 @@ export class SearchbarComponent implements OnInit {
     for (let i = 0; i < response.length; i++) {
       this.nodes.push(response[i]);
     }
+
+    this.buttonClicked = true;
 
     this.nodes = this.nodes.filter(function (e: any) {
       return e;

@@ -10,6 +10,7 @@ export class NodesComponent implements OnInit {
   @Input() players: string[] = [];
   result: string = '';
   showLoader = true;
+  @Input() display = false;
 
   constructor(@Inject(BfsService) private bfsService: BfsService) {}
 
@@ -19,7 +20,6 @@ export class NodesComponent implements OnInit {
 
   ngOnChanges(): void {
     this.showLoader = true;
-    console.log('Initial: ' + this.showLoader);
 
     this.bfsService.getRoute().subscribe(
       (res: any) => {
@@ -30,15 +30,8 @@ export class NodesComponent implements OnInit {
           // Then, it'll display.
         }
         this.showLoader = false;
-        console.log('After: ' + this.showLoader);
       },
       (error) => (this.showLoader = false)
     );
-
-    console.log(
-      this.bfsService.footballer1 + ' vs. ' + this.bfsService.footballer2
-    );
-
-    // console.log('Loading? ' + this.showLoader);
   }
 }
