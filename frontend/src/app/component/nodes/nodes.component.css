@@ -9,15 +9,68 @@
   gap: 4rem;
 }
 
+.loading {
+  display: flex;
+  font-size: 4.8rem;
+  margin-top: 4rem;
+  animation: tilt-n-move-shaking 0.5s infinite, fadeout 0.5s;
+}
+
+@keyframes tilt-n-move-shaking {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(5px, 5px) rotate(5deg);
+  }
+  50% {
+    transform: translate(0, 0) rotate(0eg);
+  }
+  75% {
+    transform: translate(-5px, 5px) rotate(-5deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
 .node {
-  width: 14rem;
-  height: 14rem;
+  width: 16rem;
+  height: 16rem;
   font-size: 1.75rem;
   font-weight: 500;
   transition: all 0.15s;
   border-radius: 20rem;
   border: 2px solid #1a1a1a;
   background-color: #eceff4;
+
+  animation: fadein 0.5s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+    font-size: 0.6rem;
+    width: 10rem;
+    height: 10rem;
+  }
+  to {
+    opacity: 1;
+    font-size: 1.75rem;
+    width: 16rem;
+    height: 16rem;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+    font-size: 4.8rem;
+  }
+  to {
+    opacity: 0;
+    font-size: 2.4rem;
+  }
 }
 
 .node:hover {
@@ -37,12 +90,15 @@
 .node-orange:hover {
   background-color: #ff894c;
 }
+
 .node-yellow:hover {
   background-color: #f1b963;
 }
+
 .node-green:hover {
   background-color: #42b883;
 }
+
 .node-blue:hover {
   background-color: #5585b5;
 }

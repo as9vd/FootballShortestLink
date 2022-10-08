@@ -9,30 +9,36 @@ import { BfsService } from 'src/app/service/bfs/bfs.service';
 export class NodesComponent implements OnInit {
   @Input() players: string[] = [];
   result: string = '';
-  @Input() showLoader: boolean = false;
-
-  isLoading = false;
+  showLoader = true;
 
   constructor(@Inject(BfsService) private bfsService: BfsService) {}
 
   ngOnInit(): void {
     this.players = [];
-
-    if (this.showLoader == true) console.log('FUCK U');
   }
 
   ngOnChanges(): void {
-    this.bfsService.getRoute().subscribe((res: any) => {
-      this.result = res;
-      let response = this.result.split('->');
-      for (let i = 0; i < response.length; i++) {
-        this.players.push(response[i]);
-      }
-      this.isLoading = true;
-    });
+    this.showLoader = true;
+    console.log('Initial: ' + this.showLoader);
+
+    this.bfsService.getRoute().subscribe(
+      (res: any) => {
+        this.result = res;
+        let response = this.result.split('->');
+        for (let i = 0; i < response.length; i++) {
+          this.players.push(response[i]); // Get the route from the API and push it into the players list.
+          // Then, it'll display.
+        }
+        this.showLoader = false;
+        console.log('After: ' + this.showLoader);
+      },
+      (error) => (this.showLoader = false)
+    );
 
     console.log(
       this.bfsService.footballer1 + ' vs. ' + this.bfsService.footballer2
     );
+
+    // console.log('Loading? ' + this.showLoader);
   }
 }
