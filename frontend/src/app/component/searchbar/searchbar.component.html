@@ -1,7 +1,6 @@
 <div class="container">
   <p>
     Ryan Giggs to
-    <!-- <select #device (change)="onChange($event, device.value)"> -->
     <select #device>
       <option>Bruno Fernandes (September 8 1994)</option>
       <option *ngFor="let option of data" [ngValue]="option">
@@ -10,7 +9,7 @@
     </select>
   </p>
   <button (click)="onClick($event, device.value)" class="generate-btn">
-    Generate
+    Generate 🔰
   </button>
 
   <nodes [display]="buttonClicked" [players]="nodes"></nodes>

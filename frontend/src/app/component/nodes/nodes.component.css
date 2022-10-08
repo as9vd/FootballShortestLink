@@ -41,7 +41,8 @@
   font-weight: 500;
   border-radius: 20rem;
   border: 2px solid #1a1a1a;
-  background-color: #eceff4;
+  /* background-color: #eceff4; */
+  background-color: #ffffff;
 
   animation: fadein 0.5s;
 }

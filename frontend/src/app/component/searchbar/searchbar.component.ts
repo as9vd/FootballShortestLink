@@ -69,7 +69,7 @@ export class SearchbarComponent implements OnInit {
       if (curr.includes('(')) break; // Then it's faulty.
 
       if (i == parts.length - 1) {
-        this.player2 += curr; // If it's a singular name (e.g. Deco, Alisson, Derlei).
+        this.player2 += curr; // If it's a singular name (e.g. Deco, Alisson, Derlei) or if it's at the end of the loop.
       } else {
         this.player2 += curr + 'SEP'; // Otherwise.
       }
