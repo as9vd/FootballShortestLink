@@ -25,8 +25,8 @@ import java.util.concurrent.ThreadLocalRandom;
 @ComponentScan("src")
 public class BreadthFirstSearch {
     public static void main(String[] args) throws Exception {
-        System.out.println(bfs("Ryan Giggs", "Antoine Griezmann", "FootballerGraphFormatted.json"));
-        generateTheAdjacencyList("Testing.json","TestingWithKids.json");
+//        System.out.println(bfs("Ryan Giggs", "Antoine Griezmann", "FootballerGraphFormatted.json"));
+        generateTheAdjacencyList("Testing.json","Wallahi.json");
     }
 
     // Magic obviously happens here, too, but to a lesser extent.
@@ -49,7 +49,6 @@ public class BreadthFirstSearch {
             String route = queue.poll().getValue();
 
             if (currPlayer.equals(dest)) {
-//                route += "->" + dest;
                 route += "->" + dest;
                 pq.offer(new Pair(route, currSteps));
                 continue;
@@ -157,14 +156,20 @@ public class BreadthFirstSearch {
                         (!(secondEnd.charAt(0) == '1') && !(secondEnd.charAt(0) == '2')) ||
                         (!(firstStart.charAt(0) == '1') && !(firstStart.charAt(0) == '2'))) continue;
 
-                if (Integer.parseInt(firstStart) < Integer.parseInt(secondEnd) || Integer.parseInt(firstStart) <= Integer.parseInt(secondEnd)) {
+                if (Integer.parseInt(firstStart) < Integer.parseInt(secondEnd)) {
                     if (firstEnd.equals("unknown")) { // Don't bother with this.
                         continue;
                     } else if ((Integer.parseInt(firstEnd) > Integer.parseInt(secondEnd)) || Integer.parseInt(firstEnd) >= Integer.parseInt(secondEnd)) { // This confirms the overlap.
                         if (firstPlayer.equals(secondPlayer)) continue;
                         else if (firstTeam.equals(secondTeam)) {
-                            footballer1.children.add(footballer2.name.trim() + " (" + footballer2.birthday.trim() + ")");
-                            footballer2.children.add(footballer1.name.trim() + " (" + footballer1.birthday.trim() + ")");
+                            String footie1Name = footballer1.name.trim() + " (" + footballer1.birthday.trim() + ")";
+                            String footie2Name = footballer2.name.trim() + " (" + footballer2.birthday.trim() + ")";
+
+                            footballer1.children.add(footie2Name); footballer1.childOverlap.putIfAbsent(footie2Name, new ArrayList<>());
+                            footballer2.children.add(footie1Name); footballer2.childOverlap.putIfAbsent(footie1Name, new ArrayList<>());
+
+                            footballer1.childOverlap.get(footie2Name).add(firstTeam); footballer1.childOverlap.get(footie2Name).add(firstYears);
+                            footballer2.childOverlap.get(footie1Name).add(secondTeam); footballer2.childOverlap.get(footie1Name).add(secondYears);
                         }
                     }
                 } else {

@@ -1,5 +1,7 @@
 package Entity;
 
+import javafx.util.Pair;
+
 import java.util.*;
 
 public class Footballer {
@@ -8,6 +10,7 @@ public class Footballer {
     public String name;
     public String link;
     public Set<String> children = new HashSet<>();
+    public Map<String, List<String>> childOverlap = new HashMap<>(); // child : (team, firstDur, secondDur)
 
     public Footballer() {}
 
