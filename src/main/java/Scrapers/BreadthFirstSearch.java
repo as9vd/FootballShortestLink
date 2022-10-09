@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 // How I'm going to do this:
 // 1. Parse JSON file and create a new one where a player is linked to his teammates.
@@ -78,7 +79,19 @@ public class BreadthFirstSearch {
         }
 
         if (pq.isEmpty()) return "Not Found";
-        return pq.poll().getKey();
+
+        int min = pq.peek().getValue();
+        Pair<String, Integer> top = pq.poll();
+        // i want to spice up the return values every now and then so it doesn't stick to the same few players ..
+        List<String> routes = new ArrayList<>();
+        while (top.getValue() == min) {
+            routes.add(top.getKey());
+            top = pq.poll();
+        }
+
+        int randomNum = ThreadLocalRandom.current().nextInt(0, routes.size());
+
+        return routes.get(randomNum);
     }
 
     // MAGIC HAPPENS HERE.
