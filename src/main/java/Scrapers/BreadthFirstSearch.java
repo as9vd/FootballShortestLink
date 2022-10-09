@@ -24,7 +24,7 @@ import java.util.*;
 @ComponentScan("src")
 public class BreadthFirstSearch {
     public static void main(String[] args) throws Exception {
-//        System.out.println(bfs("Ryan Giggs", "Antoine Griezmann", "FootballerGraphFormatted.json"));
+        System.out.println(bfs("Ryan Giggs", "Antoine Griezmann", "FootballerGraphFormatted.json"));
         generateTheAdjacencyList("Testing.json","TestingWithKids.json");
     }
 
@@ -136,15 +136,6 @@ public class BreadthFirstSearch {
                     secondEnd = secondYears.split("–")[1];
                 }
 
-                // fix this here. problem with checking with dates/overlap
-                // How to check if two players overlap:
-                // 1.
-                if ((secondPlayer.equals("Patrice Evra") || firstPlayer.equals("Patrice Evra")) &&
-                        (secondPlayer.equals("Ryan Giggs") || firstPlayer.equals("Ryan Giggs"))) {
-                    System.out.print(firstTeam + ": " + firstYears + " vs. " + secondTeam + ": " + secondYears + "; ");
-                    System.out.println(Integer.parseInt(firstStart) <= Integer.parseInt(secondEnd) && (Integer.parseInt(firstEnd) >= Integer.parseInt(secondEnd)) && firstTeam.equals(secondTeam));
-                }
-
                 // Don't bother with these cases.
                 // 1st case: they're the same. Straightforward, just go over it.
                 // 2nd case: the interval is stupid. Don't even bother with it.
@@ -153,10 +144,10 @@ public class BreadthFirstSearch {
                         (!(secondEnd.charAt(0) == '1') && !(secondEnd.charAt(0) == '2')) ||
                         (!(firstStart.charAt(0) == '1') && !(firstStart.charAt(0) == '2'))) continue;
 
-                if (Integer.parseInt(firstStart) < Integer.parseInt(secondEnd)) {
+                if (Integer.parseInt(firstStart) < Integer.parseInt(secondEnd) || Integer.parseInt(firstStart) <= Integer.parseInt(secondEnd)) {
                     if (firstEnd.equals("unknown")) { // Don't bother with this.
                         continue;
-                    } else if ((Integer.parseInt(firstEnd) > Integer.parseInt(secondEnd))) { // This confirms the overlap.
+                    } else if ((Integer.parseInt(firstEnd) > Integer.parseInt(secondEnd)) || Integer.parseInt(firstEnd) >= Integer.parseInt(secondEnd)) { // This confirms the overlap.
                         if (firstPlayer.equals(secondPlayer)) continue;
                         else if (firstTeam.equals(secondTeam)) {
                             footballer1.children.add(footballer2.name.trim() + " (" + footballer2.birthday.trim() + ")");
@@ -272,6 +263,8 @@ public class BreadthFirstSearch {
                 checkForOverlap(currFootballer, iterFootballer);
             }
             i++;
+
+            System.out.println(i + ": " + currFootballer);
         }
 
         FileWriter fileWriter = new FileWriter(newFileName);

@@ -62,7 +62,7 @@ export class SearchbarComponent implements OnInit {
 
     this.result = '';
     this.nodes = [];
-    let parts = deviceValue.split(' ('); // Getting the name from the string.
+    let parts = deviceValue.split(' '); // Getting the name from the string.
 
     for (let i = 0; i < parts.length; i++) {
       let curr = deviceValue.split(' ')[i]; // Name.

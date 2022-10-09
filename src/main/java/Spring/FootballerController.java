@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 // PROBLEMS:
 // 1. SAME NAME (E.G. LUIS SUAREZ)
-// 2. CHILDREN NOT GENERATED PROPERLY (E.G. GIGGSY AND EVRA)
 // 3. DUPLICATES (E.G. FIGO)
-// 4. THREE NAMED BLOKES (E.G. ALAN BALL JR.)
 public class FootballerController {
     @RequestMapping(path = "/{footballer1}+{footballer2}", method = RequestMethod.GET)
     public String bfsLink(@PathVariable String footballer1, @PathVariable String footballer2) throws Exception {
