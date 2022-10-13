@@ -26,7 +26,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class BreadthFirstSearch {
     public static void main(String[] args) throws Exception {
 //        System.out.println(bfs("Ryan Giggs", "Antoine Griezmann", "FootballerGraphFormatted.json"));
-        generateTheAdjacencyList("Testing.json","Wallahi.json");
+        generateTheAdjacencyList("Testing.json","MOSTRECENT.json");
     }
 
     // Magic obviously happens here, too, but to a lesser extent.
@@ -167,6 +167,9 @@ public class BreadthFirstSearch {
 
                             footballer1.children.add(footie2Name); footballer1.childOverlap.putIfAbsent(footie2Name, new ArrayList<>());
                             footballer2.children.add(footie1Name); footballer2.childOverlap.putIfAbsent(footie1Name, new ArrayList<>());
+
+                            // To save space, just find the first overlap.
+                            if (footballer1.childOverlap.get(footie2Name).size() > 0) continue;
 
                             footballer1.childOverlap.get(footie2Name).add(firstTeam); footballer1.childOverlap.get(footie2Name).add(firstYears);
                             footballer2.childOverlap.get(footie1Name).add(secondTeam); footballer2.childOverlap.get(footie1Name).add(secondYears);
