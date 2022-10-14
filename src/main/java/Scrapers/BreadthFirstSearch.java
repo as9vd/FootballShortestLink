@@ -24,9 +24,9 @@ import java.util.concurrent.ThreadLocalRandom;
 @Component
 @ComponentScan("src")
 public class BreadthFirstSearch {
+    // Ex: generateTheAdjacencyList("Testing.json","MOSTRECENT.json");
     public static void main(String[] args) throws Exception {
-//        System.out.println(bfs("Ryan Giggs", "Antoine Griezmann", "FootballerGraphFormatted.json"));
-        generateTheAdjacencyList("Testing.json","MOSTRECENT.json");
+        System.out.println(bfs("Ryan Giggs", "Antoine Griezmann", "GraphKidsFormatted.json"));
     }
 
     // Magic obviously happens here, too, but to a lesser extent.
@@ -68,11 +68,21 @@ public class BreadthFirstSearch {
 
             Set<String> children = currFootballer.children;
 
+            // Adding the overlap club and years to the chain.
             for (String name: children) {
+                String overlapClub = currFootballer.childOverlap.get(name).get(0);
+                String overlapYears = currFootballer.childOverlap.get(name).get(1);
+
                 if (route.isEmpty()) {
-                    queue.offer(new Pair(new Pair(currSteps + 1, name), currPlayer));
+                    queue.offer(new Pair(new Pair(currSteps + 1, name), currPlayer + "(" +
+                             overlapClub + "," +
+                             overlapYears + ")"));
                 } else {
-                    queue.offer(new Pair(new Pair(currSteps + 1, name), route + "->" + currPlayer));
+                    queue.offer(new Pair(new Pair(currSteps + 1, name), route +
+                            "->" +
+                            currPlayer + "(" +
+                            overlapClub + "," +
+                            overlapYears + ")"));
                 }
             }
         }
@@ -171,8 +181,13 @@ public class BreadthFirstSearch {
                             // To save space, just find the first overlap.
                             if (footballer1.childOverlap.get(footie2Name).size() > 0) continue;
 
-                            footballer1.childOverlap.get(footie2Name).add(firstTeam); footballer1.childOverlap.get(footie2Name).add(firstYears);
-                            footballer2.childOverlap.get(footie1Name).add(secondTeam); footballer2.childOverlap.get(footie1Name).add(secondYears);
+                            // Normalised years. We get the time period these two lads played with each other.
+                            // We do this by getting the max of the two's join dates and the min of their end dates.
+                            String generalYears = Integer.toString(Math.max(Integer.parseInt(firstStart), Integer.parseInt(secondStart)))
+                                    + "–" + Integer.toString(Math.min(Integer.parseInt(firstEnd), Integer.parseInt(secondEnd)));
+
+                            footballer1.childOverlap.get(footie2Name).add(firstTeam); footballer1.childOverlap.get(footie2Name).add(generalYears);
+                            footballer2.childOverlap.get(footie1Name).add(secondTeam); footballer2.childOverlap.get(footie1Name).add(generalYears);
                         }
                     }
                 } else {
@@ -277,6 +292,9 @@ public class BreadthFirstSearch {
 
         Footballer[] list = gson.fromJson(reader, Footballer[].class);
 
+        // Checking for duplicates. Key is "${name} ${birthday}".
+        HashMap<String, Footballer> footballerMap = new HashMap<>();
+
         int i = 0;
         for (Footballer currFootballer: list) {
             for (Footballer iterFootballer: list) {
@@ -286,11 +304,19 @@ public class BreadthFirstSearch {
             i++;
 
             System.out.println(i + ": " + currFootballer);
+            footballerMap.put(currFootballer.name + " " + currFootballer.birthday, currFootballer);
+        }
+
+        Footballer[] listToWrite = new Footballer[footballerMap.values().size()]; i = 0;
+        for (Map.Entry<String, Footballer> entry: footballerMap.entrySet()) {
+            Footballer footballer = entry.getValue();
+            listToWrite[i] = footballer;
+            i++;
         }
 
         FileWriter fileWriter = new FileWriter(newFileName);
         Gson gsonBuilder = new GsonBuilder().setPrettyPrinting().create();
-        fileWriter.write(gson.toJson(list));
+        fileWriter.write(gson.toJson(listToWrite));
         fileWriter.close();
         reader.close();
     }

@@ -18,7 +18,7 @@ public class FootballerController {
         footballer1 = footballer1.replaceAll("SEP"," ").trim();
         footballer2 = footballer2.replaceAll("SEP"," ").trim();
 
-        String return_val = BreadthFirstSearch.bfs(footballer1, footballer2, "FootballerGraphFormatted.json");
+        String return_val = BreadthFirstSearch.bfs(footballer1, footballer2, "GraphKidsFormatted.json");
 
         return return_val;
     }
